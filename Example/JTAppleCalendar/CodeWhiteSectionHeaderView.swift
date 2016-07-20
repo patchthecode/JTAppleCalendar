@@ -14,7 +14,7 @@ class CodeWhiteSectionHeaderView: JTAppleHeaderView {
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func drawRect(rect: CGRect) {
-        let context = UIGraphicsGetCurrentContext();
+        let context = UIGraphicsGetCurrentContext()!
         
         CGContextSetRGBFillColor(context, 1.0, 2.5, 0.3, 1.0);
         let r1 = CGRectMake(0 , 0, 25, 25);         // Size

@@ -1,0 +1,25 @@
+{
+  "name": "JTAppleCalendar",
+  "version": "4.1.2",
+  "summary": "The final calendar control you'll ever try",
+  "description": "A highly configurable Apple calendar control. Contains features like boundary dates, month and week view. Very light weight.",
+  "homepage": "https://github.com/patchthecode/JTAppleCalendar",
+  "license": "MIT",
+  "authors": {
+    "JayT": "patchthecode@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/patchthecode/JTAppleCalendar.git",
+    "tag": "4.1.2"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "requires_arc": true,
+  "source_files": "Sources/Classes/**/*",
+  "resource_bundles": {
+    "JTAppleCalendar": [
+      "Sources/Assets/*.png"
+    ]
+  }
+}

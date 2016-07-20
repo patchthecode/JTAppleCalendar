@@ -1,14 +1,16 @@
 PODS:
-  - JTAppleCalendar (0.1.0)
+  - JTAppleCalendar (4.1.2)
 
 DEPENDENCIES:
   - JTAppleCalendar (from `../`)
 
 EXTERNAL SOURCES:
   JTAppleCalendar:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  JTAppleCalendar: 574ae0134e45a5a2f6fd6c5f9dd5dacbe82fc92a
+  JTAppleCalendar: f705daea0c7e833a3dbd88aca753c425b565f2c5
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: b6b6044cfc667f749a49c6deeb018153c1c29ab8
+
+COCOAPODS: 1.1.0.beta.1
