@@ -21,7 +21,7 @@ class CodeCellView: JTAppleDayCellView {
 //        print("superview: \(self.frame)")
 //        print("loal rect: \(rect)\n")
         
-        let context = UIGraphicsGetCurrentContext();
+        let context = UIGraphicsGetCurrentContext()!
         
         CGContextSetRGBFillColor(context, 1.0, 0.5, 0.0, 1.0);
         let r1 = CGRectMake(0 , 0, 25, 25);         // Size

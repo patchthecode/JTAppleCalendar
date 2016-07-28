@@ -147,7 +147,7 @@ extension JTAppleReusableViewProtocolTrait {
         switch cellSource {
         case let .fromXib(xibName):
             let viewObject = NSBundle.mainBundle().loadNibNamed(xibName, owner: self, options: [:])
-            guard let view = viewObject[0] as? ViewType else {
+            guard let view = viewObject?[0] as? ViewType else {
                 print("xib file class does not conform to the JTAppleViewProtocol")
                 assert(false)
                 return
