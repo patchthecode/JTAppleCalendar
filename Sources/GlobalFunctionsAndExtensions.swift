@@ -6,14 +6,12 @@
 //
 //
 
-func delayRunOnMainThread(_ delay:Double, closure:()->()) {
-    DispatchQueue.main.asyncAfter(
-        deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
+func delayRunOnMainThread(_ delay: TimeInterval, closure: @escaping () -> ()) {
+    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delay, execute: closure)
 }
 
-func delayRunOnGlobalThread(_ delay:Double, qos: DispatchQoS.QoSClass,closure:()->()) {
-    DispatchQueue.global(qos: qos).asyncAfter(
-        deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
+func delayRunOnGlobalThread(_ delay: TimeInterval, qos: DispatchQoS.QoSClass, closure: @escaping () -> ()) {
+    DispatchQueue.global(qos: qos).asyncAfter(deadline: DispatchTime.now() + delay, execute: closure)
 }
 
 /// NSDates can be compared with the == and != operators

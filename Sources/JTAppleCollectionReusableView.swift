@@ -7,7 +7,7 @@
 //
 
 /// The header view class of the calendar
-public class JTAppleCollectionReusableView: UICollectionReusableView, JTAppleReusableViewProtocolTrait {
+open class JTAppleCollectionReusableView: UICollectionReusableView, JTAppleReusableViewProtocolTrait {
     var view: JTAppleHeaderView?
     func update() {
         view!.frame = self.frame
