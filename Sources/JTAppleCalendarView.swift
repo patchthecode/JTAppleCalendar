@@ -71,7 +71,7 @@ public enum DaysOfWeek: Int {
 }
 
 /// An instance of JTAppleCalendarView (or simply, a calendar view) is a means for displaying and interacting with a gridstyle layout of date-cells
-public class JTAppleCalendarView: UIView {
+open class JTAppleCalendarView: UIView {
     /// Configures the size of your date cells
     public var itemSize: CGFloat?
     
@@ -263,7 +263,7 @@ public class JTAppleCalendarView: UIView {
     }
     
     /// The frame rectangle which defines the view's location and size in its superview coordinate system.
-    override public var frame: CGRect {
+    override open var frame: CGRect {
         didSet {
             calendarView.frame = CGRect(x:0.0, y:/*bufferTop*/0.0, width: self.frame.size.width, height:self.frame.size.height/* - bufferBottom*/)
             #if os(iOS)
@@ -300,10 +300,10 @@ public class JTAppleCalendarView: UIView {
     required public init?(coder aDecoder: NSCoder) { super.init(coder: aDecoder) }
     
     /// Prepares the receiver for service after it has been loaded from an Interface Builder archive, or nib file.
-    override public func awakeFromNib() { self.initialSetup() }
+    override open func awakeFromNib() { self.initialSetup() }
     
     /// Lays out subviews.
-    override public func layoutSubviews() { self.frame = super.frame }
+    override open func layoutSubviews() { self.frame = super.frame }
     
     // MARK: Setup
     func initialSetup() {
