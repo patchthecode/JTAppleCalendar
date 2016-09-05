@@ -12,7 +12,7 @@ import XCTest
 class JTAppleCalendar_iOSTests: XCTestCase, JTAppleCalendarViewDataSource {
     let calendarView = JTAppleCalendarView()
     let formatter = DateFormatter()
-    let calendar = Calendar(calendarIdentifier: .gregorian)
+    let calendar = Calendar(identifier: .gregorian)
     var numberOfRows = 6
     var firstDate = "2016 01 01"
     var secondDate = "2017 12 01"
@@ -64,11 +64,11 @@ class JTAppleCalendar_iOSTests: XCTestCase, JTAppleCalendarViewDataSource {
         
         calendarView.dataSource = self
         calendarView.reloadData()
-        let date = formatter.dateFromString("2016 01 01")!
+        let date = formatter.date(from: "2016 01 01")!
         
         var month = calendarView.dateFromSection(0)!.month
         
-        var compMonth = calendar!.component(.Month, fromDate: date)
+        var compMonth = calendar.component(.month, from: date)
         XCTAssert(month == compMonth)
         
         numberOfRows = 3
@@ -76,7 +76,7 @@ class JTAppleCalendar_iOSTests: XCTestCase, JTAppleCalendarViewDataSource {
         
         for index in 0...1 {
             month = calendarView.dateFromSection(index)!.month
-            compMonth = calendar!.component(.Month, fromDate: date)
+            compMonth = calendar.component(.month, from: date)
             XCTAssert(month == compMonth)
         }
         
@@ -85,7 +85,7 @@ class JTAppleCalendar_iOSTests: XCTestCase, JTAppleCalendarViewDataSource {
         
         for index in 0...2 {
             month = calendarView.dateFromSection(index)!.month
-            compMonth = calendar!.component(.Month, fromDate: date)
+            compMonth = calendar.component(.month, from: date)
             XCTAssert(month == compMonth)
         }
         
@@ -94,7 +94,7 @@ class JTAppleCalendar_iOSTests: XCTestCase, JTAppleCalendarViewDataSource {
         
         for index in 0...5 {
             month = calendarView.dateFromSection(index)!.month
-            compMonth = calendar!.component(.Month, fromDate: date)
+            compMonth = calendar.component(.month, from: date)
             XCTAssert(month == compMonth)
         }
     }
@@ -107,10 +107,10 @@ class JTAppleCalendar_iOSTests: XCTestCase, JTAppleCalendarViewDataSource {
 ////        }
 //    }
     
-    func configureCalendar(calendar: JTAppleCalendarView) -> (startDate: Date, endDate: Date, numberOfRows: Int, calendar: Calendar) {
-        let aFirstDate = formatter.dateFromString(firstDate)
-        let aSecondDate = formatter.dateFromString(secondDate)
-        let aCalendar = Calendar.currentCalendar() // Properly configure your calendar to your time zone here
+    func configureCalendar(_ calendar: JTAppleCalendarView) -> (startDate: Date, endDate: Date, numberOfRows: Int, calendar: Calendar) {
+        let aFirstDate = formatter.date(from: firstDate)
+        let aSecondDate = formatter.date(from: secondDate)
+        let aCalendar = Calendar.current // Properly configure your calendar to your time zone here
         return (startDate: aFirstDate!, endDate: aSecondDate!, numberOfRows: numberOfRows, calendar: aCalendar)
     }
     
