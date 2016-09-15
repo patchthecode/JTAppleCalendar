@@ -6,12 +6,12 @@
 //
 //
 
-func delayRunOnMainThread(_ delay:Double, closure:()->()) {
+func delayRunOnMainThread(_ delay:Double, closure:@escaping ()->()) {
     DispatchQueue.main.asyncAfter(
         deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
 }
 
-func delayRunOnGlobalThread(_ delay:Double, qos: DispatchQoS.QoSClass,closure:()->()) {
+func delayRunOnGlobalThread(_ delay:Double, qos: DispatchQoS.QoSClass,closure:@escaping ()->()) {
     DispatchQueue.global(qos: qos).asyncAfter(
         deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
 }
