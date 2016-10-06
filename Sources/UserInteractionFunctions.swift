@@ -103,18 +103,17 @@ extension JTAppleCalendarView {
     public func reloadDates(dates: [NSDate]) {
         var paths = [NSIndexPath]()
         for date in dates {
-            let aPath = pathsFromDates([date])
-            paths.appendContentsOf(aPath)
+            var aPath = pathsFromDates([date])
             
             if aPath.count > 0 {
                 let cellState = cellStateFromIndexPath(aPath[0], withDate: date)
                 if let validCounterPartCell = indexPathOfdateCellCounterPart(date, indexPath: aPath[0], dateOwner: cellState.dateBelongsTo) {
-                    paths.append(validCounterPartCell)
+                    aPath[0] = validCounterPartCell
                 }
             }
+            paths.appendContentsOf(aPath)
         }
-        batchReloadIndexPaths(paths)
-    }
+        batchReloadIndexPaths(paths)    }
     
     /// Select a date-cell range
     /// - Parameter startDate: Date to start the selection from
