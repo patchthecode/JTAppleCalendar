@@ -457,6 +457,7 @@
 				6B60DEB81D5BDA46009174A2 /* Frameworks */,
 				6B60DEB91D5BDA46009174A2 /* Headers */,
 				6B60DEBA1D5BDA46009174A2 /* Resources */,
+				A6DEF96A2FE3F7CE47390D26 /* Tailor */,
 			);
 			buildRules = (
 			);
@@ -475,6 +476,7 @@
 				6B60DEC61D5BDA74009174A2 /* Frameworks */,
 				6B60DEC71D5BDA74009174A2 /* Headers */,
 				6B60DEC81D5BDA74009174A2 /* Resources */,
+				65B34C321DA622B7005C3583 /* Tailor */,
 			);
 			buildRules = (
 			);
@@ -511,7 +513,7 @@
 				6B60DF081D5BE834009174A2 /* Frameworks */,
 				6B60DF091D5BE834009174A2 /* Resources */,
 				6B2EA03D1D644A8B006DAD00 /* Embed Frameworks */,
-				6BA9245C1D8FA1CF00415488 /* ShellScript */,
+				6BA9245C1D8FA1CF00415488 /* Tailor */,
 			);
 			buildRules = (
 			);
@@ -549,6 +551,7 @@
 				6B60DF4F1D5BFE41009174A2 /* Frameworks */,
 				6B60DF501D5BFE41009174A2 /* Resources */,
 				6B2EA0421D644ABD006DAD00 /* Embed Frameworks */,
+				65B34C331DA622FD005C3583 /* Tailor */,
 			);
 			buildRules = (
 			);
@@ -675,18 +678,61 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6BA9245C1D8FA1CF00415488 /* ShellScript */ = {
+		65B34C321DA622B7005C3583 /* Tailor */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 8;
+			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = Tailor;
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+			shellScript = "if hash tailor 2>/dev/null; then\ntailor -l 78 #--max-name-length 30\nelse\necho \"warning: Please install Tailor from https://tailor.sh\"\nfi";
+		};
+		65B34C331DA622FD005C3583 /* Tailor */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Tailor;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if hash tailor 2>/dev/null; then\ntailor -l 78 #--max-name-length 30\nelse\necho \"warning: Please install Tailor from https://tailor.sh\"\nfi";
+		};
+		6BA9245C1D8FA1CF00415488 /* Tailor */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Tailor;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if hash tailor 2>/dev/null; then\ntailor -l 78 #--max-name-length 30\nelse\necho \"warning: Please install Tailor from https://tailor.sh\"\nfi";
+		};
+		A6DEF96A2FE3F7CE47390D26 /* Tailor */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Tailor;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if hash tailor 2>/dev/null; then\n    tailor -l 78 #--max-name-length 30\nelse\n  echo \"warning: Please install Tailor from https://tailor.sh\"\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 

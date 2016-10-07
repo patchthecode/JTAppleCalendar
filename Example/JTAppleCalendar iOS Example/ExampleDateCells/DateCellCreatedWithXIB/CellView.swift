@@ -131,7 +131,7 @@ class AnimationView: UIView {
         }
     }
     func animateWithFadeEffect(withCompletionHandler completionHandler:(() -> Void)?) {
-        let viewAnimation = AnimationClass.FadeOutEffect()
+        let viewAnimation = AnimationClass.fadeOutEffect()
         viewAnimation(self) { _ in
             completionHandler?()
         }

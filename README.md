@@ -49,7 +49,7 @@ The following structure was returned when a cell is about to be displayed.
 
 ```swift
     public enum DateOwner: Int {
-        case ThisMonth = 0, PreviousMonthWithinBoundary, PreviousMonthOutsideBoundary, FollowingMonthWithinBoundary, FollowingMonthOutsideBoundary
+        case thisMonth = 0, previousMonthWithinBoundary, previousMonthOutsideBoundary, followingMonthWithinBoundary, followingMonthOutsideBoundary
     }
 ```
 
