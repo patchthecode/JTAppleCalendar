@@ -867,29 +867,34 @@ extension JTAppleCalendarView {
         let componentWeekDay = calendar.component(.weekday, from: date)
         let cellText = String(describing: currentDay)
         let dayOfWeek = DaysOfWeek(rawValue: componentWeekDay)!
-        let rangePosition = { () -> SelectionRangePosition in
-            if self.theSelectedIndexPaths.contains(indexPath) {
-                if self.selectedDates.count == 1 {
-                    return .full
-                }
-                let left = self.theSelectedIndexPaths.contains(IndexPath(item: indexPath.item - 1, section: indexPath.section))
-                let right = self.theSelectedIndexPaths.contains(IndexPath(item: indexPath.item + 1, section: indexPath.section))
-                if left == right {
-                    if left == false {
-                        return .full
-                    } else {
-                        return .middle
-                    }
-                } else {
-                    if left == false {
-                        return .left
-                    } else {
-                        return .right
-                    }
-                }
+        
+        let rangePosition = { [unowned self] () -> SelectionRangePosition in
+            if !self.theSelectedIndexPaths.contains(indexPath) {
+                return .none
             }
-            return .none
+            
+            if self.selectedDates.count == 1 {
+                return .full
+            }
+            
+            let indexPathContains: (_ step: Int) -> Bool = {
+                (step: Int) -> Bool in
+                return self.theSelectedIndexPaths.contains(IndexPath(item: indexPath.item + step, section: indexPath.section))
+            }
+            let left = indexPathContains(-1)
+            let right = indexPathContains(1)
+            
+            var position: SelectionRangePosition!
+            switch left {
+            case false:
+                position = right == false ? .full : .left
+            case true:
+                position = right == true ? .middle : .right
+            }
+            
+            return position
         }
+        
         let cellState = CellState(
             isSelected: theSelectedIndexPaths.contains(indexPath),
             text: cellText,

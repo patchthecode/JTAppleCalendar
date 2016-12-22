@@ -7,7 +7,7 @@
 //
 
 import XCTest
- @testable import JTAppleCalendar
+@testable import JTAppleCalendar
 
 class JTAppleCalendar_tvOSTests: XCTestCase {
     let calendarView = JTAppleCalendarView()

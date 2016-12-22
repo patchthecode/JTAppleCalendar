@@ -9,7 +9,7 @@
 import XCTest
 @testable import JTAppleCalendar
 
-class JTAppleCalendar_tvOSTests: XCTestCase {
+class JTAppleCalendar_iOSTests: XCTestCase {
     let calendarView = JTAppleCalendarView()
     let formatter: DateFormatter = {
         let aFormatter = DateFormatter()
@@ -19,7 +19,6 @@ class JTAppleCalendar_tvOSTests: XCTestCase {
     
     var startDate = Date()
     var endDate = Date()
-    
     
     override func setUp() {
         startDate = formatter.date(from: "2016 01 01")!
@@ -51,261 +50,81 @@ class JTAppleCalendar_tvOSTests: XCTestCase {
         let layoutGenerator = JTAppleDateConfigGenerator()
         let val = layoutGenerator.setupMonthInfoDataForStartAndEndDate(params)
         XCTAssertEqual(val.months.count, 24)
-        XCTAssertEqual(val.totalSections,  24)
-        for index in 0...23 {
-            XCTAssertEqual(val.monthMap[index],  index)
-        }
-        XCTAssertEqual(val.totalDays,  42 * 24)
-    }
-    
-    func testLayoutGeneratorOnThreeRow() {
-        let params = ConfigurationParameters(startDate: startDate, endDate: endDate, numberOfRows: 3)
-        let layoutGenerator = JTAppleDateConfigGenerator()
-        let val = layoutGenerator.setupMonthInfoDataForStartAndEndDate(params)
-        XCTAssertEqual(val.months.count, 24)
-        XCTAssertEqual(val.totalSections, 48)
-        XCTAssertEqual(val.monthMap[22], 11)
-        XCTAssertEqual(val.monthMap[23], 11)
-    }
-    func testLayoutGeneratorOnTwoRow() {
-        let params = ConfigurationParameters(startDate: startDate, endDate: endDate, numberOfRows: 2)
-        let layoutGenerator = JTAppleDateConfigGenerator()
-        let val = layoutGenerator.setupMonthInfoDataForStartAndEndDate(params)
-        XCTAssertEqual(val.months.count, 24)
-        XCTAssertEqual(val.monthMap[71], 23)
-        XCTAssertEqual(val.totalSections, 72)
-    }
-    func testLayoutGeneratorWithOffInAndOffOut() {
-        let params = ConfigurationParameters(startDate: startDate, endDate: endDate, numberOfRows: 2, generateInDates: .off, generateOutDates: .off)
-        let layoutGenerator = JTAppleDateConfigGenerator()
-        let val = layoutGenerator.setupMonthInfoDataForStartAndEndDate(params)
-        XCTAssertEqual(val.months.count, 24)
-        XCTAssertEqual(val.monthMap[70], 23)
-        XCTAssertEqual(val.totalSections, 71)
-    }
-    func testLayoutGeneratorOnDefaultsFirst() {
-        let params = ConfigurationParameters(startDate: startDate, endDate: endDate)
-        let layoutGenerator = JTAppleDateConfigGenerator()
-        let val = layoutGenerator.setupMonthInfoDataForStartAndEndDate(params)
-        XCTAssertEqual(val.months.count, 24)
         XCTAssertEqual(val.totalSections, 24)
         for index in 0...23 {
             XCTAssertEqual(val.monthMap[index], index)
         }
         XCTAssertEqual(val.totalDays, 42 * 24)
     }
+
+    private typealias LayotGeneratorTestData = (
+        configParams: ConfigurationParameters,
+        monthsCount: Int,
+        monthsMap: Int,
+        monthsMapCount: Int,
+        totalSectionsCount: Int
+    )
     
-    func testLayoutGeneratorOnThreeRowFirst() {
-        let params = ConfigurationParameters(startDate: startDate, endDate: endDate, numberOfRows: 3)
-        let layoutGenerator = JTAppleDateConfigGenerator()
-        let val = layoutGenerator.setupMonthInfoDataForStartAndEndDate(params)
-        XCTAssertEqual(val.months.count, 24)
-        XCTAssertEqual(val.totalSections, 48)
-        XCTAssertEqual(val.monthMap[22], 11)
-        XCTAssertEqual(val.monthMap[23], 11)
+    private func layoutGeneratorDataProvider() -> [LayotGeneratorTestData] {
+        return [
+            (ConfigurationParameters(startDate: startDate, endDate: endDate, numberOfRows: 2, generateInDates: .off, generateOutDates: .off),
+             24, 70, 23, 71),
+            (ConfigurationParameters(startDate: startDate, endDate: endDate, numberOfRows: 2),
+             24, 71, 23, 72),
+            (ConfigurationParameters(startDate: startDate, endDate: endDate, numberOfRows: 3),
+             24, 22, 11, 48),
+            (ConfigurationParameters(startDate: startDate, endDate: endDate, numberOfRows: 3),
+             24, 23, 11, 48),
+        ]
     }
-    func testLayoutGeneratorOnTwoRowFirst() {
-        let params = ConfigurationParameters(startDate: startDate, endDate: endDate, numberOfRows: 2)
-        let layoutGenerator = JTAppleDateConfigGenerator()
-        let val = layoutGenerator.setupMonthInfoDataForStartAndEndDate(params)
-        XCTAssertEqual(val.months.count, 24)
-        XCTAssertEqual(val.monthMap[71], 23)
-        XCTAssertEqual(val.totalSections, 72)
+    
+    func testLayoutGenerator() {
+        for testData in layoutGeneratorDataProvider() {
+            let layoutGenerator = JTAppleDateConfigGenerator()
+            let val = layoutGenerator.setupMonthInfoDataForStartAndEndDate(testData.configParams)
+            XCTAssertEqual(val.months.count, testData.monthsCount)
+            XCTAssertEqual(val.monthMap[testData.monthsMap], testData.monthsMapCount)
+            XCTAssertEqual(val.totalSections, testData.totalSectionsCount)
+        }
     }
-    func testLayoutGeneratorWithOffInAndOffOutFirst() {
-        let params = ConfigurationParameters(startDate: startDate, endDate: endDate, numberOfRows: 2, generateInDates: .off, generateOutDates: .off)
-        let layoutGenerator = JTAppleDateConfigGenerator()
-        let val = layoutGenerator.setupMonthInfoDataForStartAndEndDate(params)
-        XCTAssertEqual(val.months.count, 24)
-        XCTAssertEqual(val.monthMap[70], 23)
-        XCTAssertEqual(val.totalSections, 71)
+    
+    private typealias ConfigParamsTestData = (
+        inDates: InDateCellGeneration,
+        outDates: OutDateCellGeneration,
+        firstDayOfWeek: DaysOfWeek,
+        numberOfRowsFirst: Int,
+        hasStrictBoundariesFirst: Bool,
+        numberOfRowsSecond: Int,
+        hasStrictBoundariesSecond: Bool
+    )
+    
+    private func configParamsDataProvider() -> [ConfigParamsTestData] {
+        return [
+            (.forAllMonths, .tillEndOfGrid, .sunday, 6, true, 1, false),
+//            (.forAllMonths, .tillEndOfGrid, .sunday, 9, true, 100, false),
+//            (.forAllMonths, .tillEndOfGrid, .sunday, 10, true, 80, false),
+//            (.forAllMonths, .tillEndOfGrid, .sunday, 100, true, 20, false),
+//            (.forAllMonths, .tillEndOfGrid, .sunday, 100, true, 20, false),
+//            (.forAllMonths, .tillEndOfGrid, .sunday, 200, true, 300, false),
+        ]
     }
-    func testConfigurationParametersDefaultBehaviorFirst() {
-        var params = ConfigurationParameters(startDate: Date(), endDate: Date())
-        XCTAssertEqual(params.generateInDates, .forAllMonths)
-        XCTAssertEqual(params.generateOutDates, .tillEndOfGrid)
-        XCTAssertEqual(params.numberOfRows, 6)
-        XCTAssertEqual(params.firstDayOfWeek, .sunday)
-        XCTAssertEqual(params.hasStrictBoundaries, true)
-        params = ConfigurationParameters(startDate: Date(), endDate: Date(), numberOfRows: 1)
-        XCTAssertEqual(params.numberOfRows, 1)
-        XCTAssertEqual(params.hasStrictBoundaries, false)
-    }
+    
     func testConfigurationParametersDefaultBehaviorsFirst() {
-        var params = ConfigurationParameters(startDate: Date(), endDate: Date())
-        XCTAssertEqual(params.generateInDates, .forAllMonths)
-        XCTAssertEqual(params.generateOutDates, .tillEndOfGrid)
-        XCTAssertEqual(params.numberOfRows, 6)
-        XCTAssertEqual(params.firstDayOfWeek, .sunday)
-        XCTAssertEqual(params.hasStrictBoundaries, true)
-        params = ConfigurationParameters(startDate: Date(), endDate: Date(), numberOfRows: 1)
-        XCTAssertEqual(params.numberOfRows, 1)
-        XCTAssertEqual(params.hasStrictBoundaries, false)
-    }
-    func testConfigurationParametersDefaultBehaviorssFirst() {
         print("testing default parameters")
-        var params = ConfigurationParameters(startDate: Date(), endDate: Date())
-        XCTAssertEqual(params.generateInDates, .forAllMonths)
-        XCTAssertEqual(params.generateOutDates, .tillEndOfGrid)
-        XCTAssertEqual(params.numberOfRows, 6)
-        XCTAssertEqual(params.firstDayOfWeek, .sunday)
-        XCTAssertEqual(params.hasStrictBoundaries, true)
-        params = ConfigurationParameters(startDate: Date(), endDate: Date(), numberOfRows: 1)
-        XCTAssertEqual(params.numberOfRows, 1)
-        XCTAssertEqual(params.hasStrictBoundaries, false)
         
-        // first
-        params = ConfigurationParameters(startDate: Date(), endDate: Date())
-        XCTAssertEqual(params.generateInDates, .forAllMonths)
-        XCTAssertEqual(params.generateOutDates, .tillEndOfGrid)
-        XCTAssertEqual(params.numberOfRows, 6)
-        XCTAssertEqual(params.firstDayOfWeek, .sunday)
-        XCTAssertEqual(params.hasStrictBoundaries, true)
-        params = ConfigurationParameters(startDate: Date(), endDate: Date(), numberOfRows: 1)
-        XCTAssertEqual(params.numberOfRows, 1)
-        XCTAssertEqual(params.hasStrictBoundaries, false)
-
-        //second 
-        params = ConfigurationParameters(startDate: Date(), endDate: Date())
-        XCTAssertEqual(params.generateInDates, .forAllMonths)
-        XCTAssertEqual(params.generateOutDates, .tillEndOfGrid)
-        XCTAssertEqual(params.numberOfRows, 6)
-        XCTAssertEqual(params.firstDayOfWeek, .sunday)
-        XCTAssertEqual(params.hasStrictBoundaries, true)
-        params = ConfigurationParameters(startDate: Date(), endDate: Date(), numberOfRows: 1)
-        XCTAssertEqual(params.numberOfRows, 1)
-        XCTAssertEqual(params.hasStrictBoundaries, false)
-
-        // third 
-        params = ConfigurationParameters(startDate: Date(), endDate: Date())
-        XCTAssertEqual(params.generateInDates, .forAllMonths)
-        XCTAssertEqual(params.generateOutDates, .tillEndOfGrid)
-        XCTAssertEqual(params.numberOfRows, 6)
-        XCTAssertEqual(params.firstDayOfWeek, .sunday)
-        XCTAssertEqual(params.hasStrictBoundaries, true)
-        params = ConfigurationParameters(startDate: Date(), endDate: Date(), numberOfRows: 1)
-        XCTAssertEqual(params.numberOfRows, 1)
-        XCTAssertEqual(params.hasStrictBoundaries, false)
-
-        // 4
-        params = ConfigurationParameters(startDate: Date(), endDate: Date())
-        XCTAssertEqual(params.generateInDates, .forAllMonths)
-        XCTAssertEqual(params.generateOutDates, .tillEndOfGrid)
-        XCTAssertNotEqual(params.numberOfRows, 9)
-        XCTAssertEqual(params.firstDayOfWeek, .sunday)
-        XCTAssertEqual(params.hasStrictBoundaries, true)
-        params = ConfigurationParameters(startDate: Date(), endDate: Date(), numberOfRows: 1)
-        XCTAssertNotEqual(params.numberOfRows, 100)
-        XCTAssertEqual(params.hasStrictBoundaries, false)
-        
-        //5
-        params = ConfigurationParameters(startDate: Date(), endDate: Date())
-        XCTAssertEqual(params.generateInDates, .forAllMonths)
-        XCTAssertEqual(params.generateOutDates, .tillEndOfGrid)
-        XCTAssertNotEqual(params.numberOfRows, 10)
-        XCTAssertEqual(params.firstDayOfWeek, .sunday)
-        XCTAssertEqual(params.hasStrictBoundaries, true)
-        params = ConfigurationParameters(startDate: Date(), endDate: Date(), numberOfRows: 1)
-        XCTAssertNotEqual(params.numberOfRows, 80)
-        XCTAssertEqual(params.hasStrictBoundaries, false)
-        
-        // 6
-        params = ConfigurationParameters(startDate: Date(), endDate: Date())
-        XCTAssertEqual(params.generateInDates, .forAllMonths)
-        XCTAssertEqual(params.generateOutDates, .tillEndOfGrid)
-        XCTAssertNotEqual(params.numberOfRows, 100)
-        XCTAssertEqual(params.firstDayOfWeek, .sunday)
-        XCTAssertEqual(params.hasStrictBoundaries, true)
-        params = ConfigurationParameters(startDate: Date(), endDate: Date(), numberOfRows: 1)
-        XCTAssertNotEqual(params.numberOfRows, 20)
-        XCTAssertEqual(params.hasStrictBoundaries, false)
-        
-        // 7
-        params = ConfigurationParameters(startDate: Date(), endDate: Date())
-        XCTAssertEqual(params.generateInDates, .forAllMonths)
-        XCTAssertEqual(params.generateOutDates, .tillEndOfGrid)
-        XCTAssertNotEqual(params.numberOfRows, 9)
-        XCTAssertEqual(params.firstDayOfWeek, .sunday)
-        XCTAssertEqual(params.hasStrictBoundaries, true)
-        params = ConfigurationParameters(startDate: Date(), endDate: Date(), numberOfRows: 1)
-        XCTAssertNotEqual(params.numberOfRows, 100)
-        XCTAssertEqual(params.hasStrictBoundaries, false)
-        
-        // 8
-        params = ConfigurationParameters(startDate: Date(), endDate: Date())
-        XCTAssertEqual(params.generateInDates, .forAllMonths)
-        XCTAssertEqual(params.generateOutDates, .tillEndOfGrid)
-        XCTAssertNotEqual(params.numberOfRows, 10)
-        XCTAssertEqual(params.firstDayOfWeek, .sunday)
-        XCTAssertEqual(params.hasStrictBoundaries, true)
-        params = ConfigurationParameters(startDate: Date(), endDate: Date(), numberOfRows: 1)
-        XCTAssertNotEqual(params.numberOfRows, 80)
-        XCTAssertEqual(params.hasStrictBoundaries, false)
-        
-        // 9
-        params = ConfigurationParameters(startDate: Date(), endDate: Date())
-        XCTAssertEqual(params.generateInDates, .forAllMonths)
-        XCTAssertEqual(params.generateOutDates, .tillEndOfGrid)
-        XCTAssertNotEqual(params.numberOfRows, 100)
-        XCTAssertEqual(params.firstDayOfWeek, .sunday)
-        XCTAssertEqual(params.hasStrictBoundaries, true)
-        params = ConfigurationParameters(startDate: Date(), endDate: Date(), numberOfRows: 1)
-        XCTAssertNotEqual(params.numberOfRows, 20)
-        XCTAssertEqual(params.hasStrictBoundaries, false)
-        
-        // 10
-        params = ConfigurationParameters(startDate: Date(), endDate: Date())
-        XCTAssertEqual(params.generateInDates, .forAllMonths)
-        XCTAssertEqual(params.generateOutDates, .tillEndOfGrid)
-        XCTAssertNotEqual(params.numberOfRows, 9)
-        XCTAssertEqual(params.firstDayOfWeek, .sunday)
-        XCTAssertEqual(params.hasStrictBoundaries, true)
-        params = ConfigurationParameters(startDate: Date(), endDate: Date(), numberOfRows: 1)
-        XCTAssertNotEqual(params.numberOfRows, 100)
-        XCTAssertEqual(params.hasStrictBoundaries, false)
-        
-        //11
-        params = ConfigurationParameters(startDate: Date(), endDate: Date())
-        XCTAssertEqual(params.generateInDates, .forAllMonths)
-        XCTAssertEqual(params.generateOutDates, .tillEndOfGrid)
-        XCTAssertNotEqual(params.numberOfRows, 10)
-        XCTAssertEqual(params.firstDayOfWeek, .sunday)
-        XCTAssertEqual(params.hasStrictBoundaries, true)
-        params = ConfigurationParameters(startDate: Date(), endDate: Date(), numberOfRows: 1)
-        XCTAssertNotEqual(params.numberOfRows, 80)
-        XCTAssertEqual(params.hasStrictBoundaries, false)
-        
-        // 12
-        params = ConfigurationParameters(startDate: Date(), endDate: Date())
-        XCTAssertEqual(params.generateInDates, .forAllMonths)
-        XCTAssertEqual(params.generateOutDates, .tillEndOfGrid)
-        XCTAssertNotEqual(params.numberOfRows, 100)
-        XCTAssertEqual(params.firstDayOfWeek, .sunday)
-        XCTAssertEqual(params.hasStrictBoundaries, true)
-        params = ConfigurationParameters(startDate: Date(), endDate: Date(), numberOfRows: 1)
-        XCTAssertNotEqual(params.numberOfRows, 20)
-        XCTAssertEqual(params.hasStrictBoundaries, false)
-        
-        // 13 
-        params = ConfigurationParameters(startDate: Date(), endDate: Date())
-        XCTAssertEqual(params.generateInDates, .forAllMonths)
-        XCTAssertEqual(params.generateOutDates, .tillEndOfGrid)
-        XCTAssertNotEqual(params.numberOfRows, 9)
-        XCTAssertEqual(params.firstDayOfWeek, .sunday)
-        XCTAssertEqual(params.hasStrictBoundaries, true)
-        params = ConfigurationParameters(startDate: Date(), endDate: Date(), numberOfRows: 1)
-        XCTAssertNotEqual(params.numberOfRows, 100)
-        XCTAssertEqual(params.hasStrictBoundaries, false)
-        
-        // 14
-        params = ConfigurationParameters(startDate: Date(), endDate: Date())
-        XCTAssertEqual(params.generateInDates, .forAllMonths)
-        XCTAssertEqual(params.generateOutDates, .tillEndOfGrid)
-        XCTAssertNotEqual(params.numberOfRows, 200)
-        XCTAssertEqual(params.firstDayOfWeek, .sunday)
-        XCTAssertEqual(params.hasStrictBoundaries, true)
-        params = ConfigurationParameters(startDate: Date(), endDate: Date(), numberOfRows: 1)
-        XCTAssertNotEqual(params.numberOfRows, 300)
-        XCTAssertEqual(params.hasStrictBoundaries, false)
+        for testData in configParamsDataProvider() {
+            let paramsFirst = ConfigurationParameters(startDate: Date(), endDate: Date())
+            
+            XCTAssertEqual(paramsFirst.generateInDates, testData.inDates)
+            XCTAssertEqual(paramsFirst.generateOutDates, testData.outDates)
+            XCTAssertEqual(paramsFirst.firstDayOfWeek, testData.firstDayOfWeek)
+            
+            XCTAssertEqual(paramsFirst.numberOfRows, testData.numberOfRowsFirst)
+            XCTAssertEqual(paramsFirst.hasStrictBoundaries, testData.hasStrictBoundariesFirst)
+            
+            let paramsSecond = ConfigurationParameters(startDate: Date(), endDate: Date(), numberOfRows: 1)
+            XCTAssertEqual(paramsSecond.numberOfRows, testData.numberOfRowsSecond)
+            XCTAssertEqual(paramsSecond.hasStrictBoundaries, testData.hasStrictBoundariesSecond)
+        }
     }
 }
