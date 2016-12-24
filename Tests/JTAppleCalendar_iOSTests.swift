@@ -25,6 +25,27 @@ class JTAppleCalendar_iOSTests: XCTestCase {
         endDate = formatter.date(from: "2017 12 01")!
     }
     
+    func testRangePositionOnProgrammaticSelection() {
+        let calendarView = JTAppleCalendarView()
+        calendarView.direction = .vertical
+        calendarView.scrollingMode = .none
+        calendarView.allowsMultipleSelection = true
+        calendarView.cellInset = CGPoint.zero
+        
+        let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+
+        let controller = CalendarViewTestingController()
+        controller.calendar = calendar
+        controller.calendarView = calendarView
+        _ = controller.view // init viewDidLoad()
+        
+        let inTenDays = TimeInterval(10 * 24 * 60 * 60)
+        let startDate = calendar.startOfDay(for: Date())
+        let endDate = calendar.startOfDay(for: Date(timeIntervalSinceNow: inTenDays))
+        
+        controller.selectDates(fromDate: startDate, toDate: endDate)
+    }
+    
     func testConfigurationParametersDefaultBehavior() {
         print("testing default parameters")
         var params = ConfigurationParameters(startDate: Date(), endDate: Date())
@@ -125,6 +146,55 @@ class JTAppleCalendar_iOSTests: XCTestCase {
             let paramsSecond = ConfigurationParameters(startDate: Date(), endDate: Date(), numberOfRows: 1)
             XCTAssertEqual(paramsSecond.numberOfRows, testData.numberOfRowsSecond)
             XCTAssertEqual(paramsSecond.hasStrictBoundaries, testData.hasStrictBoundariesSecond)
+        }
+    }
+}
+
+public class CalendarViewTestingController: UIViewController {
+    var calendar: Calendar!
+    var calendarView: JTAppleCalendarView!
+    
+    public var fromDate = Date()
+    public var toDate = Date()
+
+    override open func viewDidLoad() {
+        super.viewDidLoad()
+        
+        calendarView.dataSource = self
+        calendarView.delegate = self
+        
+        // a MUST to make calendarView believe it is laready loaded
+        calendarView.itemSize = CGFloat(10)
+        calendarView.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
+        
+        view.addSubview(calendarView)
+    }
+    
+    func selectDates(fromDate: Date, toDate: Date) {
+        calendarView.selectDates(from: fromDate, to: toDate)
+    }
+}
+
+extension CalendarViewTestingController: JTAppleCalendarViewDataSource {
+    public func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
+        let nextYear = TimeInterval(365 * 24 * 60 * 60)
+        let startDate = self.calendar.startOfDay(for: Date())
+        let endDate = self.calendar.startOfDay(for: Date(timeIntervalSinceNow: nextYear))
+        
+        return ConfigurationParameters(startDate: startDate,
+                                       endDate: endDate,
+                                       calendar: self.calendar,
+                                       firstDayOfWeek: .monday
+        )
+    }
+}
+
+extension CalendarViewTestingController: JTAppleCalendarViewDelegate {
+    public func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleDayCellView?, cellState: CellState) {
+        print("------------")
+        print("\(cellState.selectedPosition())")
+        if date == fromDate {
+            print("YAY")
         }
     }
 }
