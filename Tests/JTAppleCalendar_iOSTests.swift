@@ -25,7 +25,7 @@ class JTAppleCalendar_iOSTests: XCTestCase {
         endDate = formatter.date(from: "2017 12 01")!
     }
     
-    func testRangePositionOnProgrammaticSelection() {
+    func testRangePositionOnProgrammaticDateSelection() {
         let calendarView = JTAppleCalendarView()
         calendarView.direction = .vertical
         calendarView.scrollingMode = .none
@@ -44,6 +44,10 @@ class JTAppleCalendar_iOSTests: XCTestCase {
         let endDate = calendar.startOfDay(for: Date(timeIntervalSinceNow: inTenDays))
         
         controller.selectDates(fromDate: startDate, toDate: endDate)
+        
+        XCTAssertEqual(controller.fromDateSelectedPosition, SelectionRangePosition.left)
+        XCTAssertEqual(controller.toDateSelectedPosition, SelectionRangePosition.right)
+        XCTAssertEqual(controller.middlePositionsCount, 9)
     }
     
     func testConfigurationParametersDefaultBehavior() {
@@ -156,6 +160,10 @@ public class CalendarViewTestingController: UIViewController {
     
     public var fromDate = Date()
     public var toDate = Date()
+    
+    var fromDateSelectedPosition: SelectionRangePosition? = nil
+    var toDateSelectedPosition: SelectionRangePosition? = nil
+    var middlePositionsCount: Int = 0
 
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -163,7 +171,7 @@ public class CalendarViewTestingController: UIViewController {
         calendarView.dataSource = self
         calendarView.delegate = self
         
-        // a MUST to make calendarView believe it is laready loaded
+        // a MUST to make calendarView believe it is already loaded
         calendarView.itemSize = CGFloat(10)
         calendarView.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
         
@@ -171,6 +179,10 @@ public class CalendarViewTestingController: UIViewController {
     }
     
     func selectDates(fromDate: Date, toDate: Date) {
+        self.fromDate = fromDate
+        self.toDate = toDate
+        middlePositionsCount = 0
+        
         calendarView.selectDates(from: fromDate, to: toDate)
     }
 }
@@ -191,10 +203,13 @@ extension CalendarViewTestingController: JTAppleCalendarViewDataSource {
 
 extension CalendarViewTestingController: JTAppleCalendarViewDelegate {
     public func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleDayCellView?, cellState: CellState) {
-        print("------------")
-        print("\(cellState.selectedPosition())")
+        let selectedPosition = cellState.selectedPosition()
         if date == fromDate {
-            print("YAY")
+            fromDateSelectedPosition = selectedPosition
+        } else if date == toDate {
+            toDateSelectedPosition = selectedPosition
+        } else if selectedPosition == .middle {
+            middlePositionsCount += 1
         }
     }
 }
