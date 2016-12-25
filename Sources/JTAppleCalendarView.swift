@@ -870,13 +870,15 @@ extension JTAppleCalendarView {
         
         
         let rangePosition = { () -> SelectionRangePosition in
-            let leftContainsPathBoolean = self.theSelectedIndexPaths.contains(IndexPath(item: indexPath.item - 1, section: indexPath.section))
-            let rightContainsPathBoolean = self.theSelectedIndexPaths.contains(IndexPath(item: indexPath.item + 1, section: indexPath.section))
+            if !self.theSelectedIndexPaths.contains(indexPath) { return .none }
+            if self.selectedDates.count == 1 { return .full }
+            let selectedIndicesContainsPreviousPath = self.theSelectedIndexPaths.contains(IndexPath(item: indexPath.item - 1, section: indexPath.section))
+            let selectedIndicesContainsFollowingPath = self.theSelectedIndexPaths.contains(IndexPath(item: indexPath.item + 1, section: indexPath.section))
             let position: SelectionRangePosition
-            if leftContainsPathBoolean == rightContainsPathBoolean {
-                position = leftContainsPathBoolean == false ? .full : .middle
+            if selectedIndicesContainsPreviousPath == selectedIndicesContainsFollowingPath {
+                position = selectedIndicesContainsPreviousPath == false ? .full : .middle
             } else {
-                position = leftContainsPathBoolean == false ? .left : .right
+                position = selectedIndicesContainsPreviousPath == false ? .left : .right
             }
             return position
         }

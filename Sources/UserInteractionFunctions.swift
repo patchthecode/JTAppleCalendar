@@ -281,7 +281,8 @@ extension JTAppleCalendarView {
             // If triggereing is enabled, then let their delegate
             // handle the reloading of view, else we will reload the data
             if triggerSelectionDelegate {
-                self.internalCollectionView(self.calendarView, didSelectItemAtIndexPath: indexPath)
+                self.collectionView(self.calendarView, didSelectItemAt: indexPath)
+//                self.internalCollectionView(self.calendarView, didSelectItemAtIndexPath: indexPath)
             } else {
                 // Although we do not want the delegate triggered, we
                 // still want counterpart cells to be selected
@@ -310,8 +311,8 @@ extension JTAppleCalendarView {
                     // If delegate triggering is enabled, let the
                     // delegate function handle the cell
                     if triggerSelectionDelegate {
-                        self.internalCollectionView(self.calendarView,
-                            didDeselectItemAtIndexPath: oldIndexPath)
+                        self.collectionView(self.calendarView, didDeselectItemAt: oldIndexPath)
+//                        self.internalCollectionView(self.calendarView, didDeselectItemAtIndexPath: oldIndexPath)
                     } else {
                         // Although we do not want the delegate triggered,
                         // we still want counterpart cells to be deselected
