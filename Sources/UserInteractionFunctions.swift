@@ -623,7 +623,7 @@ extension JTAppleCalendarView {
             return emptySegment
         }
         
-        let cellAttributes = visibleElements()
+        let cellAttributes = visibleElements(excludeHeaders: true)
         let indexPaths: [IndexPath] = cellAttributes.map { $0.indexPath }.sorted()
         return dateSegmentInfoFrom(visible: indexPaths)
     }
