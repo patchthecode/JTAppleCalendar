@@ -6,6 +6,39 @@
 //
 //
 
+extension Date {
+    
+    func startOfMonth() -> Date? {
+        
+        let calendar = Calendar.current
+        let currentDateComponents = calendar.dateComponents([.year, .month], from: self)
+        let startOfMonth = calendar.date(from: currentDateComponents)
+        
+        return startOfMonth
+    }
+    
+    func dateByAddingMonths(_ monthsToAdd: Int) -> Date? {
+        
+        let calendar = Calendar.current
+        var months = DateComponents()
+        months.month = monthsToAdd
+        
+        return calendar.date(byAdding: months, to: self)
+    }
+    
+    func endOfMonth() -> Date? {
+        
+        guard let plusOneMonthDate = dateByAddingMonths(1) else { return nil }
+        
+        let calendar = Calendar.current
+        let plusOneMonthDateComponents = calendar.dateComponents([.year, .month], from: plusOneMonthDate)
+        let endOfMonth = calendar.date(from: plusOneMonthDateComponents)?.addingTimeInterval(-1)
+        
+        return endOfMonth
+        
+    }
+}
+
 extension Calendar {
     static let formatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -14,20 +47,13 @@ extension Calendar {
         return dateFormatter
     }()
     
-
+    
     func startOfMonth(for date: Date) -> Date? {
-        guard let comp = dateFormatterComponents(from: date) else { return nil }
-        return Calendar.formatter.date(from: "\(comp.year) \(comp.month) 01")
+        return date.startOfMonth()
     }
     
     func endOfMonth(for date: Date) -> Date? {
-        guard
-            let comp = dateFormatterComponents(from: date),
-            let day = self.range(of: .day, in: .month, for: date)?.count else {
-                return nil
-        }
-        
-        return Calendar.formatter.date(from: "\(comp.year) \(comp.month) \(day)")
+        return date.endOfMonth()
     }
     
     private func dateFormatterComponents(from date: Date) -> (month: Int, year: Int)? {
