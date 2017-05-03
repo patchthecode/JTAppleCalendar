@@ -32,18 +32,15 @@ extension Calendar {
     
 
     func startOfMonth(for date: Date) -> Date? {
-        guard let comp = dateFormatterComponents(from: date) else { return nil }
-        return Calendar.formatter.date(from: "\(comp.year) \(comp.month) 01")
+        let components = self.dateComponents([.year], from: date)
+        let startOfMonth = self.date(from: components)
+        return startOfMonth
     }
     
     func endOfMonth(for date: Date) -> Date? {
-        guard
-            let comp = dateFormatterComponents(from: date),
-            let day = self.range(of: .day, in: .month, for: date)?.count,
-            let retVal = Calendar.formatter.date(from: "\(comp.year) \(comp.month) \(day)") else {
-                return nil
-        }
-        return retVal
+        let components = self.dateComponents([.year, .month], from: Date())
+        let endOfMonth = self.date(byAdding: .month, value: 1, to: self.date(byAdding: .day, value: -1, to: self.date(from: components)!)!)
+        return endOfMonth
     }
     
     private func dateFormatterComponents(from date: Date) -> (month: Int, year: Int)? {
