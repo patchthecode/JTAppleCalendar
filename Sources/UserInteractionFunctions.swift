@@ -409,7 +409,7 @@ extension JTAppleCalendarView {
         
         scrollTo(point: CGPoint(x: xOffset, y: yOffset),
                  triggerScrollToDateDelegate: triggerScrollToDateDelegate,
-                 isAnimationEnabled: true,
+                 isAnimationEnabled: animateScroll,
                  extraAddedOffset: extraAddedOffset,
                  completionHandler: completionHandler)
     }
