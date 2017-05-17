@@ -493,7 +493,7 @@ extension JTAppleCalendarView {
                 if point != nil {
                     if let currentSection = self.currentSection() {
                         let section = CGFloat(currentSection) + 1
-                        point!.x += (self.sectionInset.top + self.sectionInset.bottom) * section
+                        point!.y += (self.sectionInset.top + self.sectionInset.bottom) * section
                     }
                 }
             }
