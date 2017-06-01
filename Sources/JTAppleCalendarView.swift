@@ -556,6 +556,9 @@ open class JTAppleCalendarView: UIView {
             for indexPath in self.theSelectedIndexPaths { self.restoreSelectionStateForCellAtIndexPath(indexPath) }
         }
         
+        // Restore the min date.
+        setMinVisibleDate()
+        
         if let validAnchorDate = anchorDate {
             // If we have a valid anchor date, this means we want to
             // scroll
