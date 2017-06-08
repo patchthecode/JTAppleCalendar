@@ -479,9 +479,23 @@ extension JTAppleCalendarView {
         
         var point: CGPoint?
         switch self.scrollingMode {
-        case .stopAtEach, .stopAtEachSection, .stopAtEachCalendarFrameWidth, .nonStopToSection:
-            if self.scrollDirection == .horizontal || (scrollDirection == .vertical && !calendarViewLayout.thereAreHeaders) {
+        case .stopAtEach, .stopAtEachSection, .stopAtEachCalendarFrameWidth:
+            if self.scrollDirection == .horizontal {
                 point = self.targetPointForItemAt(indexPath: sectionIndexPath)
+                if point != nil {
+                    if let currentSection = self.currentSection() {
+                        let section = CGFloat(currentSection) + 1
+                        point!.x += (self.sectionInset.left + self.sectionInset.right) * section
+                    }
+                } 
+            } else if (scrollDirection == .vertical && !calendarViewLayout.thereAreHeaders) {
+                point = self.targetPointForItemAt(indexPath: sectionIndexPath)
+                if point != nil {
+                    if let currentSection = self.currentSection() {
+                        let section = CGFloat(currentSection) + 1
+                        point!.y += (self.sectionInset.top + self.sectionInset.bottom) * section
+                    }
+                }
             }
         default:
             break
