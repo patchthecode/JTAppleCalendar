@@ -86,12 +86,12 @@ open class JTAppleCalendarView: UICollectionView {
     }
     
     /// Initializes and returns a newly allocated collection view object with the specified frame and layout.
-    @available(*, unavailable, message: "Please use JTAppleCalendar() instead")
+    @available(*, unavailable, message: "Please use JTAppleCalendarView() instead")
     public override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: UICollectionViewFlowLayout())
         setupNewLayout(from: collectionViewLayout as! JTAppleCalendarLayoutProtocol)
     }
-    
+
     /// Initializes using decoder object
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -499,8 +499,7 @@ extension JTAppleCalendarView {
             default: break
             }
             
-            if
-                calendarViewLayout.thereAreHeaders,
+            if calendarViewLayout.thereAreHeaders,
                 scrollDirection == .vertical,
                 isNonConinuousScroll {
                 scrollToHeaderInSection(validIndexPath.section,
