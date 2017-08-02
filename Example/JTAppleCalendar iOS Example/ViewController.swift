@@ -44,7 +44,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func scrollFixed(_ sender: Any) {
-        calendarView.scrollingMode = .stopAtEachCalendarFrameWidth
+        calendarView.scrollingMode = .stopAtEachCalendarFrame
     }
     @IBAction func showPrepost(_ sender: UIButton) {
         prePostVisibility = {state, cell in
