@@ -33,10 +33,12 @@ extension Calendar {
 
     func startOfMonth(for date: Date) -> Date? {
         guard let comp = dateFormatterComponents(from: date) else { return nil }
+        Calendar.formatter.calendar = self
         return Calendar.formatter.date(from: "\(comp.year) \(comp.month) 01")
     }
     
     func endOfMonth(for date: Date) -> Date? {
+        Calendar.formatter.calendar = self
         guard
             let comp = dateFormatterComponents(from: date),
             let day = self.range(of: .day, in: .month, for: date)?.count,
@@ -51,6 +53,7 @@ extension Calendar {
         // Setup the dateformatter to this instance's settings
         Calendar.formatter.timeZone = self.timeZone
         Calendar.formatter.locale = self.locale
+        Calendar.formatter.calendar = self
         
         let comp = self.dateComponents([.year, .month], from: date)
         
