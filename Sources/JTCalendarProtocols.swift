@@ -36,7 +36,7 @@ public extension JTAppleCalendarViewDelegate {
     func calendarSizeForMonths(_ calendar: JTAppleCalendarView?) -> MonthSize? { return nil }
     func sizeOfDecorationView(indexPath: IndexPath) -> CGRect { return .zero }
     func scrollDidEndDecelerating(for calendar: JTAppleCalendarView) {}
-    
+    func calendarDidScroll(_ calendar: JTAppleCalendarView) {}
 }
 
 /// The JTAppleCalendarViewDataSource protocol is adopted by an
@@ -124,6 +124,9 @@ public protocol JTAppleCalendarViewDelegate: class {
     
     /// Informs the delegate that the user just lifted their finger from swiping the calendar
     func scrollDidEndDecelerating(for calendar: JTAppleCalendarView)
+    
+    /// Tells the delegate that a scroll occured
+    func calendarDidScroll(_ calendar: JTAppleCalendarView)
     
     func calendarSizeForMonths(_ calendar: JTAppleCalendarView?) -> MonthSize?
     func sizeOfDecorationView(indexPath: IndexPath) -> CGRect

@@ -245,4 +245,9 @@ extension JTAppleCalendarView: UIScrollViewDelegate {
             self.calendarDelegate?.calendar(self, didScrollToDateSegmentWith: dates)
         }
     }
+    
+    /// Tells the delegate that a scroll occured
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        self.calendarDelegate?.calendarDidScroll(self)
+    }
 }
