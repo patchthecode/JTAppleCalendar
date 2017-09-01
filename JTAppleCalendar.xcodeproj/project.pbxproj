@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		205A24041F592C7400B59557 /* SectionDecorationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BFB05221E7F9AA400ACE696 /* SectionDecorationView.xib */; };
 		6B198EA91F41F06100442008 /* TestPersianCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B198EA81F41F06100442008 /* TestPersianCalendar.swift */; };
 		6B198EAA1F41F06100442008 /* TestPersianCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B198EA81F41F06100442008 /* TestPersianCalendar.swift */; };
 		6B2EA03A1D644A8B006DAD00 /* JTAppleCalendar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6B60DEBC1D5BDA46009174A2 /* JTAppleCalendar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -89,8 +90,6 @@
 		6BAB2C461E9C2B1F00FF125F /* JTAppleCalendarVariables.swift in Headers */ = {isa = PBXBuildFile; fileRef = 6BAB2C411E9B49D500FF125F /* JTAppleCalendarVariables.swift */; settings = {ATTRIBUTES = (Public, ); }; };
 		6BF7B1FF1D606BA600D60900 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B60DF0F1D5BE834009174A2 /* ViewController.swift */; };
 		6BF7B2001D606C0F00D60900 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B60DF0D1D5BE834009174A2 /* AppDelegate.swift */; };
-		6BFB05231E7F9AA400ACE696 /* SectionDecorationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BFB05221E7F9AA400ACE696 /* SectionDecorationView.xib */; };
-		6BFB05241E7F9AA400ACE696 /* SectionDecorationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6BFB05221E7F9AA400ACE696 /* SectionDecorationView.xib */; };
 		6BFB05251E7F9C0C00ACE696 /* monthBorder.png in Resources */ = {isa = PBXBuildFile; fileRef = 6BFB051C1E7F7EAE00ACE696 /* monthBorder.png */; };
 /* End PBXBuildFile section */
 
@@ -714,10 +713,10 @@
 			files = (
 				6B60DF391D5BF5D7009174A2 /* CellView.xib in Resources */,
 				6B60DF461D5BF6CE009174A2 /* WhiteSectionHeaderView.xib in Resources */,
+				205A24041F592C7400B59557 /* SectionDecorationView.xib in Resources */,
 				6B60DF181D5BE834009174A2 /* LaunchScreen.storyboard in Resources */,
 				6B60DF151D5BE834009174A2 /* Assets.xcassets in Resources */,
 				6B60DF441D5BF6CE009174A2 /* PinkSectionHeaderView.xib in Resources */,
-				6BFB05231E7F9AA400ACE696 /* SectionDecorationView.xib in Resources */,
 				6BFB05251E7F9C0C00ACE696 /* monthBorder.png in Resources */,
 				6B60DF131D5BE834009174A2 /* Main.storyboard in Resources */,
 			);
@@ -738,7 +737,6 @@
 				6B60DF5C1D5BFE41009174A2 /* Assets.xcassets in Resources */,
 				6B60DF5A1D5BFE41009174A2 /* Main.storyboard in Resources */,
 				6B60DF6E1D5C00A9009174A2 /* PinkSectionHeaderView.xib in Resources */,
-				6BFB05241E7F9AA400ACE696 /* SectionDecorationView.xib in Resources */,
 				6B60DF701D5C00BB009174A2 /* WhiteSectionHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

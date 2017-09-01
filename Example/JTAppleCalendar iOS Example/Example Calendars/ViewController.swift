@@ -227,10 +227,10 @@ class ViewController: UIViewController {
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         if let firstDateInfo = calendarView.visibleDates().indates.first {
-            calendarView.viewWillTransition(to: size, with: coordinator, focusDateIndexPathAfterRotate: firstDateInfo.indexPath)
+            calendarView.viewWillTransition(to: size, with: coordinator, anchorDate: firstDateInfo.date)
         } else {
            let firstDateInfo = calendarView.visibleDates().monthDates.first!
-            calendarView.viewWillTransition(to: size, with: coordinator, focusDateIndexPathAfterRotate: firstDateInfo.indexPath)
+            calendarView.viewWillTransition(to: size, with: coordinator, anchorDate: firstDateInfo.date)
         }
         
         
@@ -383,7 +383,6 @@ class ViewController: UIViewController {
 
 // MARK : JTAppleCalendarDelegate
 extension ViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSource {
-
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
         
         formatter.dateFormat = "yyyy MM dd"
@@ -464,5 +463,9 @@ extension ViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSo
     
     func calendarSizeForMonths(_ calendar: JTAppleCalendarView?) -> MonthSize? {
         return monthSize
+    }
+
+    func calendar(_ calendar: JTAppleCalendarView, willDisplay cell: JTAppleCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
+        
     }
 }
