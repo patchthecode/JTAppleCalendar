@@ -32,7 +32,7 @@
 - [x] [Complete Documentation](http://cocoadocs.org/docsets/JTAppleCalendar)
 
 
-[Installation](Installation)
+[Installation](#installation)
 
 Tutorials
   
