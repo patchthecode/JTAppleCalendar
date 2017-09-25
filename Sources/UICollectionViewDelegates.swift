@@ -35,7 +35,9 @@ extension JTAppleCalendarView: UICollectionViewDelegate, UICollectionViewDataSou
         }
         
         let headerView = delegate.calendar(self, headerViewForDateRange: validDate.range, at: indexPath)
-        headerView.transform.a = semanticContentAttribute == .forceRightToLeft ? -1 : 1
+        if #available(iOS 9.0, *) {
+            headerView.transform.a = semanticContentAttribute == .forceRightToLeft ? -1 : 1
+        }
         return headerView
     }
     
@@ -64,7 +66,9 @@ extension JTAppleCalendarView: UICollectionViewDelegate, UICollectionViewDataSou
         
         pathsToReload.remove(indexPath)
         
-        configuredCell.transform.a = semanticContentAttribute == .forceRightToLeft ? -1 : 1
+        if #available(iOS 9.0, *) {
+            configuredCell.transform.a = semanticContentAttribute == .forceRightToLeft ? -1 : 1
+        }
         return configuredCell
     }
     
