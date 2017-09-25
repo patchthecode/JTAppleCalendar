@@ -73,12 +73,12 @@ open class JTAppleCalendarView: UICollectionView {
     var triggerScrollToDateDelegate: Bool? = true
     var isScrollInProgress                 = false
     var isReloadDataInProgress             = false
-
+    
     // keeps track of if didEndScroll is not yet completed. If isStillScrolling
     var didEndScollCount = 0
     // Keeps track of scroll target location. If isScrolling, and user taps while scrolling
     var endScrollTargetLocation: CGFloat = 0
-
+    
     
     var generalDelayedExecutionClosure: [(() -> Void)] = []
     var scrollDelayedExecutionClosure: [(() -> Void)]  = []
@@ -97,7 +97,7 @@ open class JTAppleCalendarView: UICollectionView {
         super.init(frame: frame, collectionViewLayout: UICollectionViewFlowLayout())
         setupNewLayout(from: collectionViewLayout as! JTAppleCalendarLayoutProtocol)
     }
-
+    
     /// Initializes using decoder object
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -197,14 +197,6 @@ open class JTAppleCalendarView: UICollectionView {
                     isPagingEnabled = false
                 }
             #endif
-        }
-    }
-    
-    /// A semantic description of the view’s contents, used to determine whether the view should be flipped when switching between left-to-right and right-to-left layouts.
-    @available(iOS 9.0, *)
-    open override var semanticContentAttribute: UISemanticContentAttribute {
-        didSet {
-            transform.a = semanticContentAttribute == .forceRightToLeft ? -1 : 1
         }
     }
     
@@ -418,23 +410,23 @@ open class JTAppleCalendarView: UICollectionView {
             if
                 // ConfigParameters were changed
                 newStartOfMonth                     != oldStartOfMonth ||
-                newEndOfMonth                       != oldEndOfMonth ||
-                newDateBoundary.calendar            != cachedConfiguration.calendar ||
-                newDateBoundary.numberOfRows        != cachedConfiguration.numberOfRows ||
-                newDateBoundary.generateInDates     != cachedConfiguration.generateInDates ||
-                newDateBoundary.generateOutDates    != cachedConfiguration.generateOutDates ||
-                newDateBoundary.firstDayOfWeek      != cachedConfiguration.firstDayOfWeek ||
-                newDateBoundary.hasStrictBoundaries != cachedConfiguration.hasStrictBoundaries ||
-                // Other layout information were changed
-                minimumInteritemSpacing  != calendarLayout.minimumInteritemSpacing ||
-                minimumLineSpacing       != calendarLayout.minimumLineSpacing ||
-                sectionInset             != calendarLayout.sectionInset ||
-                lastMonthSize            != newLastMonth ||
-                allowsDateCellStretching != calendarLayout.allowsDateCellStretching ||
-                scrollDirection          != calendarLayout.scrollDirection ||
-                calendarLayout.cellSizeWasUpdated {
-                    lastMonthSize = newLastMonth
-                    retval = (true, newDateBoundary)
+                    newEndOfMonth                       != oldEndOfMonth ||
+                    newDateBoundary.calendar            != cachedConfiguration.calendar ||
+                    newDateBoundary.numberOfRows        != cachedConfiguration.numberOfRows ||
+                    newDateBoundary.generateInDates     != cachedConfiguration.generateInDates ||
+                    newDateBoundary.generateOutDates    != cachedConfiguration.generateOutDates ||
+                    newDateBoundary.firstDayOfWeek      != cachedConfiguration.firstDayOfWeek ||
+                    newDateBoundary.hasStrictBoundaries != cachedConfiguration.hasStrictBoundaries ||
+                    // Other layout information were changed
+                    minimumInteritemSpacing  != calendarLayout.minimumInteritemSpacing ||
+                    minimumLineSpacing       != calendarLayout.minimumLineSpacing ||
+                    sectionInset             != calendarLayout.sectionInset ||
+                    lastMonthSize            != newLastMonth ||
+                    allowsDateCellStretching != calendarLayout.allowsDateCellStretching ||
+                    scrollDirection          != calendarLayout.scrollDirection ||
+                    calendarLayout.cellSizeWasUpdated {
+                lastMonthSize = newLastMonth
+                retval = (true, newDateBoundary)
             }
         }
         
@@ -471,6 +463,17 @@ open class JTAppleCalendarView: UICollectionView {
             
         }
         return retval
+    }
+}
+
+@available(iOS 9.0, *)
+extension JTAppleCalendarView {
+    /// A semantic description of the view’s contents, used to determine whether the view should be flipped when switching between left-to-right and right-to-left layouts.
+    
+    open override var semanticContentAttribute: UISemanticContentAttribute {
+        didSet {
+            transform.a = semanticContentAttribute == .forceRightToLeft ? -1 : 1
+        }
     }
 }
 
@@ -790,7 +793,7 @@ extension JTAppleCalendarView {
             column: { return indexPath.item % maxNumberOfDaysInWeek },
             dateSection: {
                 return self.monthInfoFromSection(indexPath.section)!
-            },
+        },
             selectedPosition: selectedPosition,
             cell: { return cell },
             selectionType: selectionType
