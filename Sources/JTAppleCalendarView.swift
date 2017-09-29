@@ -757,7 +757,7 @@ extension JTAppleCalendarView {
         let cellText = String(describing: currentDay)
         let dayOfWeek = DaysOfWeek(rawValue: componentWeekDay)!
         
-        let selectedPosition = { () -> SelectionRangePosition in
+        let selectedPosition = { [unowned self] () -> SelectionRangePosition in
             let selectedDates = self.selectedDatesSet
             if !selectedDates.contains(date) || selectedDates.isEmpty  { return .none }
             
@@ -791,7 +791,7 @@ extension JTAppleCalendarView {
             day: dayOfWeek,
             row: { return indexPath.item / maxNumberOfDaysInWeek },
             column: { return indexPath.item % maxNumberOfDaysInWeek },
-            dateSection: {
+            dateSection: { [unowned self] in
                 return self.monthInfoFromSection(indexPath.section)!
         },
             selectedPosition: selectedPosition,
