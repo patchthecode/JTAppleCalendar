@@ -296,6 +296,11 @@ struct JTAppleDateConfigGenerator {
                         numberOfPostDatesForThisMonth =
                             maxNumberOfDaysInWeek * numberOfRowsToGenerateForCurrentMonth - (numberOfDaysInMonthFixed + numberOfPreDatesForThisMonth)
                         numberOfDaysInMonthVariable += numberOfPostDatesForThisMonth
+                        if numberOfRowsPerSectionThatUserWants == 1 && numberOfPostDatesForThisMonth > 0 {
+                            let numberOfDuplicateRows = ((numberOfPostDatesForThisMonth - 1) / maxNumberOfDaysInWeek) + 1
+                            numberOfDaysInMonthVariable -= (numberOfDuplicateRows * maxNumberOfDaysInWeek)
+                            numberOfPostDatesForThisMonth = 0
+                        }
                     default:
                         break
                     }
