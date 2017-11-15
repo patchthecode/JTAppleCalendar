@@ -255,7 +255,20 @@ extension JTAppleCalendarView: UIScrollViewDelegate {
             self.calendarDelegate?.calendar(self, didScrollToDateSegmentWith: dates)
         }
     }
-    
+
+    /// Tells the delegate when dragging
+    /// ended in the scroll view.
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        // Only call the delegate, when not decelerating
+        // otherwise, didScrollToDateSegmentWith is called
+        // after finishing animation
+        if !decelerate {
+            visibleDates {[unowned self] dates in
+                self.calendarDelegate?.calendar(self, didDragToDateSegmentWith: dates)
+            }
+        }
+    }
+
     /// Tells the delegate that a scroll occured
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         calendarDelegate?.calendarDidScroll(self)
