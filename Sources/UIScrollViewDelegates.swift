@@ -79,15 +79,10 @@ extension JTAppleCalendarView: UIScrollViewDelegate {
                                     isScrollingForward: directionVelocity > 0 ||  contentOffset > self.scrollDraggBeginningPoint,
                                     resistance: 0)
         
-        print("theTargetContentOffset = \(theTargetContentOffset)")
-        print("contentOffset = \(contentOffset)")
-        
-        
         // If no scrolling is occuring
         if contentOffset == scrollDraggBeginningPoint {
             return
         }
-        
         
         let setTargetContentOffset = {(finalOffset: CGFloat) -> Void in
             if self.scrollDirection == .horizontal {
@@ -309,15 +304,6 @@ extension JTAppleCalendarView: UIScrollViewDelegate {
         var retval: CGFloat = 0
         let calendarLayout = calendarViewLayout
         let calculatedOffSet = valueAfterResistance(scrollData: scrollData)
-
-        print("calculatedOffSet = \(calculatedOffSet)")
-        print("targetOffset = \(scrollData.contentOffset)")
-        
-        
-        
-        
-        
-        
         
         let currentSection = calendarLayout.sectionFrom(calculatedOffSet)
         let sizeOfCurrentSection = calendarLayout.sizeOfContentForSection(currentSection)
