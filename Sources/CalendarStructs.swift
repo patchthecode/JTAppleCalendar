@@ -62,6 +62,31 @@ public struct CellState {
     /// Shows if a cell's selection/deselection was done either programatically or by the user
     /// This variable is guranteed to be non-nil inside of a didSelect/didDeselect function
     public var selectionType: SelectionType? = nil
+
+    /// Init function
+    public init(isSelected: Bool,
+                text: String,
+                dateBelongsTo: DateOwner,
+                date: Date,
+                day: DaysOfWeek,
+                row: @escaping () -> Int,
+                column: @escaping () -> Int,
+                dateSection: @escaping () -> (range: (start: Date, end: Date), month: Int, rowCount: Int),
+                selectedPosition: @escaping () -> SelectionRangePosition,
+                cell: @escaping () -> JTAppleCell?,
+                selectionType: SelectionType? = nil) {
+        self.isSelected = isSelected
+        self.text = text
+        self.dateBelongsTo = dateBelongsTo
+        self.date = date
+        self.day = day
+        self.row = row
+        self.column = column
+        self.dateSection = dateSection
+        self.selectedPosition = selectedPosition
+        self.cell = cell
+        self.selectionType = selectionType
+    }
 }
 
 /// Defines the parameters which configures the calendar.
