@@ -64,17 +64,17 @@ public struct CellState {
     public var selectionType: SelectionType? = nil
 
     /// Init function
-    public init (isSelected: Bool,
-                 text: String,
-                 dateBelongsTo: DateOwner,
-                 date: Date,
-                 day: DaysOfWeek,
-                 row: @escaping () -> Int,
-                 column: @escaping () -> Int,
-                 dateSection: @escaping () -> (range: (start: Date, end: Date), month: Int, rowCount: Int),
-                 selectedPosition: @escaping () -> SelectionRangePosition,
-                 cell: @escaping () -> JTAppleCell?,
-                 selectionType: SelectionType? = nil) {
+    public init(isSelected: Bool,
+                text: String,
+                dateBelongsTo: DateOwner,
+                date: Date,
+                day: DaysOfWeek,
+                row: @escaping () -> Int,
+                column: @escaping () -> Int,
+                dateSection: @escaping () -> (range: (start: Date, end: Date), month: Int, rowCount: Int),
+                selectedPosition: @escaping () -> SelectionRangePosition,
+                cell: @escaping () -> JTAppleCell?,
+                selectionType: SelectionType? = nil) {
         self.isSelected = isSelected
         self.text = text
         self.dateBelongsTo = dateBelongsTo
