@@ -168,15 +168,19 @@ open class JTAppleCalendarView: UICollectionView {
         get { return theData.sectionToMonthMap }
         set { theData.sectionToMonthMap = monthMap }
     }
-    
+
+    var decelerationRateMatchingScrollingMode: CGFloat {
+        switch scrollingMode {
+        case .stopAtEachCalendarFrame: return UIScrollViewDecelerationRateFast
+        case .stopAtEach, .stopAtEachSection: return UIScrollViewDecelerationRateFast
+        case .nonStopToSection, .nonStopToCell, .nonStopTo, .none: return UIScrollViewDecelerationRateNormal
+        }
+    }
+
     /// Configure the scrolling behavior
     open var scrollingMode: ScrollingMode = .stopAtEachCalendarFrame {
         didSet {
-            switch scrollingMode {
-            case .stopAtEachCalendarFrame: decelerationRate = UIScrollViewDecelerationRateFast
-            case .stopAtEach, .stopAtEachSection: decelerationRate = UIScrollViewDecelerationRateFast
-            case .nonStopToSection, .nonStopToCell, .nonStopTo, .none: decelerationRate = UIScrollViewDecelerationRateNormal
-            }
+            decelerationRate = decelerationRateMatchingScrollingMode
             #if os(iOS)
                 switch scrollingMode {
                 case .stopAtEachCalendarFrame:
