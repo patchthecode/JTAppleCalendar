@@ -401,6 +401,7 @@ extension JTAppleCalendarView {
                                      extraAddedOffset: extraAddedOffset,
                                      completionHandler: completionHandler)
             }
+	    return
         }
         var xOffset: CGFloat = 0
         var yOffset: CGFloat = 0
