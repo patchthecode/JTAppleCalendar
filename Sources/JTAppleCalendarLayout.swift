@@ -537,7 +537,7 @@ class JTAppleCalendarLayout: UICollectionViewLayout, JTAppleCalendarLayoutProtoc
             }
         }
         let width = cellSize.width - ((sectionInset.left / 7) + (sectionInset.right / 7))
-        var size: (width: CGFloat, height: CGFloat) = (width, cellSize.height)
+        var size: (width: CGFloat, height: CGFloat) = (width.rounded(), cellSize.height)
         if itemSizeWasSet {
             if scrollDirection == .vertical {
                 size.height = cellSize.height
