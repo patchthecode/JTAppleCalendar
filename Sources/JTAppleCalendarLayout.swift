@@ -109,7 +109,6 @@ class JTAppleCalendarLayout: UICollectionViewLayout, JTAppleCalendarLayoutProtoc
         thereAreDecorationViews = true
     }
 
-    
     init(withDelegate delegate: JTAppleCalendarDelegateProtocol) {
         super.init()
         self.delegate = delegate
@@ -122,6 +121,11 @@ class JTAppleCalendarLayout: UICollectionViewLayout, JTAppleCalendarLayoutProtoc
         lastSetCollectionViewSize = collectionView!.frame
         
         if !layoutIsReadyToBePrepared {
+            // Layoout may not be ready, but user might have reloaded with an anchor date
+            let requestedOffset = delegate.requestedContentOffset
+            if requestedOffset != .zero { collectionView!.setContentOffset(requestedOffset, animated: false) }
+            
+            // execute any other delayed tasks
             executeDelayedTasks()
             return
         }
@@ -143,7 +147,7 @@ class JTAppleCalendarLayout: UICollectionViewLayout, JTAppleCalendarLayoutProtoc
         // Set the first content offset only once. This will prevent scrolling animation on viewDidload.
         if !firstContentOffsetWasSet {
             firstContentOffsetWasSet = true
-            let firstContentOffset = delegate.firstContentOffset
+            let firstContentOffset = delegate.requestedContentOffset
             collectionView!.setContentOffset(firstContentOffset, animated: false)
         }
         daysInSection.removeAll() // Clear chache
@@ -658,13 +662,7 @@ class JTAppleCalendarLayout: UICollectionViewLayout, JTAppleCalendarLayoutProtoc
         }
         return attributes
     }
-    open override func invalidateLayout() {
-        super.invalidateLayout()
-        
-        if shouldClearCacheOnInvalidate { clearCache() }
-        shouldClearCacheOnInvalidate = true
-    }
-    
+
     func clearCache() {
         headerCache.removeAll()
         cellCache.removeAll()

@@ -52,8 +52,6 @@ extension JTAppleCalendarView: UIScrollViewDelegate {
         
         self.decelerationRate = UIScrollViewDecelerationRateNormal
         
-        let cachedDecelerationRate = decelerationRate
-        
         let contentSizeEndOffset: CGFloat
         var contentOffset: CGFloat = 0,
         theTargetContentOffset: CGFloat = 0,
@@ -70,7 +68,6 @@ extension JTAppleCalendarView: UIScrollViewDelegate {
             directionVelocity = velocity.y
             contentSizeEndOffset = scrollView.contentSize.height - scrollView.frame.height
         }
-        
         
         let scrollData = ScrollData(contentSizeEndOffset: contentSizeEndOffset,
                                     contentOffset: contentOffset,
@@ -249,7 +246,7 @@ extension JTAppleCalendarView: UIScrollViewDelegate {
         default: break
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-            self.decelerationRate = cachedDecelerationRate
+            self.decelerationRate = self.decelerationRateMatchingScrollingMode
         }
         
         DispatchQueue.main.async {

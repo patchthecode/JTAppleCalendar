@@ -95,7 +95,7 @@ extension TestPersianCalendar: JTAppleCalendarViewDataSource {
         let endDate = testFotmatter.date(from: "2017/09/30")!
         
         
-        let parameters = ConfigurationParameters(startDate: startDate, endDate: endDate, numberOfRows: nil, calendar: persianCalendar, generateInDates: nil, generateOutDates: nil, firstDayOfWeek: nil, hasStrictBoundaries: nil)
+        let parameters = ConfigurationParameters(startDate: startDate, endDate: endDate, calendar: persianCalendar)
         return parameters
     }
 }

@@ -37,7 +37,7 @@ protocol JTAppleCalendarDelegateProtocol: class {
     var scrollDirection: UICollectionViewScrollDirection! {get set}
     var sectionInset: UIEdgeInsets {get set}
     var totalDays: Int {get}
-    var firstContentOffset: CGPoint {get}
+    var requestedContentOffset: CGPoint {get}
     
     // Functions
     func pathsFromDates(_ dates: [Date]) -> [IndexPath]
