@@ -88,33 +88,30 @@ public struct ConfigurationParameters {
     /// init-function
     public init(startDate: Date,
                 endDate: Date,
-                numberOfRows: Int? = nil,
-                calendar: Calendar? = nil,
-                generateInDates: InDateCellGeneration? = nil,
-                generateOutDates: OutDateCellGeneration? = nil,
-                firstDayOfWeek: DaysOfWeek? = nil,
+                numberOfRows: Int = 6,
+                calendar: Calendar = Calendar.current,
+                generateInDates: InDateCellGeneration = .forAllMonths,
+                generateOutDates: OutDateCellGeneration = .tillEndOfGrid,
+                firstDayOfWeek: DaysOfWeek = .sunday,
                 hasStrictBoundaries: Bool? = nil) {
         self.startDate = startDate
         self.endDate = endDate
-        self.numberOfRows = 6
-        
-        if let validNumberOfRows = numberOfRows {
-            switch validNumberOfRows {
-            case 1, 2, 3:
-                self.numberOfRows = validNumberOfRows
-            default:
-                break
-            }
+
+        if numberOfRows > 0 && numberOfRows < 7 {
+            self.numberOfRows = numberOfRows
+        } else {
+            self.numberOfRows = 6
         }
+
         if let nonNilHasStrictBoundaries = hasStrictBoundaries {
             self.hasStrictBoundaries = nonNilHasStrictBoundaries
         } else {
             self.hasStrictBoundaries = self.numberOfRows > 1 ? true : false
         }
-        self.calendar = calendar ?? Calendar.current
-        self.generateInDates = generateInDates ?? .forAllMonths
-        self.generateOutDates = generateOutDates ?? .tillEndOfGrid
-        self.firstDayOfWeek = firstDayOfWeek ?? .sunday
+        self.calendar = calendar
+        self.generateInDates = generateInDates
+        self.generateOutDates = generateOutDates
+        self.firstDayOfWeek = firstDayOfWeek
     }
 }
 
