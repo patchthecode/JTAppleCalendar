@@ -112,7 +112,6 @@ extension JTAppleCalendarView {
                 !animation {
                 self.scrollViewDidEndScrollingAnimation(self)
             }
-            self.isScrollInProgress = false
         }
     }
     
@@ -179,7 +178,6 @@ extension JTAppleCalendarView {
                 !isAnimationEnabled {
                 self.scrollViewDidEndScrollingAnimation(self)
             }
-            self.isScrollInProgress = false
         }
     }
     

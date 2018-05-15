@@ -401,7 +401,7 @@ extension JTAppleCalendarView {
                                      extraAddedOffset: extraAddedOffset,
                                      completionHandler: completionHandler)
             }
-	    return
+            return
         }
         var xOffset: CGFloat = 0
         var yOffset: CGFloat = 0
@@ -449,13 +449,13 @@ extension JTAppleCalendarView {
                 
                 switch destination {
                 case .next:
-                    scrollToHeaderInSection(section + 1, extraAddedOffset: extraAddedOffset)
+                    scrollToHeaderInSection(section + 1, extraAddedOffset: extraAddedOffset, completionHandler: completionHandler)
                 case .previous:
-                    scrollToHeaderInSection(section - 1, extraAddedOffset: extraAddedOffset)
+                    scrollToHeaderInSection(section - 1, extraAddedOffset: extraAddedOffset, completionHandler: completionHandler)
                 case .start:
-                    scrollToHeaderInSection(0, extraAddedOffset: extraAddedOffset)
+                    scrollToHeaderInSection(0, extraAddedOffset: extraAddedOffset, completionHandler: completionHandler)
                 case .end:
-                    scrollToHeaderInSection(numberOfSections(in: self) - 1, extraAddedOffset: extraAddedOffset)
+                    scrollToHeaderInSection(numberOfSections(in: self) - 1, extraAddedOffset: extraAddedOffset, completionHandler: completionHandler)
                 }
                 return
             } else {

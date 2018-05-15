@@ -176,8 +176,13 @@ extension JTAppleCalendarView {
                 var itemIndex = lastDayIndexPath.item + dayIndex
                 // Determine if the sections/item needs to be adjusted
                 
-                let extraSection = itemIndex / collectionView(self, numberOfItemsInSection: section)
-                let extraIndex = itemIndex % collectionView(self, numberOfItemsInSection: section)
+                let numberOfItemsInSection = collectionView(self, numberOfItemsInSection: section)
+                guard numberOfItemsInSection > 0 else {
+                    assert(false, "Number of sections in calendar = 0. Possible fixes (1) is your calendar visible size 0,0? (2) is your calendar already loaded/visible?")
+                    return nil
+                }
+                let extraSection = itemIndex / numberOfItemsInSection
+                let extraIndex = itemIndex % numberOfItemsInSection
                 section += extraSection
                 itemIndex = extraIndex
                 let reCalcRapth = IndexPath(item: itemIndex, section: section)
