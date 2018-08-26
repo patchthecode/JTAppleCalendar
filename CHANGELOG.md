@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 `JTAppleCalendar` adheres to [Semantic Versioning](http://semver.org/).
 
 #### 7.x Releases
-- `7.1.0` Releases - [7.1.0](#710)|[7.1.1](#711)|[7.1.2](#712)|[7.1.3](#713)
+- `7.1.0` Releases - [7.1.0](#710)|[7.1.1](#711)|[7.1.2](#712)|[7.1.3](#713)|[7.1.4](#714)|[7.1.5](#715)
 - `7.0.0` Releases - [7.0.0](#700)|[7.0.1](#701)|[7.0.2](#702)|[7.0.3](#703)|[7.0.4](#704)|[7.0.5](#705)|[7.0.6](#706)
 
 #### 6.x Releases
@@ -30,6 +30,15 @@ All notable changes to this project will be documented in this file.
 - `1.0.x` Releases - [1.0.0](#100)
 
 ---
+## [7.1.5](https://github.com/patchthecode/JTAppleCalendar/releases/tag/7.1.5)
+- Fixed inset bug #419
+- Fixed unowned Crash #624
+
+- Updated by [JayT](https://github.com/patchthecode).
+## [7.1.4](https://github.com/patchthecode/JTAppleCalendar/releases/tag/7.1.4)
+- Fixed [programatic selection bug](https://github.com/patchthecode/JTAppleCalendar/commit/de5f0023fb6b157bddb2afa9637c7be0a1bbc636)
+- Updated by [JayT](https://github.com/patchthecode).
+
 ## [7.1.3](https://github.com/patchthecode/JTAppleCalendar/releases/tag/7.1.3)
 - Fixed rounding error
 - Updated by [JayT](https://github.com/patchthecode).

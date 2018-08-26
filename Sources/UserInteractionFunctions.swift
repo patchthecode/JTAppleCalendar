@@ -132,7 +132,10 @@ extension JTAppleCalendarView {
     
     /// Notifies the container that the size of its view is about to change.
     public func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator, anchorDate: Date?) {
-        self.anchorDate = anchorDate
+        DispatchQueue.main.async { [weak self] in
+            guard let _self = self else { return }
+            _self.reloadData(withanchor: anchorDate)
+        }
     }
     
     /// Generates a range of dates from from a startDate to an
@@ -215,28 +218,28 @@ extension JTAppleCalendarView {
         let selectedDates = self.selectedDates
         let data = reloadDelegateDataSource()
         if data.shouldReload {
-            calendarViewLayout.invalidateLayout()
+            calendarViewLayout.clearCache()
             setupMonthInfoAndMap(with: data.configParameters)
-            
             selectedCellData = [:]
         }
-        
+
         // Restore the selected index paths if dates were already selected.
         if !selectedDates.isEmpty {
-            calendarViewLayout.delayedExecutionClosure.append {[unowned self] in
-                self.isReloadDataInProgress = false
-                self.selectDates(selectedDates, triggerSelectionDelegate: false, keepSelectionIfMultiSelectionAllowed: true)
+            calendarViewLayout.delayedExecutionClosure.append {[weak self] in
+                guard let _self = self else { return}
+                _self.isReloadDataInProgress = false
+                _self.selectDates(selectedDates, triggerSelectionDelegate: false, keepSelectionIfMultiSelectionAllowed: true)
             }
         }
 
         // Add calendar reload completion 
-        calendarViewLayout.delayedExecutionClosure.append {[unowned self] in
-            self.isReloadDataInProgress = false
+        calendarViewLayout.delayedExecutionClosure.append {[weak self] in
+            guard let _self = self else { return }
+            _self.isReloadDataInProgress = false
             completionHandler?()
-            if !self.generalDelayedExecutionClosure.isEmpty { self.executeDelayedTasks(.general) }
+            if !_self.generalDelayedExecutionClosure.isEmpty { _self.executeDelayedTasks(.general) }
         }
-                
-        if !data.shouldReload { calendarViewLayout.shouldClearCacheOnInvalidate = false }
+        calendarViewLayout.reloadWasTriggered = true
         super.reloadData()
     }
     
@@ -400,6 +403,7 @@ extension JTAppleCalendarView {
                                      extraAddedOffset: extraAddedOffset,
                                      completionHandler: completionHandler)
             }
+            return
         }
         var xOffset: CGFloat = 0
         var yOffset: CGFloat = 0
@@ -411,7 +415,12 @@ extension JTAppleCalendarView {
             } else {
                 fixedScrollSize = frame.width
             }
-            let section = CGFloat(Int(contentOffset.x / fixedScrollSize))
+
+            var section = contentOffset.x / fixedScrollSize
+            let roundedSection = round(section)
+            if abs(roundedSection - section) < errorDelta { section = roundedSection }
+            section = CGFloat(Int(section))
+
             xOffset = (fixedScrollSize * section)
             switch destination {
             case .next:
@@ -442,13 +451,13 @@ extension JTAppleCalendarView {
                 
                 switch destination {
                 case .next:
-                    scrollToHeaderInSection(section + 1, extraAddedOffset: extraAddedOffset)
+                    scrollToHeaderInSection(section + 1, extraAddedOffset: extraAddedOffset, completionHandler: completionHandler)
                 case .previous:
-                    scrollToHeaderInSection(section - 1, extraAddedOffset: extraAddedOffset)
+                    scrollToHeaderInSection(section - 1, extraAddedOffset: extraAddedOffset, completionHandler: completionHandler)
                 case .start:
-                    scrollToHeaderInSection(0, extraAddedOffset: extraAddedOffset)
+                    scrollToHeaderInSection(0, extraAddedOffset: extraAddedOffset, completionHandler: completionHandler)
                 case .end:
-                    scrollToHeaderInSection(numberOfSections(in: self) - 1, extraAddedOffset: extraAddedOffset)
+                    scrollToHeaderInSection(numberOfSections(in: self) - 1, extraAddedOffset: extraAddedOffset, completionHandler: completionHandler)
                 }
                 return
             } else {
@@ -581,16 +590,9 @@ extension JTAppleCalendarView {
     /// - returns:
     ///     - DateSegmentInfo
     public func visibleDates()-> DateSegmentInfo {
-        let emptySegment = DateSegmentInfo(indates: [], monthDates: [], outdates: [])
-        
-        if !isCalendarLayoutLoaded {
-            return emptySegment
-        }
-        
-        let cellAttributes = calendarViewLayout.visibleElements(excludeHeaders: true)
-        let indexPaths: [IndexPath] = cellAttributes.map { $0.indexPath }.sorted()
-        return dateSegmentInfoFrom(visible: indexPaths)
+        return datesAtCurrentOffset()
     }
+    
     /// Returns the visible dates of the calendar.
     /// - returns:
     ///     - DateSegmentInfo

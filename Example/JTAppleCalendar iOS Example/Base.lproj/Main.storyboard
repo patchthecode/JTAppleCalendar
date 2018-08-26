@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13178.6" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9v8-0V-uqf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="9v8-0V-uqf">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13156.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="HelveticaNeueLights.ttc">
-            <string>HelveticaNeue-Light</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Ib Calendar Data Source-->
         <scene sceneID="tne-QT-ifu">
@@ -753,6 +748,101 @@
             </objects>
             <point key="canvasLocation" x="1281" y="245"/>
         </scene>
+        <!--Ib Calendar Data Source-->
+        <scene sceneID="cAw-IR-4gx">
+            <objects>
+                <viewController id="JjC-p2-LPZ" customClass="TestRangeSelectionViewController" customModule="JTAppleCalendar_iOS_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="enb-Tx-CT1"/>
+                        <viewControllerLayoutGuide type="bottom" id="Eb3-tE-ic4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="AIB-R3-Paq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="6ZD-oY-O4C">
+                                <rect key="frame" x="0.0" y="64" width="375" height="370.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ojx-JA-J5N">
+                                        <rect key="frame" x="166.5" y="0.0" width="42" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zg8-Vx-EnL" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
+                                        <rect key="frame" x="0.0" y="20.5" width="375" height="350"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="350" id="AtV-qG-3NJ"/>
+                                        </constraints>
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Lyy-8V-VOo">
+                                            <size key="itemSize" width="167" height="164"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="cell" id="BDQ-aa-NRi" customClass="TestRangeSelectionViewControllerCell" customModule="JTAppleCalendar_iOS_Example" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="167" height="164"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                                    <rect key="frame" x="0.0" y="0.0" width="167" height="164"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rxc-7s-dS4">
+                                                            <rect key="frame" x="0.0" y="0.0" width="0.0" height="164"/>
+                                                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </view>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eil-Oq-XKz">
+                                                            <rect key="frame" x="62" y="71" width="42" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </view>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="rxc-7s-dS4" secondAttribute="bottom" id="QFM-k4-gse"/>
+                                                    <constraint firstAttribute="trailing" secondItem="rxc-7s-dS4" secondAttribute="trailing" id="aj8-pO-lvq"/>
+                                                    <constraint firstItem="eil-Oq-XKz" firstAttribute="centerX" secondItem="BDQ-aa-NRi" secondAttribute="centerX" id="fW9-32-I9L"/>
+                                                    <constraint firstItem="eil-Oq-XKz" firstAttribute="centerY" secondItem="BDQ-aa-NRi" secondAttribute="centerY" id="qKW-ra-wZh"/>
+                                                    <constraint firstItem="rxc-7s-dS4" firstAttribute="leading" secondItem="BDQ-aa-NRi" secondAttribute="leading" id="unp-7Z-bO8"/>
+                                                    <constraint firstItem="rxc-7s-dS4" firstAttribute="top" secondItem="BDQ-aa-NRi" secondAttribute="top" id="yIw-dB-Xnh"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outlet property="label" destination="eil-Oq-XKz" id="mBF-I0-cTr"/>
+                                                    <outlet property="selectedView" destination="rxc-7s-dS4" id="NlW-KM-O1f"/>
+                                                </connections>
+                                            </collectionViewCell>
+                                        </cells>
+                                        <connections>
+                                            <outlet property="ibCalendarDataSource" destination="JjC-p2-LPZ" id="ccF-Am-hNk"/>
+                                            <outlet property="ibCalendarDelegate" destination="JjC-p2-LPZ" id="lAx-js-cjJ"/>
+                                        </connections>
+                                    </collectionView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="370.5" id="bAt-nQ-fKO"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="6ZD-oY-O4C" firstAttribute="top" secondItem="enb-Tx-CT1" secondAttribute="bottom" id="32s-1s-9rz"/>
+                            <constraint firstItem="6ZD-oY-O4C" firstAttribute="leading" secondItem="AIB-R3-Paq" secondAttribute="leading" id="ItF-Bl-byz"/>
+                            <constraint firstItem="zg8-Vx-EnL" firstAttribute="width" secondItem="AIB-R3-Paq" secondAttribute="width" id="YhA-gl-SCG"/>
+                            <constraint firstAttribute="trailing" secondItem="6ZD-oY-O4C" secondAttribute="trailing" id="lVA-wy-tJD"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="calendarView" destination="zg8-Vx-EnL" id="4Rd-Fz-EpO"/>
+                        <outlet property="monthLabel" destination="Ojx-JA-J5N" id="3RE-3U-ZT6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cuU-Mo-63R" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2168.8000000000002" y="-408.84557721139436"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="Pw0-md-6kX">
             <objects>
@@ -766,7 +856,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wFg-I5-5WX">
-                                <rect key="frame" x="76" y="288.5" width="223" height="90"/>
+                                <rect key="frame" x="76" y="273.5" width="223" height="120"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r9b-Va-H2a">
                                         <rect key="frame" x="0.0" y="0.0" width="223" height="30"/>
@@ -787,6 +877,13 @@
                                         <state key="normal" title="Persian Calendar"/>
                                         <connections>
                                             <segue destination="HlD-js-bve" kind="show" id="4D4-Ys-Mko"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IYU-1e-f9F">
+                                        <rect key="frame" x="0.0" y="90" width="223" height="30"/>
+                                        <state key="normal" title="Range selection"/>
+                                        <connections>
+                                            <segue destination="JjC-p2-LPZ" kind="show" id="XsD-qK-5c0"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -817,7 +914,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kyX-nO-Lf1">
-                                <rect key="frame" x="0.0" y="61" width="375" height="271"/>
+                                <rect key="frame" x="0.0" y="105" width="375" height="271"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LAY-EA-ORQ" customClass="JTAppleCalendarView" customModule="JTAppleCalendar">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="271"/>
@@ -875,7 +972,7 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="TU3-e8-jQU">
-                                <rect key="frame" x="16" y="332" width="343" height="30"/>
+                                <rect key="frame" x="16" y="376" width="343" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mT9-sa-CDD">
                                         <rect key="frame" x="0.0" y="0.0" width="107.5" height="30"/>
@@ -901,7 +998,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="bqS-br-Qs5">
-                                <rect key="frame" x="0.0" y="362" width="375" height="30"/>
+                                <rect key="frame" x="0.0" y="406" width="375" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e3X-PP-Mqx">
                                         <rect key="frame" x="0.0" y="0.0" width="118.5" height="30"/>
@@ -927,7 +1024,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Ctc-L8-eMh">
-                                <rect key="frame" x="0.0" y="40.5" width="375" height="20.5"/>
+                                <rect key="frame" x="0.0" y="84.5" width="375" height="20.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SUN" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z7b-KP-qsX">
                                         <rect key="frame" x="0.0" y="0.0" width="53.5" height="20.5"/>
@@ -981,13 +1078,13 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d9e-9A-w1w">
-                                <rect key="frame" x="166.5" y="20" width="42" height="20.5"/>
+                                <rect key="frame" x="166.5" y="64" width="42" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ULx-90-n0y">
-                                <rect key="frame" x="16" y="392" width="343" height="30"/>
+                                <rect key="frame" x="16" y="436" width="343" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="he5-OD-oBh">
                                         <rect key="frame" x="0.0" y="0.0" width="114.5" height="30"/>
@@ -1013,7 +1110,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="HBe-aT-7IQ">
-                                <rect key="frame" x="16" y="422" width="359" height="30"/>
+                                <rect key="frame" x="16" y="466" width="359" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hAY-Ma-dSs">
                                         <rect key="frame" x="0.0" y="0.0" width="119.5" height="30"/>
@@ -1039,7 +1136,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="Hwj-Wy-zs2">
-                                <rect key="frame" x="16" y="452" width="343" height="30"/>
+                                <rect key="frame" x="16" y="496" width="343" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bJf-bb-Owh">
                                         <rect key="frame" x="0.0" y="0.0" width="114.5" height="30"/>
@@ -1245,6 +1342,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Koe-cZ-02p"/>
+        <segue reference="h9Y-WS-r0J"/>
     </inferredMetricsTieBreakers>
 </document>

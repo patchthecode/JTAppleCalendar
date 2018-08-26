@@ -43,7 +43,6 @@ open class JTAppleCalendarView: UICollectionView {
                 calendarViewLayout.cellSize.height = cellSize
             }
             calendarViewLayout.invalidateLayout()
-            calendarViewLayout.itemSizeWasSet = cellSize == 0 ? false: true
         }
     }
     
@@ -115,7 +114,7 @@ open class JTAppleCalendarView: UICollectionView {
     
     var anchorDate: Date?
     
-    var firstContentOffset: CGPoint {
+    var requestedContentOffset: CGPoint {
         var retval: CGPoint = .zero
         guard let date = anchorDate else { return retval }
         
@@ -168,15 +167,19 @@ open class JTAppleCalendarView: UICollectionView {
         get { return theData.sectionToMonthMap }
         set { theData.sectionToMonthMap = monthMap }
     }
-    
+
+    var decelerationRateMatchingScrollingMode: CGFloat {
+        switch scrollingMode {
+        case .stopAtEachCalendarFrame: return UIScrollViewDecelerationRateFast
+        case .stopAtEach, .stopAtEachSection: return UIScrollViewDecelerationRateFast
+        case .nonStopToSection, .nonStopToCell, .nonStopTo, .none: return UIScrollViewDecelerationRateNormal
+        }
+    }
+
     /// Configure the scrolling behavior
     open var scrollingMode: ScrollingMode = .stopAtEachCalendarFrame {
         didSet {
-            switch scrollingMode {
-            case .stopAtEachCalendarFrame: decelerationRate = UIScrollViewDecelerationRateFast
-            case .stopAtEach, .stopAtEachSection: decelerationRate = UIScrollViewDecelerationRateFast
-            case .nonStopToSection, .nonStopToCell, .nonStopTo, .none: decelerationRate = UIScrollViewDecelerationRateNormal
-            }
+            decelerationRate = decelerationRateMatchingScrollingMode
             #if os(iOS)
                 switch scrollingMode {
                 case .stopAtEachCalendarFrame:

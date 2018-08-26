@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6B198EA91F41F06100442008 /* TestPersianCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B198EA81F41F06100442008 /* TestPersianCalendar.swift */; };
 		6B198EAA1F41F06100442008 /* TestPersianCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B198EA81F41F06100442008 /* TestPersianCalendar.swift */; };
+		6B19FCD4211ACAF8009C8C9B /* TestRangeSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B19FCD2211ACABE009C8C9B /* TestRangeSelectionViewController.swift */; };
 		6B2EA03A1D644A8B006DAD00 /* JTAppleCalendar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6B60DEBC1D5BDA46009174A2 /* JTAppleCalendar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6B2EA03F1D644ABC006DAD00 /* JTAppleCalendar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6B60DECA1D5BDA74009174A2 /* JTAppleCalendar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6B4025F31DFB8D8C0083E6AE /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4025F11DFB8CE40083E6AE /* Animation.swift */; };
@@ -163,6 +164,7 @@
 
 /* Begin PBXFileReference section */
 		6B198EA81F41F06100442008 /* TestPersianCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestPersianCalendar.swift; sourceTree = "<group>"; };
+		6B19FCD2211ACABE009C8C9B /* TestRangeSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRangeSelectionViewController.swift; sourceTree = "<group>"; };
 		6B4025F11DFB8CE40083E6AE /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Animation.swift; path = Animation/Animation.swift; sourceTree = "<group>"; };
 		6B4025F61DFB8E310083E6AE /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Extensions/Extensions.swift; sourceTree = "<group>"; };
 		6B4597511F15ABAF004A536A /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
@@ -501,6 +503,7 @@
 				6B4597511F15ABAF004A536A /* TestViewController.swift */,
 				6B198EA81F41F06100442008 /* TestPersianCalendar.swift */,
 				6B9027EA1F48824800BDF3C3 /* TestOrientationChanges.swift */,
+				6B19FCD2211ACABE009C8C9B /* TestRangeSelectionViewController.swift */,
 			);
 			path = "Example Calendars";
 			sourceTree = "<group>";
@@ -936,6 +939,7 @@
 				6B60DF4A1D5BF6E2009174A2 /* CodeWhiteSectionHeaderView.swift in Sources */,
 				6B60DF101D5BE834009174A2 /* ViewController.swift in Sources */,
 				6B60DF0E1D5BE834009174A2 /* AppDelegate.swift in Sources */,
+				6B19FCD4211ACAF8009C8C9B /* TestRangeSelectionViewController.swift in Sources */,
 				6B60DF381D5BF5D7009174A2 /* CellView.swift in Sources */,
 				6B60DF451D5BF6CE009174A2 /* WhiteSectionHeaderView.swift in Sources */,
 				6B60DF4C1D5BF729009174A2 /* AnimationClass.swift in Sources */,
