@@ -113,7 +113,6 @@ public protocol JTAppleCalendarViewDelegate: class {
     ///     - startDate: The date at the start of the segment.
     ///     - endDate: The date at the end of the segment.
     func calendar(_ calendar: JTAppleCalendarView, willScrollToDateSegmentWith visibleDates: DateSegmentInfo)
-    
     /// Tells the delegate that the JTAppleCalendar is about to display
     /// a date-cell. This is the point of customization for your date cells
     /// - Parameters:
