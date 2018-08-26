@@ -92,13 +92,13 @@ extension JTAppleCalendarView: UICollectionViewDelegate, UICollectionViewDataSou
     /// Asks the delegate if the specified item should be selected.
     /// true if the item should be selected or false if it should not.
     public func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return handleShouldSelectionValueChange(collectionView, action: .shouldSelect, indexPath: indexPath, selectionType: .userInitiated)
+        return handleShouldSelectionValueChange(collectionView, action: .shouldSelect, indexPath: indexPath, selectionType: .userInitiated, shouldTriggerSelectionDelegate: true)
     }
     
     /// Asks the delegate if the specified item should be deselected.
     /// true if the item should be deselected or false if it should not.
     public func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
-        return handleShouldSelectionValueChange(collectionView, action: .shouldDeselect, indexPath: indexPath, selectionType: .userInitiated)
+        return handleShouldSelectionValueChange(collectionView, action: .shouldDeselect, indexPath: indexPath, selectionType: .userInitiated, shouldTriggerSelectionDelegate: true)
     }
 
     /// Tells the delegate that the item at the specified index
@@ -183,7 +183,10 @@ extension JTAppleCalendarView: UICollectionViewDelegate, UICollectionViewDataSou
         }
     }
     
-    func handleShouldSelectionValueChange(_ collectionView: UICollectionView, action: ShouldSelectionAction, indexPath: IndexPath, selectionType: SelectionType) -> Bool {
+    func handleShouldSelectionValueChange(_ collectionView: UICollectionView, action: ShouldSelectionAction, indexPath: IndexPath, selectionType: SelectionType, shouldTriggerSelectionDelegate: Bool) -> Bool {
+        guard shouldTriggerSelectionDelegate else {
+            return true
+        }
         if let
             delegate = calendarDelegate,
             let infoOfDate = dateOwnerInfoFromPath(indexPath) {
