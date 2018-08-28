@@ -1,6 +1,6 @@
 [![jtapplecalendarnewlogo](https://cloud.githubusercontent.com/assets/2439146/20656424/a1c98c8e-b4e1-11e6-9833-5fa6430f5a8c.png)](https://github.com/patchthecode/JTAppleCalendar)
 
-[![Tutorial](https://img.shields.io/badge/Tutorials-patchthecode.github.io-blue.svg)](https://patchthecode.github.io/) [![Version](https://img.shields.io/cocoapods/v/JTAppleCalendar.svg?style=flat)](http://cocoapods.org/pods/JTAppleCalendar) [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Platform](https://img.shields.io/cocoapods/p/JTAppleCalendar.svg?style=flat)](http://cocoapods.org/pods/JTAppleCalendar) [![License](https://img.shields.io/cocoapods/l/JTAppleCalendar.svg?style=flat)](http://cocoapods.org/pods/JTAppleCalendar) [![](https://www.paypalobjects.com/webstatic/en_US/btn/btn_donate_74x21.png)](https://github.com/patchthecode/JTAppleCalendar/wiki/Support)
+[![Tutorial](https://img.shields.io/badge/Tutorials-patchthecode.github.io-blue.svg)](https://patchthecode.github.io/) [![Version](https://img.shields.io/cocoapods/v/JTAppleCalendar.svg?style=flat)](http://cocoapods.org/pods/JTAppleCalendar) [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Platform](https://img.shields.io/cocoapods/p/JTAppleCalendar.svg?style=flat)](http://cocoapods.org/pods/JTAppleCalendar) [![License](https://img.shields.io/cocoapods/l/JTAppleCalendar.svg?style=flat)](http://cocoapods.org/pods/JTAppleCalendar) [![](https://www.paypalobjects.com/webstatic/en_US/btn/btn_donate_74x21.png)](https://github.com/patchthecode/JTAppleCalendar/wiki/Support) [![Backers on Open Collective](https://opencollective.com/JTAppleCalendar/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/JTAppleCalendar/sponsors/badge.svg)](#sponsors) 
 
 #### Q: How will my calendar dateCells look with this library?
 **A**: However you want it to look.
@@ -32,9 +32,10 @@
 - [x] [Complete Documentation](http://cocoadocs.org/docsets/JTAppleCalendar)
 
 
-[Installation](#installation)
-
-### Important Change in version 7.1.0 --> https://github.com/patchthecode/JTAppleCalendar/issues/553
+[Installation](#installation) 
+# Want to create a buggy calendar? because this is how people who do not read this creates a buggy calendar.
+# Please implement the willDisplayCell function as stated here --> https://github.com/patchthecode/JTAppleCalendar/issues/553
+### I had to put extra bold text because no one reads this 😞
 
 Tutorials
   
@@ -140,6 +141,36 @@ Simply drag the source files into your project.
 ## Author
 
 JayT, patchthecode@gmail.com <-- Sending me emails will not get you a swift response. I check it once every 2 weeks or so. Create a new issue [here on github](https://github.com/patchthecode/JTAppleCalendar/issues) if you need help.
+
+## Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="graphs/contributors"><img src="https://opencollective.com/JTAppleCalendar/contributors.svg?width=890&button=false" /></a>
+
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/JTAppleCalendar#backer)]
+
+<a href="https://opencollective.com/JTAppleCalendar#backers" target="_blank"><img src="https://opencollective.com/JTAppleCalendar/backers.svg?width=890"></a>
+
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/JTAppleCalendar#sponsor)]
+
+<a href="https://opencollective.com/JTAppleCalendar/sponsor/0/website" target="_blank"><img src="https://opencollective.com/JTAppleCalendar/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/JTAppleCalendar/sponsor/1/website" target="_blank"><img src="https://opencollective.com/JTAppleCalendar/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/JTAppleCalendar/sponsor/2/website" target="_blank"><img src="https://opencollective.com/JTAppleCalendar/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/JTAppleCalendar/sponsor/3/website" target="_blank"><img src="https://opencollective.com/JTAppleCalendar/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/JTAppleCalendar/sponsor/4/website" target="_blank"><img src="https://opencollective.com/JTAppleCalendar/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/JTAppleCalendar/sponsor/5/website" target="_blank"><img src="https://opencollective.com/JTAppleCalendar/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/JTAppleCalendar/sponsor/6/website" target="_blank"><img src="https://opencollective.com/JTAppleCalendar/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/JTAppleCalendar/sponsor/7/website" target="_blank"><img src="https://opencollective.com/JTAppleCalendar/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/JTAppleCalendar/sponsor/8/website" target="_blank"><img src="https://opencollective.com/JTAppleCalendar/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/JTAppleCalendar/sponsor/9/website" target="_blank"><img src="https://opencollective.com/JTAppleCalendar/sponsor/9/avatar.svg"></a>
+
+
 
 ## License
 

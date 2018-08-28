@@ -28,6 +28,7 @@ public extension JTAppleCalendarViewDelegate {
     func calendar(_ calendar: JTAppleCalendarView, shouldDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState) -> Bool { return true }
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {}
     func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState) {}
+    func calendar(_ calendar: JTAppleCalendarView, willScrollToDateSegmentWith visibleDates: DateSegmentInfo) {}
     func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {}
     func calendar(_ calendar: JTAppleCalendarView, headerViewForDateRange range: (start: Date, end: Date), at indexPath: IndexPath) -> JTAppleCollectionReusableView {
         assert(false, "You have implemted a header size function, but forgot to implement the `headerViewForDateRange` function")
@@ -105,6 +106,14 @@ public protocol JTAppleCalendarViewDelegate: class {
     ///     - endDate: The date at the end of the segment.
     func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo)
 
+    /// Tells the delegate that the JTAppleCalendar view
+    /// will scroll to a segment beginning and ending with a particular date
+    /// - Parameters:
+    ///     - calendar: The JTAppleCalendar view giving this information.
+    ///     - startDate: The date at the start of the segment.
+    ///     - endDate: The date at the end of the segment.
+    func calendar(_ calendar: JTAppleCalendarView, willScrollToDateSegmentWith visibleDates: DateSegmentInfo)
+    
     /// Tells the delegate that the JTAppleCalendar is about to display
     /// a date-cell. This is the point of customization for your date cells
     /// - Parameters:

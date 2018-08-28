@@ -242,17 +242,22 @@ class ViewController: UIViewController {
     }
 
     @IBAction func resize(_ sender: UIButton) {
+        
+        
         calendarView.frame = CGRect(
             x: calendarView.frame.origin.x,
             y: calendarView.frame.origin.y,
             width: calendarView.frame.width,
             height: calendarView.frame.height - 50
         )
-        calendarView.reloadData()
+        
+        let date = calendarView.visibleDates().monthDates.first!.date
+        calendarView.reloadData(withanchor: date)
     }
 
     @IBAction func reloadCalendar(_ sender: UIButton) {
-        calendarView.reloadData()
+        let date = Date()
+        calendarView.reloadData(withanchor: date)
     }
 
     @IBAction func next(_ sender: UIButton) {
@@ -351,8 +356,8 @@ extension ViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSo
         formatter.locale = testCalendar.locale
         
         
-        let startDate = formatter.date(from: "2017 01 01")!
-        let endDate = formatter.date(from: "2018 02 01")!
+        let startDate = formatter.date(from: "2018 01 01")!
+        let endDate = formatter.date(from: "2019 02 01")!
         
         let parameters = ConfigurationParameters(startDate: startDate,
                                                  endDate: endDate,
