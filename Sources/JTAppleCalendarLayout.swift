@@ -32,7 +32,7 @@ class JTAppleCalendarLayout: UICollectionViewLayout, JTAppleCalendarLayoutProtoc
     
     var cellSize: CGSize = CGSize.zero
     var shouldUseUserItemSizeInsteadOfDefault: Bool { return delegate.cellSize == 0 ? false: true }
-    var scrollDirection: UICollectionViewScrollDirection = .horizontal
+    var scrollDirection: UICollectionView.ScrollDirection = .horizontal
     var maxMissCount: Int = 0
     var cellCache: [Int: [(Int, Int, CGFloat, CGFloat, CGFloat, CGFloat)]] = [:]
     var headerCache: [Int: (Int, Int, CGFloat, CGFloat, CGFloat, CGFloat)] = [:]
@@ -371,7 +371,7 @@ class JTAppleCalendarLayout: UICollectionViewLayout, JTAppleCalendarLayoutProtoc
                     let data = headerCache[sectionIndex]!
 
                     if CGRect(x: data.2, y: data.3, width: data.4, height: data.5).intersects(rect) {
-                        let attrib = layoutAttributesForSupplementaryView(ofKind: UICollectionElementKindSectionHeader, at: IndexPath(item: data.0, section: data.1))
+                        let attrib = layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: data.0, section: data.1))
                         attributes.append(attrib!)
                     }
                 }
@@ -669,7 +669,7 @@ class JTAppleCalendarLayout: UICollectionViewLayout, JTAppleCalendarLayoutProtoc
             return []
         }
         if excludeHeaders == true {
-            return attributes.filter { $0.representedElementKind != UICollectionElementKindSectionHeader }
+            return attributes.filter { $0.representedElementKind != UICollectionView.elementKindSectionHeader }
         }
         return attributes
     }

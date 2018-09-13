@@ -27,7 +27,7 @@ protocol JTAppleCalendarLayoutProtocol: class {
     var minimumInteritemSpacing: CGFloat {get set}
     var minimumLineSpacing: CGFloat {get set}
     var sectionInset: UIEdgeInsets {get set}
-    var scrollDirection: UICollectionViewScrollDirection {get set}
+    var scrollDirection: UICollectionView.ScrollDirection {get set}
 }
 
 extension UICollectionViewFlowLayout: JTAppleCalendarLayoutProtocol {}
