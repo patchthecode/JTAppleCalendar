@@ -159,18 +159,18 @@ extension JTAppleCalendarView {
     /// Registers a class for use in creating supplementary views for the collection view.
     /// For now, the calendar only supports: 'UICollectionElementKindSectionHeader' for the forSupplementaryViewOfKind(parameter)
     open override func register(_ viewClass: AnyClass?, forSupplementaryViewOfKind elementKind: String, withReuseIdentifier identifier: String) {
-        super.register(viewClass, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: identifier)
+        super.register(viewClass, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier)
     }
     
     /// Registers a class for use in creating supplementary views for the collection view.
     /// For now, the calendar only supports: 'UICollectionElementKindSectionHeader' for the forSupplementaryViewOfKind(parameter)
     open override func register(_ nib: UINib?, forSupplementaryViewOfKind kind: String, withReuseIdentifier identifier: String) {
-        super.register(nib, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: identifier)
+        super.register(nib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier)
     }
     
     /// Dequeues re-usable calendar cells
     public func dequeueReusableJTAppleSupplementaryView(withReuseIdentifier identifier: String, for indexPath: IndexPath) -> JTAppleCollectionReusableView {
-        guard let headerView = dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader,
+        guard let headerView = dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
                                                                 withReuseIdentifier: identifier,
                                                                 for: indexPath) as? JTAppleCollectionReusableView else {
                                                                     developerError(string: "Error initializing Header View with identifier: '\(identifier)'")
@@ -490,7 +490,7 @@ extension JTAppleCalendarView {
     public func scrollToDate(_ date: Date,
                              triggerScrollToDateDelegate: Bool = true,
                              animateScroll: Bool = true,
-                             preferredScrollPosition: UICollectionViewScrollPosition? = nil,
+                             preferredScrollPosition: UICollectionView.ScrollPosition? = nil,
                              extraAddedOffset: CGFloat = 0,
                              completionHandler: (() -> Void)? = nil) {
         
@@ -522,7 +522,7 @@ extension JTAppleCalendarView {
         let sectionIndexPath = pathsFromDates([date])[0]
 
         // Ensure valid scroll position is set
-        var position: UICollectionViewScrollPosition = scrollDirection == .horizontal ? .left : .top
+        var position: UICollectionView.ScrollPosition = scrollDirection == .horizontal ? .left : .top
         if !scrollingMode.pagingIsEnabled(),
             let validPosition = preferredScrollPosition {
             if scrollDirection == .horizontal {

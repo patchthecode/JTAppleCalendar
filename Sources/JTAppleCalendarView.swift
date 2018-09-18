@@ -47,7 +47,7 @@ open class JTAppleCalendarView: UICollectionView {
     }
     
     /// The scroll direction of the sections in JTAppleCalendar.
-    open var scrollDirection: UICollectionViewScrollDirection!
+    open var scrollDirection: UICollectionView.ScrollDirection!
     
     /// The configuration parameters setup by the developer in the confogureCalendar function
     open var cachedConfiguration: ConfigurationParameters? { return _cachedConfiguration }
@@ -137,7 +137,7 @@ open class JTAppleCalendarView: UICollectionView {
         
         if calendarViewLayout.thereAreHeaders && scrollDirection == .vertical {
             let indexPath = IndexPath(item: 0, section: sectionIndexPath.section)
-            guard let attributes = calendarViewLayout.layoutAttributesForSupplementaryView(ofKind: UICollectionElementKindSectionHeader, at: indexPath) else { return retval }
+            guard let attributes = calendarViewLayout.layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, at: indexPath) else { return retval }
             
             let maxYCalendarOffset = max(0, self.contentSize.height - self.frame.size.height)
             retval = CGPoint(x: attributes.frame.origin.x,y: min(maxYCalendarOffset, attributes.frame.origin.y))
@@ -156,7 +156,7 @@ open class JTAppleCalendarView: UICollectionView {
         return retval
     }
     
-    open var sectionInset: UIEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0)
+    open var sectionInset: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     open var minimumInteritemSpacing: CGFloat = 0
     open var minimumLineSpacing: CGFloat = 0
     
@@ -173,16 +173,16 @@ open class JTAppleCalendarView: UICollectionView {
 
     var decelerationRateMatchingScrollingMode: CGFloat {
         switch scrollingMode {
-        case .stopAtEachCalendarFrame: return UIScrollViewDecelerationRateFast
-        case .stopAtEach, .stopAtEachSection: return UIScrollViewDecelerationRateFast
-        case .nonStopToSection, .nonStopToCell, .nonStopTo, .none: return UIScrollViewDecelerationRateNormal
+        case .stopAtEachCalendarFrame: return UIScrollView.DecelerationRate.fast.rawValue
+        case .stopAtEach, .stopAtEachSection: return UIScrollView.DecelerationRate.fast.rawValue
+        case .nonStopToSection, .nonStopToCell, .nonStopTo, .none: return UIScrollView.DecelerationRate.normal.rawValue
         }
     }
 
     /// Configure the scrolling behavior
     open var scrollingMode: ScrollingMode = .stopAtEachCalendarFrame {
         didSet {
-            decelerationRate = decelerationRateMatchingScrollingMode
+            decelerationRate = UIScrollView.DecelerationRate(rawValue: decelerationRateMatchingScrollingMode)
             #if os(iOS)
                 switch scrollingMode {
                 case .stopAtEachCalendarFrame:
