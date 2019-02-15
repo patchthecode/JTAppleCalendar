@@ -361,11 +361,6 @@ class JTAppleCalendarLayout: UICollectionViewLayout, JTAppleCalendarLayoutProtoc
         
         outterLoop: for sectionIndex in startSectionIndex..<cellCache.count {
             if let validSection = cellCache[sectionIndex], !validSection.isEmpty {
-                if thereAreDecorationViews {
-                    let attrib = layoutAttributesForDecorationView(ofKind: decorationViewID, at: IndexPath(item: 0, section: sectionIndex))!
-                    attributes.append(attrib)
-                }
-                
                 // Add header view attributes
                 if thereAreHeaders {
                     let data = headerCache[sectionIndex]!
@@ -389,6 +384,10 @@ class JTAppleCalendarLayout: UICollectionViewLayout, JTAppleCalendarLayoutProtoc
                         // section has no more interceptions.
                         // So break
                         if missCount > maxMissCount && beganIntercepting { break outterLoop }
+                    }
+                    if thereAreDecorationViews {
+                        let attrib = layoutAttributesForDecorationView(ofKind: decorationViewID, at: IndexPath(item: 0, section: sectionIndex))!
+                        attributes.append(attrib)
                     }
                 }
             }
@@ -486,7 +485,7 @@ class JTAppleCalendarLayout: UICollectionViewLayout, JTAppleCalendarLayoutProtoc
         let retval = UICollectionViewLayoutAttributes(forDecorationViewOfKind: decorationViewID, with: indexPath)
         decorationCache[indexPath] = retval
         retval.frame = delegate.sizeOfDecorationView(indexPath: indexPath)
-        retval.zIndex = -1
+        retval.zIndex = Int.max
         return retval
     }
     
