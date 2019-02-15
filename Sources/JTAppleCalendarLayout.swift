@@ -386,7 +386,7 @@ class JTAppleCalendarLayout: UICollectionViewLayout, JTAppleCalendarLayoutProtoc
                         if missCount > maxMissCount && beganIntercepting { break outterLoop }
                     }
                     if thereAreDecorationViews {
-                        let attrib = layoutAttributesForDecorationView(ofKind: decorationViewID, at: IndexPath(item: 0, section: sectionIndex))!
+                        let attrib = layoutAttributesForDecorationView(ofKind: decorationViewID, at: IndexPath(item: val.0, section: val.1))!
                         attributes.append(attrib)
                     }
                 }
