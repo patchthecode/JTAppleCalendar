@@ -123,6 +123,13 @@ extension JTAppleCalendarView: UICollectionViewDelegate, UICollectionViewDataSou
         return size
     }
     
+    func zIndexOfDecorationView(indexPath: IndexPath) -> Int {
+        guard let zIndex = calendarDelegate?.zIndexOfDecorationView(indexPath: indexPath) else {
+            return -1
+        }
+        return zIndex
+    }
+    
     func handleSelectionValueChanged(_ collectionView: UICollectionView, action: SelectionAction, indexPath: IndexPath, selectionType: SelectionType, shouldTriggerSelectionDelegate: Bool = true) {
         guard
             let delegate = calendarDelegate,
