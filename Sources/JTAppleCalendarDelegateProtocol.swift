@@ -44,6 +44,7 @@ protocol JTAppleCalendarDelegateProtocol: class {
     func sizeOfDecorationView(indexPath: IndexPath) -> CGRect
     func sizesForMonthSection() -> [AnyHashable:CGFloat]
     func targetPointForItemAt(indexPath: IndexPath) -> CGPoint?
+    func zIndexOfDecorationView(indexPath: IndexPath) -> Int
 }
 
 extension JTAppleCalendarView: JTAppleCalendarDelegateProtocol { }

@@ -38,6 +38,7 @@ public extension JTAppleCalendarViewDelegate {
     func calendarSizeForMonths(_ calendar: JTAppleCalendarView?) -> MonthSize? { return nil }
     func sizeOfDecorationView(indexPath: IndexPath) -> CGRect { return .zero }
     func scrollDidEndDecelerating(for calendar: JTAppleCalendarView) {}
+    func zIndexOfDecorationView(indexPath: IndexPath) -> Int { return -1 }
 }
 
 /// The JTAppleCalendarViewDataSource protocol is adopted by an
@@ -154,4 +155,7 @@ public protocol JTAppleCalendarViewDelegate: class {
     
     /// Called to retrieve the size to be used for decoration views
     func sizeOfDecorationView(indexPath: IndexPath) -> CGRect
+    
+    /// Called to retrieve the zIndex to be used for decoration views
+    func zIndexOfDecorationView(indexPath: IndexPath) -> Int
 }
