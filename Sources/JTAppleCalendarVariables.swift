@@ -37,18 +37,6 @@ extension JTAppleCalendarView {
         get { return calendarDataSource }
         set { calendarDataSource = newValue as? JTAppleCalendarViewDataSource }
     }
-
-    @available(swift, deprecated: 1.0, message: "delegate should be set to JTAppleCalendarView instancec itself")
-    open override var delegate: UICollectionViewDelegate? {
-        get { return super.delegate }
-        set { super.delegate = newValue }
-    }
-    
-    @available(*, deprecated: 1.0, message: "dataSource should be set to JTAppleCalendarView instancec itself")
-    open override var dataSource: UICollectionViewDataSource? {
-        get { return super.dataSource }
-        set { super.dataSource = newValue }
-    }
     
     /// Returns all selected dates
     open var selectedDates: [Date] {
