@@ -45,7 +45,7 @@ public enum OutDateCellGeneration {
 public enum InDateCellGeneration {
     /// forFirstMonthOnly will generate dates for the first month only
     /// forAllMonths will generate dates for all months
-    /// off setting wilil generate no dates
+    /// off setting will generate no dates
     case forFirstMonthOnly, forAllMonths, off
 }
 
