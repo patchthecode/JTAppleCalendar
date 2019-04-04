@@ -32,18 +32,28 @@ extension Calendar {
     
 
     func startOfMonth(for date: Date) -> Date? {
-        guard let comp = dateFormatterComponents(from: date) else { return nil }
-        return Calendar.formatter.date(from: "\(comp.year) \(comp.month) 01")
+        if #available(iOS 10.0, *) {
+            guard let interval = self.dateInterval(of: .month, for: date) else { return nil }
+            return interval.start
+        } else {
+            guard let comp = dateFormatterComponents(from: date) else { return nil }
+            return Calendar.formatter.date(from: "\(comp.year) \(comp.month) 01")
+        }
     }
     
     func endOfMonth(for date: Date) -> Date? {
-        guard
-            let comp = dateFormatterComponents(from: date),
-            let day = self.range(of: .day, in: .month, for: date)?.count,
-            let retVal = Calendar.formatter.date(from: "\(comp.year) \(comp.month) \(day)") else {
-                return nil
+        if #available(iOS 10.0, *) {
+            guard let interval = self.dateInterval(of: .month, for: date) else { return nil }
+            return interval.end
+        } else {
+            guard
+                let comp = dateFormatterComponents(from: date),
+                let day = self.range(of: .day, in: .month, for: date)?.count,
+                let retVal = Calendar.formatter.date(from: "\(comp.year) \(comp.month) \(day)") else {
+                    return nil
+            }
+            return retVal
         }
-        return retVal
     }
     
     private func dateFormatterComponents(from date: Date) -> (month: Int, year: Int)? {
