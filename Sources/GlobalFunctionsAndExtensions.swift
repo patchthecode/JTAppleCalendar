@@ -44,7 +44,7 @@ extension Calendar {
     func endOfMonth(for date: Date) -> Date? {
         if #available(iOS 10.0, *) {
             guard let interval = self.dateInterval(of: .month, for: date) else { return nil }
-            return interval.end
+            return self.date(byAdding: DateComponents(day: -1), to: interval.end)
         } else {
             guard
                 let comp = dateFormatterComponents(from: date),
