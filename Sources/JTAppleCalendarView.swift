@@ -190,9 +190,9 @@ open class JTAppleCalendarView: UICollectionView {
     }
 }
 
+@available(iOS 9.0, *)
 extension JTAppleCalendarView {
     /// A semantic description of the view’s contents, used to determine whether the view should be flipped when switching between left-to-right and right-to-left layouts.
-    @available(iOS 9.0, *)
     open override var semanticContentAttribute: UISemanticContentAttribute {
         didSet {
             if #available(iOS 10.0, tvOS 10.0, *) {
