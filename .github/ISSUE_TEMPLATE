@@ -1,7 +1,14 @@
-IMPORTANT - BEFORE CREATING YOUR ISSUE PLEASE READ THE FOLLOWING:
+<!--- 
+BEFORE SUBMITTING AN ISSUE: Make sure you are on the latest JTAppleCalendar (7.1.7)
+If you want to continue making an issue, please fill out the required fields below.
+-->
 
-1. PLEASE STATE THE VERSION NUMBER you are using.
-2. Are you using the latest version of JTAppleCalendar? Latest version is currently 7.1.7
-3. PROVIDE ENOUGH INPORMATION SO I CAN RECREATE THE PROBLEM.
+**(Required) Version Number:**
 
-You can now clear this text and ask your question.
+## Description
+
+## Steps To Reproduce
+
+## Expected Behavior
+
+## Additional Context
