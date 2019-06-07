@@ -1,5 +1,5 @@
 //
-//  JTAppleCalendarVariables.swift
+//  JTACVariables.swift
 //
 //  Copyright (c) 2016-2017 JTAppleCalendar (https://github.com/patchthecode/JTAppleCalendar)
 //
@@ -23,19 +23,19 @@
 //
 
 // Calculated Variables
-extension JTAppleCalendarView {
+extension JTACMonthView {
     /// Workaround for Xcode bug that prevents you from connecting the delegate in the storyboard.
     /// Remove this extra property once Xcode gets fixed.
     @IBOutlet public var ibCalendarDelegate: AnyObject? {
         get { return calendarDelegate }
-        set { calendarDelegate = newValue as? JTAppleCalendarViewDelegate }
+        set { calendarDelegate = newValue as? JTACMonthViewDelegate }
     }
     
     /// Workaround for Xcode bug that prevents you from connecting the delegate in the storyboard.
     /// Remove this extra property once Xcode gets fixed.
     @IBOutlet public var ibCalendarDataSource: AnyObject? {
         get { return calendarDataSource }
-        set { calendarDataSource = newValue as? JTAppleCalendarViewDataSource }
+        set { calendarDataSource = newValue as? JTACMonthViewDataSource }
     }
     
     /// Returns all selected dates
@@ -60,19 +60,19 @@ extension JTAppleCalendarView {
         return theData.totalDays
     }
     
-    var calendarViewLayout: JTAppleCalendarLayout {
-        guard let layout = collectionViewLayout as? JTAppleCalendarLayout else {
-            developerError(string: "Calendar layout is not of type JTAppleCalendarLayout.")
-            return JTAppleCalendarLayout(withDelegate: self)
+    var calendarViewLayout: JTACMonthLayout {
+        guard let layout = collectionViewLayout as? JTACMonthLayout else {
+            developerError(string: "Calendar layout is not of type JTAppleCalendarMonthLayout.")
+            return JTACMonthLayout(withDelegate: self)
         }
         return layout
     }
     
     var functionIsUnsafeSafeToRun: Bool {
-        return !isCalendarLayoutLoaded || isScrollInProgress || isReloadDataInProgress
+        return !calendarLayoutIsLoaded || isScrollInProgress || isReloadDataInProgress
     }
     
-    var isCalendarLayoutLoaded: Bool { return calendarViewLayout.isCalendarLayoutLoaded }
+    var calendarLayoutIsLoaded: Bool { return calendarViewLayout.isCalendarLayoutLoaded }
     var startDateCache: Date         { return _cachedConfiguration.startDate }
     var endDateCache: Date           { return _cachedConfiguration.endDate }
     var calendar: Calendar           { return _cachedConfiguration.calendar }

@@ -2,7 +2,7 @@
 //  TestRangeSelectionViewController.swift
 //  JTAppleCalendar iOS
 //
-//  Created by Jeron Thomas on 2018-08-07.
+//  Created by Jay Thomas on 2018-08-07.
 //
 
 import UIKit
@@ -11,7 +11,7 @@ import JTAppleCalendar
 class TestRangeSelectionViewController: UIViewController {
     
     @IBOutlet weak var monthLabel: UILabel!
-    @IBOutlet weak var calendarView: JTAppleCalendarView!
+    @IBOutlet weak var calendarView: JTACMonthView!
     let df = DateFormatter()
     
     override func viewDidLoad() {
@@ -21,7 +21,7 @@ class TestRangeSelectionViewController: UIViewController {
             self.setupMonthLabel(date: visibleDates.monthDates.first!.date)
         }
         
-        calendarView.isRangeSelectionUsed = true
+        calendarView.allowsMultipleSelection = true
         calendarView.allowsMultipleSelection = true
         
     }
@@ -31,7 +31,7 @@ class TestRangeSelectionViewController: UIViewController {
         monthLabel.text = df.string(from: date)
     }
     
-    func handleConfiguration(cell: JTAppleCell?, cellState: CellState) {
+    func handleConfiguration(cell: JTACDayCell?, cellState: CellState) {
         guard let cell = cell as? TestRangeSelectionViewControllerCell else { return }
         handleCellColor(cell: cell, cellState: cellState)
         handleCellSelection(cell: cell, cellState: cellState)
@@ -70,32 +70,32 @@ class TestRangeSelectionViewController: UIViewController {
     }
 }
 
-extension TestRangeSelectionViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSource {
+extension TestRangeSelectionViewController: JTACMonthViewDelegate, JTACMonthViewDataSource {
     
-    func calendar(_ calendar: JTAppleCalendarView, willDisplay cell: JTAppleCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
+    func calendar(_ calendar: JTACMonthView, willDisplay cell: JTACDayCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
         handleConfiguration(cell: cell, cellState: cellState)
     }
     
-    func calendar(_ calendar: JTAppleCalendarView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTAppleCell {
+    func calendar(_ calendar: JTACMonthView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTACDayCell {
         let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "cell", for: indexPath) as! TestRangeSelectionViewControllerCell
         cell.label.text = cellState.text
         self.calendar(calendar, willDisplay: cell, forItemAt: date, cellState: cellState, indexPath: indexPath)
         return cell
     }
     
-    func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
+    func calendar(_ calendar: JTACMonthView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
         setupMonthLabel(date: visibleDates.monthDates.first!.date)
     }
     
-    func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
+    func calendar(_ calendar: JTACMonthView, didSelectDate date: Date, cell: JTACDayCell?, cellState: CellState) {
         handleConfiguration(cell: cell, cellState: cellState)
     }
     
-    func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
+    func calendar(_ calendar: JTACMonthView, didDeselectDate date: Date, cell: JTACDayCell?, cellState: CellState) {
         handleConfiguration(cell: cell, cellState: cellState)
     }
     
-    func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
+    func configureCalendar(_ calendar: JTACMonthView) -> ConfigurationParameters {
         let df = DateFormatter()
         df.dateFormat = "yyyy MM dd"
         
@@ -116,7 +116,7 @@ extension TestRangeSelectionViewController: JTAppleCalendarViewDelegate, JTApple
 
 
 
-class TestRangeSelectionViewControllerCell: JTAppleCell {
+class TestRangeSelectionViewControllerCell: JTACDayCell {
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var selectedView: UIView!
 }

@@ -2,7 +2,7 @@
 //  Animation.swift
 //  JTAppleCalendar
 //
-//  Created by Jeron Thomas on 2016-12-09.
+//  Created by Jay Thomas on 2016-12-09.
 //
 //
 

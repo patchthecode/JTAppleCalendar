@@ -10,7 +10,7 @@ import XCTest
 @testable import JTAppleCalendar
 
 class JTAppleCalendar_iOSTests: XCTestCas(width, cellSize.height)e {
-    let calendarView = JTAppleCalendarView()
+    let calendarView = JTACMonthView()
     let formatter: DateFormatter = {
         let aFormatter = DateFormatter()
         aFormatter.dateFormat = "yyyy MM dd"
@@ -26,7 +26,7 @@ class JTAppleCalendar_iOSTests: XCTestCas(width, cellSize.height)e {
     }
     
     func testVisibleDates() {
-        let calendarView = JTAppleCalendarView()
+        let calendarView = JTACMonthView()
         calendarView.scrollDirection = .vertical
         calendarView.scrollingMode = .none
         calendarView.allowsMultipleSelection = true
@@ -44,7 +44,7 @@ class JTAppleCalendar_iOSTests: XCTestCas(width, cellSize.height)e {
 
 public class CalendarViewTestingController: UIViewController {
     var calendar: Calendar!
-    var calendarView: JTAppleCalendarView!
+    var calendarView: JTACMonthView!
 
     override open func viewDidLoad() {
         super.viewDidLoad()
@@ -70,8 +70,8 @@ public class CalendarViewTestingController: UIViewController {
     }
 }
 
-extension CalendarViewTestingController: JTAppleCalendarViewDataSource {
-    public func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
+extension CalendarViewTestingController: JTACMonthViewDataSource {
+    public func configureCalendar(_ calendar: JTACMonthView) -> ConfigurationParameters {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy MM dd"
         let startDate = formatter.date(from: "2017 01 01")!
@@ -81,14 +81,14 @@ extension CalendarViewTestingController: JTAppleCalendarViewDataSource {
     }
 }
 
-extension CalendarViewTestingController: JTAppleCalendarViewDelegate {
-    public func calendar(_ calendar: JTAppleCalendarView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTAppleCell {
+extension CalendarViewTestingController: JTACMonthViewDelegate {
+    public func calendar(_ calendar: JTACMonthView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTACDayCell {
         let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "Cell", for: indexPath) as! TestCellView
         return cell
     }
 }
 
-class TestCellView: JTAppleCell {
+class TestCellView: JTACDayCell {
 }
 
 

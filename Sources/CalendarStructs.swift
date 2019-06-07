@@ -58,7 +58,7 @@ public struct CellState {
     public let selectedPosition: () -> SelectionRangePosition
     /// returns the cell.
     /// Useful if you wish to display something at the cell's frame/position
-    public var cell: () -> JTAppleCell?
+    public var cell: () -> JTACDayCell?
     /// Shows if a cell's selection/deselection was done either programatically or by the user
     /// This variable is guranteed to be non-nil inside of a didSelect/didDeselect function
     public var selectionType: SelectionType? = nil
@@ -92,7 +92,7 @@ public struct ConfigurationParameters {
                 calendar: Calendar = Calendar.current,
                 generateInDates: InDateCellGeneration = .forAllMonths,
                 generateOutDates: OutDateCellGeneration = .tillEndOfGrid,
-                firstDayOfWeek: DaysOfWeek = .sunday,
+                firstDayOfWeek: DaysOfWeek? = nil,
                 hasStrictBoundaries: Bool? = nil) {
         self.startDate = startDate
         self.endDate = endDate
@@ -111,7 +111,12 @@ public struct ConfigurationParameters {
         self.calendar = calendar
         self.generateInDates = generateInDates
         self.generateOutDates = generateOutDates
-        self.firstDayOfWeek = firstDayOfWeek
+        
+        if let firstDayOfWeek = firstDayOfWeek {
+            self.firstDayOfWeek = firstDayOfWeek
+        } else {
+            self.firstDayOfWeek = DaysOfWeek(rawValue: calendar.firstWeekday) ?? .sunday
+        }
     }
 }
 
@@ -136,7 +141,9 @@ struct CalendarData {
 
 /// Defines a month structure.
 public struct Month {
-
+    /// Index of the month
+    let index: Int
+    
     /// Start index day for the month.
     /// The start is total number of days of previous months
     let startDayIndex: Int
@@ -190,7 +197,7 @@ public struct Month {
     
     private func sectionFor(day: Int) -> (externalSection: Int, internalSection: Int) {
         var variableNumber = day
-        let possibleSection = sections.index {
+        let possibleSection = sections.firstIndex {
             let retval = variableNumber + inDates <= $0
             variableNumber -= $0
             return retval
@@ -243,7 +250,11 @@ public struct Month {
     }
 }
 
-struct JTAppleDateConfigGenerator {
+class JTAppleDateConfigGenerator {
+    
+    static let shared =  JTAppleDateConfigGenerator()
+    private init() {}
+    
     func setupMonthInfoDataForStartAndEndDate(_ parameters: ConfigurationParameters)
         -> (months: [Month], monthMap: [Int: Int], totalSections: Int, totalDays: Int) {
             let differenceComponents = parameters.calendar.dateComponents([.month], from: parameters.startDate, to: parameters.endDate)
@@ -316,6 +327,7 @@ struct JTAppleDateConfigGenerator {
                         section += 1
                     }
                     monthArray.append(Month(
+                        index: monthIndex,
                         startDayIndex: startIndexForMonth,
                         startCellIndex: startCellIndexForMonth,
                         sections: sectionsForTheMonth,

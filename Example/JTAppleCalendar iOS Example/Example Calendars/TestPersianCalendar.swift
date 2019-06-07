@@ -10,7 +10,7 @@ import JTAppleCalendar
 
 class TestPersianCalendar: UIViewController {
     
-    @IBOutlet weak var calendarView: JTAppleCalendarView!
+    @IBOutlet weak var calendarView: JTACMonthView!
     
     lazy var dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
@@ -40,7 +40,7 @@ class TestPersianCalendar: UIViewController {
     }
     
     
-    func handleCellSelected(cell: JTAppleCell?, cellState: CellState){
+    func handleCellSelected(cell: JTACDayCell?, cellState: CellState){
         guard let validCell = cell as? CalendarCell else { return }
         if cellState.isSelected {
             validCell.selectedView.isHidden = false
@@ -49,7 +49,7 @@ class TestPersianCalendar: UIViewController {
         }
     }
     
-    func handleCellTextColor(cell: JTAppleCell?, cellState: CellState){
+    func handleCellTextColor(cell: JTACDayCell?, cellState: CellState){
         guard let validCell = cell as? CalendarCell else { return }
         if cellState.isSelected {
             validCell.dateLabel.textColor = UIColor.white
@@ -81,8 +81,8 @@ class TestPersianCalendar: UIViewController {
     }
 }
 
-extension TestPersianCalendar: JTAppleCalendarViewDataSource {
-    func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
+extension TestPersianCalendar: JTACMonthViewDataSource {
+    func configureCalendar(_ calendar: JTACMonthView) -> ConfigurationParameters {
         
         let persianCalendar = Calendar(identifier: .persian)
         
@@ -100,8 +100,8 @@ extension TestPersianCalendar: JTAppleCalendarViewDataSource {
     }
 }
 
-extension TestPersianCalendar: JTAppleCalendarViewDelegate {
-    func calendar(_ calendar: JTAppleCalendarView, willDisplay cell: JTAppleCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
+extension TestPersianCalendar: JTACMonthViewDelegate {
+    func calendar(_ calendar: JTACMonthView, willDisplay cell: JTACDayCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {
         // The code here is the same as cellForItem function
         let cell = cell as! CellView
         cell.dayLabel.text = cellState.text
@@ -110,7 +110,7 @@ extension TestPersianCalendar: JTAppleCalendarViewDelegate {
         handleCellTextColor(cell: cell, cellState: cellState)
     }
     
-    func calendar(_ calendar: JTAppleCalendarView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTAppleCell {
+    func calendar(_ calendar: JTACMonthView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTACDayCell {
         let cell = calendar.dequeueReusableJTAppleCell(withReuseIdentifier: "mainInfo_CalenderCell", for: indexPath) as! CellView
         cell.dayLabel.text = cellState.text
         
@@ -121,13 +121,13 @@ extension TestPersianCalendar: JTAppleCalendarViewDelegate {
     }
     
     
-    func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
+    func calendar(_ calendar: JTACMonthView, didSelectDate date: Date, cell: JTACDayCell?, cellState: CellState) {
         print(cellState.dateBelongsTo)
         handleCellSelected(cell: cell, cellState: cellState)
         handleCellTextColor(cell: cell, cellState: cellState)
     }
     
-    func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
+    func calendar(_ calendar: JTACMonthView, didDeselectDate date: Date, cell: JTACDayCell?, cellState: CellState) {
         handleCellSelected(cell: cell, cellState: cellState)
         handleCellTextColor(cell: cell, cellState: cellState)
     }
@@ -135,7 +135,7 @@ extension TestPersianCalendar: JTAppleCalendarViewDelegate {
     
 }
 
-class CalendarCell: JTAppleCell {
+class CalendarCell: JTACDayCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var selectedView: UIView!
 }

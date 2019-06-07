@@ -2,7 +2,7 @@
 //  UITests.swift
 //  UITests
 //
-//  Created by Jeron Thomas on 2017-09-20.
+//  Created by Jay Thomas on 2017-09-20.
 //
 
 import XCTest

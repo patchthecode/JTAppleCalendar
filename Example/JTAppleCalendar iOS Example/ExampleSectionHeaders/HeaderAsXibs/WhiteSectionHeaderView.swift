@@ -7,6 +7,6 @@
 //
 import JTAppleCalendar
 
-class WhiteSectionHeaderView: JTAppleCollectionReusableView {
+class WhiteSectionHeaderView: JTACMonthReusableView {
     @IBOutlet weak var title: UILabel!
 }

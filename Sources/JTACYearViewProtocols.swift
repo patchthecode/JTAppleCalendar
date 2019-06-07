@@ -1,5 +1,5 @@
 //
-//  JTAppleCalendarDelegateProtocol.swift
+//  JTACYearViewProtocols.swift
 //
 //  Copyright (c) 2016-2017 JTAppleCalendar (https://github.com/patchthecode/JTAppleCalendar)
 //
@@ -22,28 +22,28 @@
 //  THE SOFTWARE.
 //
 
-protocol JTAppleCalendarDelegateProtocol: class {
-    // Variables
-    var allowsDateCellStretching: Bool {get set}
-    var _cachedConfiguration: ConfigurationParameters! {get set}
-    var calendarDataSource: JTAppleCalendarViewDataSource? {get set}
-    var cellSize: CGFloat {get set}
-    var anchorDate: Date? {get set}
-    var isCalendarLayoutLoaded: Bool {get}
-    var minimumInteritemSpacing: CGFloat  {get set}
-    var minimumLineSpacing: CGFloat {get set}
-    var monthInfo: [Month] {get set}
-    var monthMap: [Int: Int] {get set}
-    var scrollDirection: UICollectionView.ScrollDirection! {get set}
-    var sectionInset: UIEdgeInsets {get set}
-    var totalDays: Int {get}
-    var requestedContentOffset: CGPoint {get}
-    
-    // Functions
-    func pathsFromDates(_ dates: [Date]) -> [IndexPath]
-    func sizeOfDecorationView(indexPath: IndexPath) -> CGRect
-    func sizesForMonthSection() -> [AnyHashable:CGFloat]
-    func targetPointForItemAt(indexPath: IndexPath, preferredScrollPosition: UICollectionView.ScrollPosition?) -> CGPoint?
+public protocol JTACYearViewDelegate: class {
+    func calendar(_ calendar: JTACYearView, cellFor item: Any, at date: Date, indexPath: IndexPath) -> JTACMonthCell
+    func calendar(_ calendar: JTACYearView,
+                  monthView: JTACCellMonthView,
+                  drawingFor segmentRect: CGRect,
+                  with date: Date,
+                  dateOwner: DateOwner,
+                  monthIndex index: Int)
+    func calendar(_ calendar: JTACYearView, sizeFor item: Any) -> CGSize
 }
 
-extension JTAppleCalendarView: JTAppleCalendarDelegateProtocol { }
+extension JTACYearViewDelegate {
+    func calendar(_ calendar: JTACYearView,
+                  monthView: JTACCellMonthView,
+                  drawingFor segmentRect: CGRect,
+                  with date: Date,
+                  dateOwner: DateOwner,
+                  monthIndex index: Int){}
+    func calendar(_ calendar: JTACYearView, sizeFor item: Any) -> CGSize { return .zero }
+}
+
+public protocol JTACYearViewDataSource: class {
+    func configureCalendar(_ calendar: JTACYearView) -> (configurationParameters: ConfigurationParameters, months: [Any])
+}
+

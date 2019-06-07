@@ -2,7 +2,7 @@
 //  TestOrientationChanges.swift
 //  JTAppleCalendar
 //
-//  Created by Jeron Thomas on 2017-08-19.
+//  Created by Jay Thomas on 2017-08-19.
 //
 
 import UIKit

@@ -1,5 +1,5 @@
 //
-//  JTAppleCalendarLayoutProtocol.swift
+//  JTACMonthReusableView.swift
 //
 //  Copyright (c) 2016-2017 JTAppleCalendar (https://github.com/patchthecode/JTAppleCalendar)
 //
@@ -22,13 +22,18 @@
 //  THE SOFTWARE.
 //
 
+/// The header view class of the calendar
+@available(*, unavailable, renamed: "JTACMonthReusableView")
+open class JTAppleCollectionReusableView: UICollectionReusableView {}
+open class JTACMonthReusableView: UICollectionReusableView {
+    /// Initializes and returns a newly allocated view object with the specified frame rectangle.
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
 
-protocol JTAppleCalendarLayoutProtocol: class {
-    var minimumInteritemSpacing: CGFloat {get set}
-    var minimumLineSpacing: CGFloat {get set}
-    var sectionInset: UIEdgeInsets {get set}
-    var scrollDirection: UICollectionView.ScrollDirection {get set}
+    /// Returns an object initialized from data in a given unarchiver.
+    /// self, initialized using the data in decoder.
+    required public init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
 }
-
-extension UICollectionViewFlowLayout: JTAppleCalendarLayoutProtocol {}
-

@@ -10,7 +10,7 @@ import XCTest
 @testable import JTAppleCalendar
 
 class JTAppleCalendar_tvOSTests: XCTestCase {
-    let calendarView = JTAppleCalendarView()
+    let calendarView = JTAppleCalendarMonthView()
     let formatter: DateFormatter = {
         let aFormatter = DateFormatter()
         aFormatter.dateFormat = "yyyy MM dd"
