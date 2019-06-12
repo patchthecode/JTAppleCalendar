@@ -199,7 +199,7 @@ extension JTACMonthView: UIScrollViewDelegate {
     
     /// Tells the delegate that the scroll view has
     /// ended decelerating the scrolling movement.
-    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    open func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         visibleDates {[unowned self] dates in
             self.calendarDelegate?.calendar(self, didScrollToDateSegmentWith: dates)
         }
