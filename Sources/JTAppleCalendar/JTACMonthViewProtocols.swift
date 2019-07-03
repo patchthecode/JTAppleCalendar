@@ -31,8 +31,8 @@ import UIKit
 /// the calendar-view object with the information it needs to construct and
 /// then modify it self
 @available(*, unavailable, renamed: "JTACMonthViewDataSource")
-public protocol JTAppleCalendarViewDataSource{}
-public protocol JTACMonthViewDataSource {
+public protocol JTAppleCalendarViewDataSource: class {}
+public protocol JTACMonthViewDataSource: class {
     /// Asks the data source to return the start and end boundary dates
     /// as well as the calendar to use. You should properly configure
     /// your calendar at this point.
@@ -48,7 +48,7 @@ public protocol JTACMonthViewDataSource {
 /// allow the delegate to manage selections, and configure the cells
 @available(*, unavailable, renamed: "JTACMonthViewDelegate")
 public protocol JTAppleCalendarViewDelegate: class {}
-public protocol JTACMonthViewDelegate {
+public protocol JTACMonthViewDelegate: class {
     /// Asks the delegate if selecting the date-cell with a specified date is
     /// allowed
     /// - Parameters:
