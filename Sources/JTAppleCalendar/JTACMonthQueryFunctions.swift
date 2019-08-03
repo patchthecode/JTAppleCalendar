@@ -313,8 +313,15 @@ extension JTACMonthView {
         let selectedPosition = { [unowned self] () -> SelectionRangePosition in
             let selectedDates = self.selectedDatesSet
             if !selectedDates.contains(date) || selectedDates.isEmpty  { return .none }
-            
-            let validSelectedIndexes = self.validForwardAndBackwordSelectedIndexes(forIndexPath: indexPath)
+          
+          let restrictToSection: Bool
+          if self.rangeSelectionMode == .segmentedRange {
+            restrictToSection = true
+          } else {
+             restrictToSection = false
+          }
+          
+          let validSelectedIndexes = self.validForwardAndBackwordSelectedIndexes(forIndexPath: indexPath, restrictToSection: restrictToSection)
             let dateBeforeIsSelected = validSelectedIndexes.backIndex != nil
             let dateAfterIsSelected = validSelectedIndexes.forwardIndex != nil
             
