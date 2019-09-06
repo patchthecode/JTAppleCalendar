@@ -65,8 +65,8 @@ extension JTACMonthView {
     }
 
     var monthInfo: [Month] {
-        get { return theData.months }
-        set { theData.months = newValue }
+        get { return calendarData.months }
+        set { calendarData.months = newValue }
     }
 
     var numberOfMonths: Int {
@@ -74,7 +74,7 @@ extension JTACMonthView {
     }
 
     var totalDays: Int {
-        return theData.totalDays
+        return calendarData.totalDays
     }
 
     var calendarViewLayout: JTACMonthLayout {

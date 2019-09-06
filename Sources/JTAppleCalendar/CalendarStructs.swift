@@ -54,7 +54,7 @@ public struct CellState {
     /// returns the column in which the date cell appears visually
     public let column: () -> Int
     /// returns the section the date cell belongs to
-    public let dateSection: () -> (range: (start: Date, end: Date), month: Int, rowCount: Int)
+    public let dateSection: () -> (range: (start: Date, end: Date), month: Int, rowCount: Int)?
     /// returns the position of a selection in the event you wish to do range selection
     public let selectedPosition: () -> SelectionRangePosition
     /// returns the cell.

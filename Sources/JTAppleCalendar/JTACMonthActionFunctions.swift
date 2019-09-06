@@ -34,7 +34,7 @@ extension JTACMonthView {
     }
 
     func setupMonthInfoAndMap(with data: ConfigurationParameters? = nil) {
-        theData = setupMonthInfoDataForStartAndEndDate(with: data)
+        calendarData = setupMonthInfoDataForStartAndEndDate(with: data)
     }
 
     func developerError(string: String) {

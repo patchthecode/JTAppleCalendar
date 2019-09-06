@@ -100,11 +100,11 @@ extension JTACMonthView {
         // didFinishScrollingAnimation
         // delegate will not get called. Once animation is on let's
         // force a scroll so the delegate MUST get caalled
-        let theOffset = scrollDirection == .horizontal ? offset.x : offset.y
+        let newOffset = scrollDirection == .horizontal ? offset.x : offset.y
         let divValue = scrollDirection == .horizontal ? frame.width : frame.height
-        let sectionForOffset = Int(theOffset / divValue)
+        let sectionForOffset = Int(newOffset / divValue)
         let calendarCurrentOffset = scrollDirection == .horizontal ? contentOffset.x : contentOffset.y
-        if calendarCurrentOffset == theOffset || (scrollingMode.pagingIsEnabled() && (sectionForOffset == currentSection())) {
+        if calendarCurrentOffset == newOffset || (scrollingMode.pagingIsEnabled() && (sectionForOffset == currentSection())) {
             retval = true
         }
         return retval
@@ -311,11 +311,12 @@ extension JTACMonthView {
         let dayOfWeek = DaysOfWeek(rawValue: componentWeekDay)!
 
         let selectedPosition = { [weak self] () -> SelectionRangePosition in
-            let selectedDates = self?.selectedDatesSet
+            guard let self = self else { return .none }
+            let selectedDates = self.selectedDatesSet
             if !selectedDates.contains(date) || selectedDates.isEmpty { return .none }
 
-            let restrictToSection = self?.rangeSelectionMode == .segmented
-            let validSelectedIndexes = self?.validForwardAndBackwordSelectedIndexes(forIndexPath: indexPath, restrictToSection: restrictToSection)
+            let restrictToSection = self.rangeSelectionMode == .segmented
+            let validSelectedIndexes = self.validForwardAndBackwordSelectedIndexes(forIndexPath: indexPath, restrictToSection: restrictToSection)
             let dateBeforeIsSelected = validSelectedIndexes.backIndex != nil
             let dateAfterIsSelected = validSelectedIndexes.forwardIndex != nil
 
@@ -344,9 +345,7 @@ extension JTACMonthView {
             day: dayOfWeek,
             row: { indexPath.item / maxNumberOfDaysInWeek },
             column: { indexPath.item % maxNumberOfDaysInWeek },
-            dateSection: { [weak self] in
-                self?.monthInfoFromSection(indexPath.section)!
-            },
+            dateSection: { [weak self] in self?.monthInfoFromSection(indexPath.section) },
             selectedPosition: selectedPosition,
             cell: { cell },
             selectionType: selectionType
