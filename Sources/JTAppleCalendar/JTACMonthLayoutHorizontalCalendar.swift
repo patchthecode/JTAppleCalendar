@@ -27,10 +27,10 @@ extension JTACMonthLayout {
         var virtualSection = 0
         var totalDayCounter = 0
         let fullSection = numberOfRows * maxNumberOfDaysInWeek
-        
+
         xCellOffset = sectionInset.left
         endSeparator = sectionInset.left + sectionInset.right
-        
+
         for aMonth in monthInfo {
             for numberOfDaysInCurrentSection in aMonth.sections {
                 // Generate and cache the headers
@@ -42,13 +42,13 @@ extension JTACMonthLayout {
                     }
                 }
                 // Generate and cache the cells
-                for dayCounter in 1...numberOfDaysInCurrentSection {
-                    guard let attribute = determineToApplyAttribs(dayCounter - 1, section: virtualSection)  else { continue }
+                for dayCounter in 1 ... numberOfDaysInCurrentSection {
+                    guard let attribute = determineToApplyAttribs(dayCounter - 1, section: virtualSection) else { continue }
                     if cellCache[virtualSection] == nil { cellCache[virtualSection] = [] }
                     cellCache[virtualSection]!.append(attribute)
                     lastWrittenCellAttribute = attribute
                     xCellOffset += attribute.width
-                    
+
                     if strictBoundaryRulesShouldApply {
                         if dayCounter == numberOfDaysInCurrentSection || dayCounter % maxNumberOfDaysInWeek == 0 {
                             // We are at the last item in the section
@@ -76,7 +76,7 @@ extension JTACMonthLayout {
                         }
                     }
                 }
-                
+
                 // Save the content size for each section
                 if strictBoundaryRulesShouldApply {
                     contentWidth += endSeparator
@@ -86,6 +86,6 @@ extension JTACMonthLayout {
                 virtualSection += 1
             }
         }
-        contentHeight = self.collectionView!.bounds.size.height
+        contentHeight = collectionView!.bounds.size.height
     }
 }

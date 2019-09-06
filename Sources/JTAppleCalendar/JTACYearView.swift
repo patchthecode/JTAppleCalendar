@@ -28,44 +28,42 @@ import UIKit
 open class JTACYearView: UICollectionView {
     var configurationParameters = ConfigurationParameters(startDate: Date(), endDate: Date())
     var monthData: [Any] = []
-    
-    
+
     /// The object that acts as the delegate of the calendar year view.
-    weak open var calendarDelegate: JTACYearViewDelegate?
-    weak open var calendarDataSource: JTACYearViewDataSource? {
+    open weak var calendarDelegate: JTACYearViewDelegate?
+    open weak var calendarDataSource: JTACYearViewDataSource? {
         didSet { setupYearViewCalendar() }
     }
-    
+
     /// Workaround for Xcode bug that prevents you from connecting the delegate in the storyboard.
     /// Remove this extra property once Xcode gets fixed.
     @IBOutlet public var ibCalendarDelegate: AnyObject? {
         get { return calendarDelegate }
         set { calendarDelegate = newValue as? JTACYearViewDelegate }
     }
-    
+
     /// Workaround for Xcode bug that prevents you from connecting the delegate in the storyboard.
     /// Remove this extra property once Xcode gets fixed.
     @IBOutlet public var ibCalendarDataSource: AnyObject? {
         get { return calendarDataSource }
         set { calendarDataSource = newValue as? JTACYearViewDataSource }
     }
-    
+
     open func dataSourcefrom(configurationParameters: ConfigurationParameters) -> [Any] {
         return JTAppleDateConfigGenerator.shared.setupMonthInfoDataForStartAndEndDate(configurationParameters).months
     }
-    
+
     func setupYearViewCalendar() {
         guard let validConfig = calendarDataSource?.configureCalendar(self) else {
             print("Invalid datasource")
-            return;
+            return
         }
-        
+
         configurationParameters = validConfig.configurationParameters
-        monthData               = validConfig.months
+        monthData = validConfig.months
         dataSource = self
         delegate = self
     }
-    
 }
 
 extension JTACYearView: JTACCellMonthViewDelegate {

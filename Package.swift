@@ -11,14 +11,17 @@ let package = Package(
     products: [
         .library(
             name: "JTAppleCalendar",
-            targets: ["JTAppleCalendar"]),
+            targets: ["JTAppleCalendar"]
+        ),
     ],
     targets: [
         .target(
             name: "JTAppleCalendar",
-            dependencies: []),
+            dependencies: []
+        ),
         .testTarget(
             name: "JTAppleCalendarTests",
-            dependencies: ["JTAppleCalendar"]),
+            dependencies: ["JTAppleCalendar"]
+        ),
     ]
 )

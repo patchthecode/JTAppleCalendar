@@ -26,44 +26,43 @@ import UIKit
 
 extension JTACMonthView {
     /// Lays out subviews.
-    override open func layoutSubviews() {
+    open override func layoutSubviews() {
         super.layoutSubviews()
         if !generalDelayedExecutionClosure.isEmpty, calendarLayoutIsLoaded {
             executeDelayedTasks(.general)
         }
     }
-    
+
     func setupMonthInfoAndMap(with data: ConfigurationParameters? = nil) {
         theData = setupMonthInfoDataForStartAndEndDate(with: data)
     }
-    
+
     func developerError(string: String) {
         print(string)
         print(developerErrorMessage)
         assert(false)
     }
-    
+
     func setupNewLayout(from oldLayout: JTACMonthLayoutProtocol) {
         let newLayout = JTACMonthLayout(withDelegate: self)
         newLayout.scrollDirection = oldLayout.scrollDirection
         newLayout.sectionInset = oldLayout.sectionInset
         newLayout.minimumInteritemSpacing = oldLayout.minimumInteritemSpacing
         newLayout.minimumLineSpacing = oldLayout.minimumLineSpacing
-        
-        
+
         collectionViewLayout = newLayout
-        
+
         scrollDirection = newLayout.scrollDirection
         sectionInset = newLayout.sectionInset
         minimumLineSpacing = newLayout.minimumLineSpacing
         minimumInteritemSpacing = newLayout.minimumInteritemSpacing
 
         transform.a = semanticContentAttribute == .forceRightToLeft ? -1 : 1
-        
+
         super.dataSource = self
         super.delegate = self
         decelerationRate = .fast
-        
+
         #if os(iOS)
             if isPagingEnabled {
                 scrollingMode = .stopAtEachCalendarFrame
@@ -72,7 +71,7 @@ extension JTACMonthView {
             }
         #endif
     }
-    
+
     func scrollToHeaderInSection(_ section: Int,
                                  triggerScrollToDateDelegate: Bool = false,
                                  withAnimation animation: Bool = true,
@@ -81,16 +80,17 @@ extension JTACMonthView {
         if !calendarViewLayout.thereAreHeaders { return }
         let indexPath = IndexPath(item: 0, section: section)
         guard let attributes = calendarViewLayout.layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, at: indexPath) else { return }
-        
+
         isScrollInProgress = true
         if let validHandler = completionHandler { scrollDelayedExecutionClosure.append(validHandler) }
-        
+
         self.triggerScrollToDateDelegate = triggerScrollToDateDelegate
-        
-        let maxYCalendarOffset = max(0, self.contentSize.height - self.frame.size.height)
+
+        let maxYCalendarOffset = max(0, contentSize.height - frame.size.height)
         var topOfHeader = CGPoint(x: attributes.frame.origin.x - sectionInset.left, y: min(maxYCalendarOffset, attributes.frame.origin.y))
-        if scrollDirection == .horizontal { topOfHeader.x += extraAddedOffset} else { topOfHeader.y += extraAddedOffset }
-        DispatchQueue.main.async {
+        if scrollDirection == .horizontal { topOfHeader.x += extraAddedOffset } else { topOfHeader.y += extraAddedOffset }
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             self.setContentOffset(topOfHeader, animated: animation)
             if (animation && self.calendarOffsetIsAlreadyAtScrollPosition(forOffset: topOfHeader)) ||
                 !animation {
@@ -99,20 +99,20 @@ extension JTACMonthView {
             self.isScrollInProgress = false
         }
     }
-    
+
     // Subclasses cannot use this function
     @available(*, unavailable)
     open override func reloadData() {
         super.reloadData()
     }
-    
+
     func scrollTo(point: CGPoint, triggerScrollToDateDelegate: Bool? = nil, isAnimationEnabled: Bool, extraAddedOffset: CGFloat, completionHandler: (() -> Void)?) {
         isScrollInProgress = true
         if let validCompletionHandler = completionHandler { scrollDelayedExecutionClosure.append(validCompletionHandler) }
         self.triggerScrollToDateDelegate = triggerScrollToDateDelegate
         var point = point
         if scrollDirection == .horizontal { point.x += extraAddedOffset } else { point.y += extraAddedOffset }
-        DispatchQueue.main.async() {
+        DispatchQueue.main.async {
             self.setContentOffset(point, animated: isAnimationEnabled)
             if (isAnimationEnabled && self.calendarOffsetIsAlreadyAtScrollPosition(forOffset: point)) ||
                 !isAnimationEnabled {
@@ -120,13 +120,13 @@ extension JTACMonthView {
             }
         }
     }
-    
+
     func setupMonthInfoDataForStartAndEndDate(with config: ConfigurationParameters? = nil) -> CalendarData {
         var months = [Month]()
         var monthMap = [Int: Int]()
         var totalSections = 0
         var totalDays = 0
-        
+
         var validConfig = config
         if validConfig == nil { validConfig = calendarDataSource?.configureCalendar(self) }
         if let validConfig = validConfig {
@@ -135,15 +135,15 @@ extension JTACMonthView {
                 assert(false, "Error, your start date cannot be greater than your end date\n")
                 return (CalendarData(months: [], totalSections: 0, sectionToMonthMap: [:], totalDays: 0))
             }
-            
+
             // Set the new cache
             _cachedConfiguration = validConfig
-            
+
             if let
                 startMonth = calendar.startOfMonth(for: validConfig.startDate),
                 let endMonth = calendar.endOfMonth(for: validConfig.endDate) {
                 startOfMonthCache = startMonth
-                endOfMonthCache   = endMonth
+                endOfMonthCache = endMonth
                 // Create the parameters for the date format generator
                 let parameters = ConfigurationParameters(startDate: startOfMonthCache,
                                                          endDate: endOfMonthCache,
@@ -153,7 +153,7 @@ extension JTACMonthView {
                                                          generateOutDates: validConfig.generateOutDates,
                                                          firstDayOfWeek: validConfig.firstDayOfWeek,
                                                          hasStrictBoundaries: validConfig.hasStrictBoundaries)
-                
+
                 let generatedData = dateGenerator.setupMonthInfoDataForStartAndEndDate(parameters)
                 months = generatedData.months
                 monthMap = generatedData.monthMap
@@ -164,11 +164,11 @@ extension JTACMonthView {
         let data = CalendarData(months: months, totalSections: totalSections, sectionToMonthMap: monthMap, totalDays: totalDays)
         return data
     }
-    
+
     func batchReloadIndexPaths(_ indexPaths: [IndexPath]) {
         let visiblePaths = indexPathsForVisibleItems
         var visibleCellsToReload: [JTACDayCell: IndexPath] = [:]
-        
+
         for path in indexPaths {
             if calendarViewLayout.cachedValue(for: path.item, section: path.section) == nil { continue }
             pathsToReload.insert(path)
@@ -176,40 +176,40 @@ extension JTACMonthView {
                 visibleCellsToReload[cellForItem(at: path) as! JTACDayCell] = path
             }
         }
-        
+
         // Reload the visible paths
         if !visibleCellsToReload.isEmpty {
             for (cell, path) in visibleCellsToReload {
-                self.collectionView(self, willDisplay: cell, forItemAt: path)
+                collectionView(self, willDisplay: cell, forItemAt: path)
             }
         }
     }
-    
+
     func addCellToSelectedSet(_ indexPath: IndexPath, date: Date, cellState: CellState) {
         selectedCellData[indexPath] = SelectedCellData(indexPath: indexPath, date: date, cellState: cellState)
     }
-    
+
     func deleteCellFromSelectedSetIfSelected(_ indexPath: IndexPath) {
         selectedCellData.removeValue(forKey: indexPath)
         deselectItem(at: indexPath, animated: false)
     }
-    
+
     // Returns an indexPath if valid one was found
-    func deselectCounterPartCellIndexPath(_ indexPath: IndexPath, date: Date, dateOwner: DateOwner) -> IndexPath? {
+    func deselectCounterPartCellIndexPath(_: IndexPath, date: Date, dateOwner: DateOwner) -> IndexPath? {
         guard let counterPartCellIndexPath = indexPathOfdateCellCounterPath(date, dateOwner: dateOwner) else { return nil }
         deleteCellFromSelectedSetIfSelected(counterPartCellIndexPath)
         return counterPartCellIndexPath
     }
-    
+
     func selectCounterPartCellIndexPath(_ indexPath: IndexPath, date: Date, dateOwner: DateOwner) -> IndexPath? {
         guard let counterPartCellIndexPath = indexPathOfdateCellCounterPath(date, dateOwner: dateOwner) else { return nil }
         let counterPartCellState = cellStateFromIndexPath(counterPartCellIndexPath, isSelected: true)
         addCellToSelectedSet(counterPartCellIndexPath, date: date, cellState: counterPartCellState)
-        
+
         // Update the selectedCellData counterIndexPathData
         selectedCellData[indexPath]?.counterIndexPath = counterPartCellIndexPath
         selectedCellData[counterPartCellIndexPath]?.counterIndexPath = indexPath
-        
+
         if allowsMultipleSelection {
             // only if multiple selection is enabled. With single selection, we do not want the counterpart cell to be
             // selected in place of the main cell. With multiselection, however, all can be selected
@@ -217,9 +217,9 @@ extension JTACMonthView {
         }
         return counterPartCellIndexPath
     }
-    
+
     func executeDelayedTasks(_ type: DelayedTaskType) {
-        let tasksToExecute: [(() -> Void)]
+        let tasksToExecute: [() -> Void]
         switch type {
         case .scroll:
             tasksToExecute = scrollDelayedExecutionClosure
@@ -230,7 +230,7 @@ extension JTACMonthView {
         }
         for aTaskToExecute in tasksToExecute { aTaskToExecute() }
     }
-    
+
     // Only reload the dates if the datasource information has changed
     func reloadDelegateDataSource() -> (shouldReload: Bool, configParameters: ConfigurationParameters?) {
         var retval: (Bool, ConfigurationParameters?) = (false, nil)
@@ -239,46 +239,46 @@ extension JTACMonthView {
             // Jt101 do a check in each var to see if
             // user has bad star/end dates
             let newStartOfMonth = calendar.startOfMonth(for: newDateBoundary.startDate)
-            let newEndOfMonth   = calendar.endOfMonth(for: newDateBoundary.endDate)
+            let newEndOfMonth = calendar.endOfMonth(for: newDateBoundary.endDate)
             let oldStartOfMonth = calendar.startOfMonth(for: startDateCache)
-            let oldEndOfMonth   = calendar.endOfMonth(for: endDateCache)
-            let newLastMonth    = sizesForMonthSection()
-            let calendarLayout  = calendarViewLayout
-            
+            let oldEndOfMonth = calendar.endOfMonth(for: endDateCache)
+            let newLastMonth = sizesForMonthSection()
+            let calendarLayout = calendarViewLayout
+
             if
                 // ConfigParameters were changed
-                newStartOfMonth                     != oldStartOfMonth ||
-                newEndOfMonth                       != oldEndOfMonth ||
-                newDateBoundary.calendar            != _cachedConfiguration.calendar ||
-                newDateBoundary.numberOfRows        != _cachedConfiguration.numberOfRows ||
-                newDateBoundary.generateInDates     != _cachedConfiguration.generateInDates ||
-                newDateBoundary.generateOutDates    != _cachedConfiguration.generateOutDates ||
-                newDateBoundary.firstDayOfWeek      != _cachedConfiguration.firstDayOfWeek ||
+                newStartOfMonth != oldStartOfMonth ||
+                newEndOfMonth != oldEndOfMonth ||
+                newDateBoundary.calendar != _cachedConfiguration.calendar ||
+                newDateBoundary.numberOfRows != _cachedConfiguration.numberOfRows ||
+                newDateBoundary.generateInDates != _cachedConfiguration.generateInDates ||
+                newDateBoundary.generateOutDates != _cachedConfiguration.generateOutDates ||
+                newDateBoundary.firstDayOfWeek != _cachedConfiguration.firstDayOfWeek ||
                 newDateBoundary.hasStrictBoundaries != _cachedConfiguration.hasStrictBoundaries ||
                 // Other layout information were changed
-                minimumInteritemSpacing  != calendarLayout.minimumInteritemSpacing ||
-                minimumLineSpacing       != calendarLayout.minimumLineSpacing ||
-                sectionInset             != calendarLayout.sectionInset ||
-                lastMonthSize            != newLastMonth ||
+                minimumInteritemSpacing != calendarLayout.minimumInteritemSpacing ||
+                minimumLineSpacing != calendarLayout.minimumLineSpacing ||
+                sectionInset != calendarLayout.sectionInset ||
+                lastMonthSize != newLastMonth ||
                 allowsDateCellStretching != calendarLayout.allowsDateCellStretching ||
-                scrollDirection          != calendarLayout.scrollDirection ||
+                scrollDirection != calendarLayout.scrollDirection ||
                 calendarLayout.isDirty {
-                    lastMonthSize = newLastMonth
-                    retval = (true, newDateBoundary)
+                lastMonthSize = newLastMonth
+                retval = (true, newDateBoundary)
             }
         }
-        
+
         return retval
     }
-    
-    func remapSelectedDatesWithCurrentLayout() -> (selected:(indexPaths:[IndexPath], counterPaths:[IndexPath]), selectedDates: [Date]) {
-        var retval = (selected:(indexPaths:[IndexPath](), counterPaths:[IndexPath]()), selectedDates: [Date]())
+
+    func remapSelectedDatesWithCurrentLayout() -> (selected: (indexPaths: [IndexPath], counterPaths: [IndexPath]), selectedDates: [Date]) {
+        var retval = (selected: (indexPaths: [IndexPath](), counterPaths: [IndexPath]()), selectedDates: [Date]())
         if !selectedDates.isEmpty {
             let selectedDates = self.selectedDates
-            
+
             // Get the new paths
             let newPaths = pathsFromDates(selectedDates)
-            
+
             // Get the new counter Paths
             var newCounterPaths: [IndexPath] = []
             for date in selectedDates {
@@ -286,11 +286,11 @@ extension JTACMonthView {
                     newCounterPaths.append(counterPath)
                 }
             }
-            
+
             // Append paths
             retval.selected.indexPaths.append(contentsOf: newPaths)
             retval.selected.counterPaths.append(contentsOf: newCounterPaths)
-            
+
             // Append dates to retval
             for allPaths in [newPaths, newCounterPaths] {
                 for path in allPaths {

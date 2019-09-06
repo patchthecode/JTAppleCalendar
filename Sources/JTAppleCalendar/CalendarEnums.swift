@@ -35,6 +35,7 @@ public enum SegmentDestination {
     /// end the destination is the end segment
     case end
 }
+
 /// Describes the types of out-date cells to be generated.
 public enum OutDateCellGeneration {
     /// tillEndOfRow will generate dates till it reaches the end of a row.
@@ -76,22 +77,22 @@ public enum ScrollingMode: Equatable {
     case nonStopTo(customInterval: CGFloat, withResistance: CGFloat)
     /// none - continuous scrolling that will eventually stop at a point
     case none
-    
+
     func pagingIsEnabled() -> Bool {
         switch self {
         case .stopAtEachCalendarFrame: return true
         default: return false
         }
     }
-    
-    public static func ==(lhs: ScrollingMode, rhs: ScrollingMode) -> Bool {
+
+    public static func == (lhs: ScrollingMode, rhs: ScrollingMode) -> Bool {
         switch (lhs, rhs) {
         case (.none, .none),
              (.stopAtEachCalendarFrame, .stopAtEachCalendarFrame),
              (.stopAtEachSection, .stopAtEachSection): return true
-        case (let .stopAtEach(customInterval: v1), let .stopAtEach(customInterval: v2)): return v1 == v2
-        case (let .nonStopToSection(withResistance: v1), let .nonStopToSection(withResistance: v2)): return v1 == v2
-        case (let .nonStopToCell(withResistance: v1), let .nonStopToCell(withResistance: v2)): return v1 == v2
+        case let (.stopAtEach(customInterval: v1), .stopAtEach(customInterval: v2)): return v1 == v2
+        case let (.nonStopToSection(withResistance: v1), .nonStopToSection(withResistance: v2)): return v1 == v2
+        case let (.nonStopToCell(withResistance: v1), .nonStopToCell(withResistance: v2)): return v1 == v2
         case (let .nonStopTo(customInterval: v1, withResistance: x1), let .nonStopTo(customInterval: v2, withResistance: x2)): return v1 == v2 && x1 == x2
         default: return false
         }
@@ -107,6 +108,7 @@ public enum DateOwner: Int {
         followingMonthWithinBoundary,
         followingMonthOutsideBoundary
 }
+
 /// Months of the year
 public enum MonthsOfYear: Int {
     case jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec
@@ -120,7 +122,7 @@ public enum SelectionRangePosition: Int {
 
 /// Between month segments, the range selection can either be visually disconnected or connected
 public enum RangeSelectionMode {
-  case segmented, continuous
+    case segmented, continuous
 }
 
 /// Signifies whether or not a selection was done programatically or by the user

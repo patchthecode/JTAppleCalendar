@@ -23,17 +23,16 @@
 //
 
 extension JTACMonthLayout {
-    
     func configureVerticalLayout() {
         var virtualSection = 0
         var totalDayCounter = 0
         let fullSection = numberOfRows * maxNumberOfDaysInWeek
-        
-        xCellOffset   = sectionInset.left
-        yCellOffset   = sectionInset.top
+
+        xCellOffset = sectionInset.left
+        yCellOffset = sectionInset.top
         contentHeight = sectionInset.top
-        endSeparator  = sectionInset.top + sectionInset.bottom
-        
+        endSeparator = sectionInset.top + sectionInset.bottom
+
         for aMonth in monthInfo {
             for numberOfDaysInCurrentSection in aMonth.sections {
                 // Generate and cache the headers
@@ -45,44 +44,43 @@ extension JTACMonthLayout {
                     }
                 }
                 // Generate and cache the cells
-                for dayCounter in 1...numberOfDaysInCurrentSection {
+                for dayCounter in 1 ... numberOfDaysInCurrentSection {
                     totalDayCounter += 1
                     guard let attribute = determineToApplyAttribs(dayCounter - 1, section: virtualSection) else { continue }
                     if cellCache[virtualSection] == nil { cellCache[virtualSection] = [] }
                     cellCache[virtualSection]!.append(attribute)
                     lastWrittenCellAttribute = attribute
                     xCellOffset += attribute.width
-                    
+
                     if strictBoundaryRulesShouldApply {
                         if dayCounter == numberOfDaysInCurrentSection || dayCounter % maxNumberOfDaysInWeek == 0 {
                             // We are at the last item in the
                             // section && if we have headers
-                            
+
                             xCellOffset = sectionInset.left
                             yCellOffset += attribute.height
                             contentHeight += attribute.height
-                            
+
                             if dayCounter == numberOfDaysInCurrentSection {
-                                yCellOffset   += sectionInset.top
+                                yCellOffset += sectionInset.top
                                 contentHeight += sectionInset.top
                                 endOfSectionOffsets.append(contentHeight - sectionInset.top)
                             }
                         }
                     } else {
                         if totalDayCounter % fullSection == 0 {
-                            
                             yCellOffset += attribute.height + sectionInset.top
                             xCellOffset = sectionInset.left
                             contentHeight = yCellOffset
                             endOfSectionOffsets.append(contentHeight - sectionInset.top)
-                            
+
                         } else {
                             if totalDayCounter >= delegate.totalDays {
                                 yCellOffset += attribute.height + sectionInset.top
                                 contentHeight = yCellOffset
                                 endOfSectionOffsets.append(contentHeight - sectionInset.top)
                             }
-                            
+
                             if totalDayCounter % maxNumberOfDaysInWeek == 0 {
                                 xCellOffset = sectionInset.left
                                 yCellOffset += attribute.height
@@ -93,6 +91,6 @@ extension JTACMonthLayout {
                 virtualSection += 1
             }
         }
-        contentWidth = self.collectionView!.bounds.size.width
+        contentWidth = collectionView!.bounds.size.width
     }
 }

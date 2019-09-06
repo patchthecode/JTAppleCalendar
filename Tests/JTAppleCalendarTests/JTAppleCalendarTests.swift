@@ -1,5 +1,5 @@
-import XCTest
 @testable import JTAppleCalendar
+import XCTest
 
 final class JTAppleCalendarTests: XCTestCase {
     func testExample() {

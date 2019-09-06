@@ -25,7 +25,6 @@
 import UIKit
 
 extension JTACMonthView {
-    
     /// Returns the cellStatus of a date that is visible on the screen.
     /// If the row and column for the date cannot be found,
     /// then nil is returned
@@ -45,7 +44,7 @@ extension JTACMonthView {
         }
         return nil
     }
-    
+
     /// Returns the cell status for a given date
     /// - Parameter: date Date of the cell you want to find
     /// - returns:
@@ -61,30 +60,30 @@ extension JTACMonthView {
         let stateOfCell = cellStateFromIndexPath(paths[0], cell: cell)
         return stateOfCell
     }
-    
+
     /// Returns the cell status for a given date
     /// - Parameter: date Date of the cell you want to find
     /// - returns:
     ///     - CellState: The state of the found cell
-    public func cellStatus(for date: Date, completionHandler: @escaping (_ cellStatus: CellState?) ->()) {
+    public func cellStatus(for date: Date, completionHandler: @escaping (_ cellStatus: CellState?) -> Void) {
         if !calendarLayoutIsLoaded || isReloadDataInProgress {
-            addToDelayedHandlers {[unowned self] in
-                self.cellStatus(for: date, completionHandler: completionHandler)
+            addToDelayedHandlers { [weak self] in
+                self?.cellStatus(for: date, completionHandler: completionHandler)
             }
             return
         }
         let retval = cellStatus(for: date)
         completionHandler(retval)
     }
-    
-    func addToDelayedHandlers(function: @escaping ()->()) {
+
+    func addToDelayedHandlers(function: @escaping () -> Void) {
         if isScrollInProgress {
             scrollDelayedExecutionClosure.append { function() }
         } else {
             generalDelayedExecutionClosure.append { function() }
         }
     }
-    
+
     /// Returns the month status for a given date
     /// - Parameter: date Date of the cell you want to find
     /// - returns:
@@ -94,11 +93,11 @@ extension JTACMonthView {
             let calendar = _cachedConfiguration?.calendar,
             let startMonth = startOfMonthCache,
             let monthIndex = calendar.dateComponents([.month], from: startMonth, to: date).month else {
-                return nil
+            return nil
         }
         return monthInfo[monthIndex]
     }
-    
+
     /// Returns the cell status for a given point
     /// - Parameter: point of the cell you want to find
     /// - returns:
@@ -110,7 +109,7 @@ extension JTACMonthView {
         }
         return nil
     }
-    
+
     /// Deselect all selected dates
     /// - Parameter: this funciton triggers a delegate call by default. Set this to false if you do not want this
     /// - Parameter keepDeselectionIfMultiSelectionAllowed:
@@ -119,7 +118,7 @@ extension JTACMonthView {
     public func deselectAllDates(triggerSelectionDelegate: Bool = true) {
         deselect(dates: selectedDates, triggerSelectionDelegate: triggerSelectionDelegate)
     }
-    
+
     /// Deselect dates
     /// - Parameter: Dates - The dates to deselect
     /// - Parameter: triggerSelectionDelegate - this funciton triggers a delegate call by default. Set this to false if you do not want this
@@ -140,15 +139,15 @@ extension JTACMonthView {
             collectionView(self, didDeselectItemAt: paths[0])
         }
     }
-    
+
     /// Notifies the container that the size of its view is about to change.
-    public func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator, anchorDate: Date?) {
+    public func viewWillTransition(to _: CGSize, with _: UIViewControllerTransitionCoordinator, anchorDate: Date?) {
         DispatchQueue.main.async { [weak self] in
             guard let _self = self else { return }
             _self.reloadData(withAnchor: anchorDate)
         }
     }
-    
+
     /// Generates a range of dates from from a startDate to an
     /// endDate you provide
     /// Parameter startDate: Start date to generate dates from
@@ -162,42 +161,45 @@ extension JTACMonthView {
         repeat {
             returnDates.append(currentDate)
             currentDate = calendar.startOfDay(for: calendar.date(
-                byAdding: .day, value: 1, to: currentDate)!)
+                byAdding: .day, value: 1, to: currentDate
+            )!)
         } while currentDate <= endDate
         return returnDates
     }
-    
+
     /// Registers a class for use in creating supplementary views for the collection view.
     /// For now, the calendar only supports: 'UICollectionElementKindSectionHeader' for the forSupplementaryViewOfKind(parameter)
-    open override func register(_ viewClass: AnyClass?, forSupplementaryViewOfKind elementKind: String, withReuseIdentifier identifier: String) {
+    open override func register(_ viewClass: AnyClass?, forSupplementaryViewOfKind _: String, withReuseIdentifier identifier: String) {
         super.register(viewClass, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier)
     }
-    
+
     /// Registers a class for use in creating supplementary views for the collection view.
     /// For now, the calendar only supports: 'UICollectionElementKindSectionHeader' for the forSupplementaryViewOfKind(parameter)
-    open override func register(_ nib: UINib?, forSupplementaryViewOfKind kind: String, withReuseIdentifier identifier: String) {
+    open override func register(_ nib: UINib?, forSupplementaryViewOfKind _: String, withReuseIdentifier identifier: String) {
         super.register(nib, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier)
     }
-    
+
     /// Dequeues re-usable calendar cells
     public func dequeueReusableJTAppleSupplementaryView(withReuseIdentifier identifier: String, for indexPath: IndexPath) -> JTACMonthReusableView {
         guard let headerView = dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
                                                                 withReuseIdentifier: identifier,
                                                                 for: indexPath) as? JTACMonthReusableView else {
-                                                                    developerError(string: "Error initializing Header View with identifier: '\(identifier)'")
-                                                                    return JTACMonthReusableView()
+            developerError(string: "Error initializing Header View with identifier: '\(identifier)'")
+            return JTACMonthReusableView()
         }
         return headerView
     }
-    
+
     /// Registers a nib for use in creating Decoration views for the collection view.
     public func registerDecorationView(nib: UINib?) {
         calendarViewLayout.register(nib, forDecorationViewOfKind: decorationViewID)
     }
+
     /// Registers a class for use in creating Decoration views for the collection view.
-    public func register(viewClass className: AnyClass?, forDecorationViewOfKind kind: String) {
+    public func register(viewClass className: AnyClass?, forDecorationViewOfKind _: String) {
         calendarViewLayout.register(className, forDecorationViewOfKind: decorationViewID)
     }
+
     /// Dequeues a reuable calendar cell
     public func dequeueReusableJTAppleCell(withReuseIdentifier identifier: String, for indexPath: IndexPath) -> JTACDayCell {
         guard let cell = dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? JTACDayCell else {
@@ -206,7 +208,7 @@ extension JTACMonthView {
         }
         return cell
     }
-    
+
     /// Reloads the data on the calendar view. Scroll delegates are not
     //  triggered with this function.
     /// - Parameter date: An anchordate that the calendar will
@@ -217,15 +219,15 @@ extension JTACMonthView {
     public func reloadData(withAnchor date: Date? = nil, completionHandler: (() -> Void)? = nil) {
         if isReloadDataInProgress { return }
         if isScrollInProgress {
-            scrollDelayedExecutionClosure.append {[unowned self] in
+            scrollDelayedExecutionClosure.append { [unowned self] in
                 self.reloadData(completionHandler: completionHandler)
             }
             return
         }
-        
+
         isReloadDataInProgress = true
         anchorDate = date
-        
+
         let selectedDates = self.selectedDates
         let data = reloadDelegateDataSource()
         if data.shouldReload {
@@ -236,15 +238,15 @@ extension JTACMonthView {
 
         // Restore the selected index paths if dates were already selected.
         if !selectedDates.isEmpty {
-            calendarViewLayout.delayedExecutionClosure.append {[weak self] in
-                guard let _self = self else { return}
+            calendarViewLayout.delayedExecutionClosure.append { [weak self] in
+                guard let _self = self else { return }
                 _self.isReloadDataInProgress = false
                 _self.selectDates(selectedDates, triggerSelectionDelegate: false, keepSelectionIfMultiSelectionAllowed: true)
             }
         }
 
-        // Add calendar reload completion 
-        calendarViewLayout.delayedExecutionClosure.append {[weak self] in
+        // Add calendar reload completion
+        calendarViewLayout.delayedExecutionClosure.append { [weak self] in
             guard let _self = self else { return }
             _self.isReloadDataInProgress = false
             completionHandler?()
@@ -255,7 +257,7 @@ extension JTACMonthView {
             super.reloadData()
         }
     }
-    
+
     /// Reload the date of specified date-cells on the calendar-view
     /// - Parameter dates: Date-cells with these specified
     ///                    dates will be reloaded
@@ -266,14 +268,14 @@ extension JTACMonthView {
             if let validPath = aPath.first {
                 paths.insert(validPath)
                 let cellState = cellStateFromIndexPath(validPath)
-                if let validCounterPartCellPath = indexPathOfdateCellCounterPath(date,dateOwner: cellState.dateBelongsTo) {
+                if let validCounterPartCellPath = indexPathOfdateCellCounterPath(date, dateOwner: cellState.dateBelongsTo) {
                     paths.insert(validCounterPartCellPath)
                 }
             }
         }
         batchReloadIndexPaths(Array(paths))
     }
-    
+
     /// Select a date-cell range
     /// - Parameter startDate: Date to start the selection from
     /// - Parameter endDate: Date to end the selection from
@@ -291,7 +293,7 @@ extension JTACMonthView {
                     triggerSelectionDelegate: triggerSelectionDelegate,
                     keepSelectionIfMultiSelectionAllowed: keepSelectionIfMultiSelectionAllowed)
     }
-    
+
     /// Deselect all selected dates within a range
     /// - Parameter: start - Start of date range to deselect
     /// - Parameter: end of date range to deselect
@@ -303,9 +305,8 @@ extension JTACMonthView {
         let end = end ?? selectedDates.last!
         let dates = selectedDates.filter { $0 >= start && $0 <= end }
         deselect(dates: dates, triggerSelectionDelegate: triggerSelectionDelegate, keepDeselectionIfMultiSelectionAllowed: keepDeselectionIfMultiSelectionAllowed)
-        
     }
-    
+
     /// Select a date-cells
     /// - Parameter date: The date-cell with this date will be selected
     /// - Parameter triggerDidSelectDelegate: Triggers the delegate function
@@ -318,10 +319,10 @@ extension JTACMonthView {
     ///    Selecting those 4 dates again would give U | S | U | U. With KeepSelection, this becomes S | S | S | S
     public func selectDates(_ dates: [Date], triggerSelectionDelegate: Bool = true, keepSelectionIfMultiSelectionAllowed: Bool = false) {
         if dates.isEmpty { return }
-        if (!calendarLayoutIsLoaded || isReloadDataInProgress) {
+        if !calendarLayoutIsLoaded || isReloadDataInProgress {
             // If the calendar is not yet fully loaded.
             // Add the task to the delayed queue
-            generalDelayedExecutionClosure.append {[unowned self] in
+            generalDelayedExecutionClosure.append { [unowned self] in
                 self.selectDates(dates,
                                  triggerSelectionDelegate: triggerSelectionDelegate,
                                  keepSelectionIfMultiSelectionAllowed: keepSelectionIfMultiSelectionAllowed)
@@ -335,20 +336,20 @@ extension JTACMonthView {
         if !allowsMultipleSelection, let dateToSelect = dates.last {
             validDatesToSelect = [dateToSelect]
         }
-        
+
         for date in validDatesToSelect {
             let date = calendar.startOfDay(for: date)
             let components = calendar.dateComponents([.year, .month, .day], from: date)
             let firstDayOfDate = calendar.date(from: components)!
-            
+
             // If the date is not within valid boundaries, then exit
             if !(firstDayOfDate >= startOfMonthCache! && firstDayOfDate <= endOfMonthCache!) { continue }
-            
+
             let pathFromDates = pathsFromDates([date])
             // If the date path youre searching for, doesnt exist, return
             if pathFromDates.isEmpty { continue }
             let sectionIndexPath = pathFromDates[0]
-            
+
             // Remove old selections
             if allowsMultipleSelection {
                 // If multiple selection is on. Multiple selection behaves differently to singleselection.
@@ -358,10 +359,10 @@ extension JTACMonthView {
                     guard
                         let selectedIndexPaths = indexPathsForSelectedItems,
                         selectedIndexPaths.contains(sectionIndexPath) else {
-                            // Select the item if it is not selected (not included in indexPathsForSelectedItems).
-                            // This makes the cell to be in selected state thus, if selected physically, will call the didDeselect function
-                            programaticallySelectItem(at: sectionIndexPath, shouldTriggerSelectionDelegate: triggerSelectionDelegate)
-                            continue
+                        // Select the item if it is not selected (not included in indexPathsForSelectedItems).
+                        // This makes the cell to be in selected state thus, if selected physically, will call the didDeselect function
+                        programaticallySelectItem(at: sectionIndexPath, shouldTriggerSelectionDelegate: triggerSelectionDelegate)
+                        continue
                     }
                     // Just add it to be reloaded, if it is already selected
                     allIndexPathsToReload.insert(sectionIndexPath)
@@ -375,8 +376,8 @@ extension JTACMonthView {
             } else {
                 // If single selection is ON
                 let selectedIndexPaths = selectedCellData
-                
-                if let cellData = (selectedIndexPaths.filter { $0.key != sectionIndexPath  }.first) {
+
+                if let cellData = (selectedIndexPaths.filter { $0.key != sectionIndexPath }.first) {
                     programaticallyDeselectItem(at: cellData.value.indexPath, shouldTriggerSelectionDelegate: triggerSelectionDelegate)
                 }
                 // Add new selections Must be added here. If added in delegate didSelectItemAtIndexPath
@@ -385,7 +386,7 @@ extension JTACMonthView {
         }
         // If triggering was false, although the selectDelegates weren't
         // called, we do want the cell refreshed. Reload to call itemAtIndexPath
-        if !triggerSelectionDelegate && !allIndexPathsToReload.isEmpty {
+        if !triggerSelectionDelegate, !allIndexPathsToReload.isEmpty {
             // Because sometimes if not on main thread, it will not get the
             // visible cells in the following function
             DispatchQueue.main.async {
@@ -405,7 +406,7 @@ extension JTACMonthView {
         selectItem(at: indexPath, animated: false, scrollPosition: [])
         handleSelectionValueChanged(self, action: .didSelect, indexPath: indexPath, selectionType: .programatic, shouldTriggerSelectionDelegate: shouldTriggerSelectionDelegate)
     }
-    
+
     /// Scrolls the calendar view to the next section view. It will execute a completion handler at the end of scroll animation if provided.
     /// - Paramater direction: Indicates a direction to scroll
     /// - Paramater animateScroll: Bool indicating if animation should be enabled
@@ -417,7 +418,7 @@ extension JTACMonthView {
                                 extraAddedOffset: CGFloat = 0,
                                 completionHandler: (() -> Void)? = nil) {
         if functionIsUnsafeSafeToRun {
-            addToDelayedHandlers {[unowned self] in
+            addToDelayedHandlers { [unowned self] in
                 self.scrollToSegment(destination,
                                      triggerScrollToDateDelegate: triggerScrollToDateDelegate,
                                      animateScroll: animateScroll,
@@ -430,7 +431,7 @@ extension JTACMonthView {
         let fixedScrollSize: CGFloat
         var xOffset: CGFloat = 0
         var yOffset: CGFloat = 0
-        
+
         switch scrollDirection {
         case .horizontal:
             if calendarViewLayout.thereAreHeaders || _cachedConfiguration.generateOutDates == .tillEndOfGrid {
@@ -438,12 +439,12 @@ extension JTACMonthView {
             } else {
                 fixedScrollSize = frame.width
             }
-            
+
             var section = contentOffset.x / fixedScrollSize
             let roundedSection = round(section)
             if abs(roundedSection - section) < errorDelta { section = roundedSection }
             section = CGFloat(Int(section))
-            
+
             xOffset = (fixedScrollSize * section)
             switch destination {
             case .next:
@@ -455,7 +456,7 @@ extension JTACMonthView {
             case .start:
                 xOffset = 0
             }
-            
+
             if xOffset <= 0 {
                 xOffset = 0
             } else if xOffset >= contentSize.width - frame.width {
@@ -470,9 +471,8 @@ extension JTACMonthView {
                 numberOfSections(in: self) < 0 {
                 return
             }
-            
+
             if calendarViewLayout.thereAreHeaders {
-                
                 switch destination {
                 case .next:
                     scrollToHeaderInSection(currentSection + 1, extraAddedOffset: extraAddedOffset, completionHandler: completionHandler)
@@ -492,21 +492,21 @@ extension JTACMonthView {
                 case .start: yOffset = 0 // Set to min
                 }
             }
-            
+
             if yOffset <= 0 {
                 yOffset = 0
             } else if yOffset >= contentSize.height - frame.height {
                 yOffset = contentSize.height - frame.height
             }
         }
-        
+
         scrollTo(point: CGPoint(x: xOffset, y: yOffset),
                  triggerScrollToDateDelegate: triggerScrollToDateDelegate,
                  isAnimationEnabled: animateScroll,
                  extraAddedOffset: extraAddedOffset,
                  completionHandler: completionHandler)
     }
-    
+
     /// Scrolls the calendar view to the start of a section view containing a specified date.
     /// - Paramater date: The calendar view will scroll to a date-cell containing this date if it exists
     /// - Parameter triggerScrollToDateDelegate: Trigger delegate if set to true
@@ -517,14 +517,13 @@ extension JTACMonthView {
     public func scrollToDate(_ date: Date,
                              triggerScrollToDateDelegate: Bool = true,
                              animateScroll: Bool = true,
-                             preferredScrollPosition: UICollectionView.ScrollPosition? = nil,
+                             preferredScrollPosition _: UICollectionView.ScrollPosition? = nil,
                              extraAddedOffset: CGFloat = 0,
                              completionHandler: (() -> Void)? = nil) {
-        
         // Ensure scrolling to date is safe to run
         if functionIsUnsafeSafeToRun {
-            if !animateScroll  { anchorDate = date} // Gets rid of visible scrolling when calendar starts
-            addToDelayedHandlers {[unowned self] in
+            if !animateScroll { anchorDate = date } // Gets rid of visible scrolling when calendar starts
+            addToDelayedHandlers { [unowned self] in
                 self.scrollToDate(date,
                                   triggerScrollToDateDelegate: triggerScrollToDateDelegate,
                                   animateScroll: animateScroll,
@@ -533,20 +532,20 @@ extension JTACMonthView {
             }
             return
         }
-        
+
         // Set triggereing of delegate on scroll
         self.triggerScrollToDateDelegate = triggerScrollToDateDelegate
-        
+
         // Ensure date is within valid boundary
         let components = calendar.dateComponents([.year, .month, .day], from: date)
         let firstDayOfDate = calendar.date(from: components)!
         if !((firstDayOfDate >= startOfMonthCache!) && (firstDayOfDate <= endOfMonthCache!)) { return }
-        
+
         // Get valid indexPath of date to scroll to
         let retrievedPathsFromDates = pathsFromDates([date])
         if retrievedPathsFromDates.isEmpty { return }
         let sectionIndexPath = pathsFromDates([date])[0]
-        
+
         guard let point = targetPointForItemAt(indexPath: sectionIndexPath) else {
             assert(false, "Could not determine CGPoint. This is an error. contact developer on github. In production, there will not be a crash, but scrolling will not occur")
             return
@@ -558,7 +557,7 @@ extension JTACMonthView {
                  extraAddedOffset: extraAddedOffset,
                  completionHandler: completionHandler)
     }
-    
+
     /// Scrolls the calendar view to the start of a section view header.
     /// If the calendar has no headers registered, then this function does nothing
     /// - Paramater date: The calendar view will scroll to the header of
@@ -569,7 +568,7 @@ extension JTACMonthView {
                                       extraAddedOffset: CGFloat = 0,
                                       completionHandler: (() -> Void)? = nil) {
         if functionIsUnsafeSafeToRun {
-            if !animation  { anchorDate = date}
+            if !animation { anchorDate = date }
             addToDelayedHandlers { [unowned self] in
                 self.scrollToHeaderForDate(date,
                                            triggerScrollToDateDelegate: triggerScrollToDateDelegate,
@@ -590,18 +589,18 @@ extension JTACMonthView {
             completionHandler: completionHandler
         )
     }
-    
+
     /// Returns the visible dates of the calendar.
     /// - returns:
     ///     - DateSegmentInfo
-    public func visibleDates()-> DateSegmentInfo {
+    public func visibleDates() -> DateSegmentInfo {
         return datesAtCurrentOffset()
     }
-    
+
     /// Returns the visible dates of the calendar.
     /// - returns:
     ///     - DateSegmentInfo
-    public func visibleDates(_ completionHandler: @escaping (_ dateSegmentInfo: DateSegmentInfo) ->()) {
+    public func visibleDates(_ completionHandler: @escaping (_ dateSegmentInfo: DateSegmentInfo) -> Void) {
         if functionIsUnsafeSafeToRun {
             addToDelayedHandlers { [unowned self] in self.visibleDates(completionHandler) }
             return
@@ -609,7 +608,7 @@ extension JTACMonthView {
         let retval = visibleDates()
         completionHandler(retval)
     }
-    
+
     /// Retrieves the current section
     public func currentSection() -> Int? {
         let minVisiblePaths = calendarViewLayout.minimumVisibleIndexPaths()

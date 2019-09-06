@@ -28,36 +28,36 @@ extension JTACMonthView {
     func validForwardAndBackwordSelectedIndexes(forIndexPath indexPath: IndexPath, restrictToSection: Bool = true) -> (forwardIndex: IndexPath?, backIndex: IndexPath?, set: Set<IndexPath>) {
         var retval: (forwardIndex: IndexPath?, backIndex: IndexPath?, set: Set<IndexPath>) = (forwardIndex: nil, backIndex: nil, set: [])
         if let validForwardIndex = calendarViewLayout.indexPath(direction: .next, of: indexPath.section, item: indexPath.item),
-            (restrictToSection ? validForwardIndex.section == indexPath.section : true),
+            restrictToSection ? validForwardIndex.section == indexPath.section : true,
             selectedCellData[validForwardIndex] != nil {
             retval.forwardIndex = validForwardIndex
             retval.set.insert(validForwardIndex)
         }
         if
             let validBackwardIndex = calendarViewLayout.indexPath(direction: .previous, of: indexPath.section, item: indexPath.item),
-            (restrictToSection ? validBackwardIndex.section == indexPath.section : true),
+            restrictToSection ? validBackwardIndex.section == indexPath.section : true,
             selectedCellData[validBackwardIndex] != nil {
             retval.backIndex = validBackwardIndex
             retval.set.insert(validBackwardIndex)
         }
         return retval
     }
-    
+
     // Determines the CGPoint of an index path. The point will vary depending on the scrollingMode
-    func targetPointForItemAt(indexPath: IndexPath, preferredScrollPosition: UICollectionView.ScrollPosition? = nil) -> CGPoint? {
+    func targetPointForItemAt(indexPath: IndexPath, preferredScrollPosition _: UICollectionView.ScrollPosition? = nil) -> CGPoint? {
         guard let targetCellFrame = calendarViewLayout.layoutAttributesForItem(at: indexPath)?.frame else { // Jt101 This was changed !!
             return nil
         }
 
         var x: CGFloat = scrollDirection == .horizontal ? targetCellFrame.origin.x : 0
         var y: CGFloat = scrollDirection == .vertical ? targetCellFrame.origin.y : 0
-        
+
         let theTargetContentOffset: CGFloat = scrollDirection == .horizontal ? targetCellFrame.origin.x : targetCellFrame.origin.y
         var fixedScrollSize: CGFloat = 0
         switch scrollingMode {
         case let .stopAtEach(customInterval: x): fixedScrollSize = x
         case let .nonStopTo(customInterval: x, withResistance: _): fixedScrollSize = x
-        case .stopAtEachCalendarFrame: fixedScrollSize = scrollDirection == .horizontal ? self.frame.width : self.frame.height
+        case .stopAtEachCalendarFrame: fixedScrollSize = scrollDirection == .horizontal ? frame.width : frame.height
         default: break
         }
 
@@ -72,9 +72,9 @@ extension JTACMonthView {
                 y = roundedFrameSection * fixedScrollSize
             }
         case .stopAtEachSection, .nonStopToSection:
-            if scrollDirection == .horizontal  {
+            if scrollDirection == .horizontal {
                 let section = calendarViewLayout.sectionFromOffset(theTargetContentOffset)
-                guard let validValue = calendarViewLayout.cachedValue(for: 0, section: section)?.2 else { return nil}
+                guard let validValue = calendarViewLayout.cachedValue(for: 0, section: section)?.2 else { return nil }
                 x = validValue - sectionInset.left
             } else {
                 // If headers, then find the section headers cgpoint for a cellDate. I no headers, then find the first cell's cgpoint of section
@@ -92,7 +92,7 @@ extension JTACMonthView {
         }
         return CGPoint(x: x, y: y)
     }
-    
+
     func calendarOffsetIsAlreadyAtScrollPosition(forOffset offset: CGPoint) -> Bool {
         var retval = false
         // If the scroll is set to animate, and the target content
@@ -104,12 +104,12 @@ extension JTACMonthView {
         let divValue = scrollDirection == .horizontal ? frame.width : frame.height
         let sectionForOffset = Int(theOffset / divValue)
         let calendarCurrentOffset = scrollDirection == .horizontal ? contentOffset.x : contentOffset.y
-        if calendarCurrentOffset == theOffset || (scrollingMode.pagingIsEnabled() && (sectionForOffset ==  currentSection())) {
+        if calendarCurrentOffset == theOffset || (scrollingMode.pagingIsEnabled() && (sectionForOffset == currentSection())) {
             retval = true
         }
         return retval
     }
-    
+
     func calendarOffsetIsAlreadyAtScrollPosition(forIndexPath indexPath: IndexPath) -> Bool {
         var retval = false
         // If the scroll is set to animate, and the target content offset
@@ -126,16 +126,16 @@ extension JTACMonthView {
                 layoutOffset = attributes.frame.origin.y
                 calendarOffset = contentOffset.y
             }
-            if  calendarOffset == layoutOffset {
+            if calendarOffset == layoutOffset {
                 retval = true
             }
         }
         return retval
     }
-    
+
     func indexPathOfdateCellCounterPath(_ date: Date, dateOwner: DateOwner) -> IndexPath? {
-        if (_cachedConfiguration.generateInDates == .off ||
-            _cachedConfiguration.generateInDates == .forFirstMonthOnly) &&
+        if _cachedConfiguration.generateInDates == .off ||
+            _cachedConfiguration.generateInDates == .forFirstMonthOnly,
             _cachedConfiguration.generateOutDates == .off {
             return nil
         }
@@ -158,15 +158,15 @@ extension JTACMonthView {
                 print("Invalid Index")
                 return nil
             }
-            if case 1...13 = dayIndex {
+            if case 1 ... 13 = dayIndex {
                 // then check the previous month
                 // get the index path of the last day of the previous month
                 let periodApart = calendar.dateComponents([.month], from: startOfMonthCache, to: date)
                 guard
                     let monthSectionIndex = periodApart.month, monthSectionIndex - 1 >= 0 else {
-                        // If there is no previous months,
-                        // there are no counterpart dates
-                        return retval
+                    // If there is no previous months,
+                    // there are no counterpart dates
+                    return retval
                 }
                 let previousMonthInfo = monthInfo[monthSectionIndex - 1]
                 // If there are no postdates for the previous month,
@@ -177,10 +177,10 @@ extension JTACMonthView {
                 guard
                     let prevMonth = calendar.date(byAdding: .month, value: -1, to: date),
                     let lastDayOfPrevMonth = calendar.endOfMonth(for: prevMonth) else {
-                        assert(false, "Error generating date in indexPathOfdateCellCounterPath(). Contact the developer on github")
-                        return retval
+                    assert(false, "Error generating date in indexPathOfdateCellCounterPath(). Contact the developer on github")
+                    return retval
                 }
-                
+
                 let indexPathOfLastDayOfPreviousMonth = pathsFromDates([lastDayOfPrevMonth])
                 if indexPathOfLastDayOfPreviousMonth.isEmpty {
                     print("out of range error in indexPathOfdateCellCounterPath() upper. This should not happen. Contact developer on github")
@@ -190,7 +190,7 @@ extension JTACMonthView {
                 var section = lastDayIndexPath.section
                 var itemIndex = lastDayIndexPath.item + dayIndex
                 // Determine if the sections/item needs to be adjusted
-                
+
                 let numberOfItemsInSection = collectionView(self, numberOfItemsInSection: section)
                 guard numberOfItemsInSection > 0 else {
                     assert(false, "Number of sections in calendar = 0. Possible fixes (1) is your calendar visible size 0,0? (2) is your calendar already loaded/visible?")
@@ -202,13 +202,13 @@ extension JTACMonthView {
                 itemIndex = extraIndex
                 let reCalcRapth = IndexPath(item: itemIndex, section: section)
                 retval = reCalcRapth
-            } else if case 23...31 = dayIndex { // check the following month
+            } else if case 23 ... 31 = dayIndex { // check the following month
                 let periodApart = calendar.dateComponents([.month], from: startOfMonthCache, to: date)
                 let monthSectionIndex = periodApart.month!
                 if monthSectionIndex + 1 >= monthInfo.count {
                     return retval
                 }
-                
+
                 // If there is no following months, there are no counterpart dates
                 let followingMonthInfo = monthInfo[monthSectionIndex + 1]
                 if followingMonthInfo.inDates < 1 {
@@ -227,18 +227,18 @@ extension JTACMonthView {
         }
         return retval
     }
-    
-    func sizesForMonthSection() -> [AnyHashable:CGFloat] {
-        var retval: [AnyHashable:CGFloat] = [:]
+
+    func sizesForMonthSection() -> [AnyHashable: CGFloat] {
+        var retval: [AnyHashable: CGFloat] = [:]
         guard
             let headerSizes = calendarDelegate?.calendarSizeForMonths(self),
             headerSizes.defaultSize > 0 else {
-                return retval
+            return retval
         }
-        
+
         // Build the default
         retval["default"] = headerSizes.defaultSize
-        
+
         // Build the every-month data
         if let allMonths = headerSizes.months {
             for (size, months) in allMonths {
@@ -248,7 +248,7 @@ extension JTACMonthView {
                 }
             }
         }
-        
+
         // Build the specific month data
         if let specificSections = headerSizes.dates {
             for (size, dateArray) in specificSections {
@@ -260,11 +260,11 @@ extension JTACMonthView {
         }
         return retval
     }
-    
+
     func pathsFromDates(_ dates: [Date]) -> [IndexPath] {
         var returnPaths: [IndexPath] = []
         for date in dates {
-            if calendar.startOfDay(for: date) >= startOfMonthCache! && calendar.startOfDay(for: date) <= endOfMonthCache! {
+            if calendar.startOfDay(for: date) >= startOfMonthCache!, calendar.startOfDay(for: date) <= endOfMonthCache! {
                 let periodApart = calendar.dateComponents([.month], from: startOfMonthCache, to: date)
                 let day = calendar.dateComponents([.day], from: date).day!
                 guard let monthSectionIndex = periodApart.month else { continue }
@@ -276,7 +276,7 @@ extension JTACMonthView {
         }
         return returnPaths
     }
-    
+
     func cellStateFromIndexPath(_ indexPath: IndexPath,
                                 withDateInfo info: (date: Date, owner: DateOwner)? = nil,
                                 cell: JTACDayCell? = nil,
@@ -293,41 +293,41 @@ extension JTACMonthView {
                                  dateBelongsTo: .thisMonth,
                                  date: Date(),
                                  day: .sunday,
-                                 row: { return 0 },
-                                 column: { return 0 },
-                                 dateSection: { return (range: (Date(), Date()), month: 0, rowCount: 0) },
-                                 selectedPosition: {return .left},
-                                 cell: {return nil},
+                                 row: { 0 },
+                                 column: { 0 },
+                                 dateSection: { (range: (Date(), Date()), month: 0, rowCount: 0) },
+                                 selectedPosition: { .left },
+                                 cell: { nil },
                                  selectionType: nil)
             }
             validDateInfo = newDateInfo
         }
         let date = validDateInfo.date
         let dateBelongsTo = validDateInfo.owner
-        
+
         let currentDay = calendar.component(.day, from: date)
         let componentWeekDay = calendar.component(.weekday, from: date)
         let cellText = String(describing: currentDay)
         let dayOfWeek = DaysOfWeek(rawValue: componentWeekDay)!
-        
-        let selectedPosition = { [unowned self] () -> SelectionRangePosition in
-            let selectedDates = self.selectedDatesSet
-            if !selectedDates.contains(date) || selectedDates.isEmpty  { return .none }
-          
-          let restrictToSection = self.rangeSelectionMode == .segmented
-          let validSelectedIndexes = self.validForwardAndBackwordSelectedIndexes(forIndexPath: indexPath, restrictToSection: restrictToSection)
+
+        let selectedPosition = { [weak self] () -> SelectionRangePosition in
+            let selectedDates = self?.selectedDatesSet
+            if !selectedDates.contains(date) || selectedDates.isEmpty { return .none }
+
+            let restrictToSection = self?.rangeSelectionMode == .segmented
+            let validSelectedIndexes = self?.validForwardAndBackwordSelectedIndexes(forIndexPath: indexPath, restrictToSection: restrictToSection)
             let dateBeforeIsSelected = validSelectedIndexes.backIndex != nil
             let dateAfterIsSelected = validSelectedIndexes.forwardIndex != nil
-            
+
             var position: SelectionRangePosition
-            
+
             if dateBeforeIsSelected, dateAfterIsSelected {
                 position = .middle
             } else if !dateBeforeIsSelected, dateAfterIsSelected {
                 position = .left
             } else if dateBeforeIsSelected, !dateAfterIsSelected {
                 position = .right
-            } else if !dateBeforeIsSelected, !dateAfterIsSelected  {
+            } else if !dateBeforeIsSelected, !dateAfterIsSelected {
                 position = .full
             } else {
                 position = .none
@@ -335,42 +335,42 @@ extension JTACMonthView {
 
             return position
         }
-        
+
         let cellState = CellState(
             isSelected: isSelected ?? (selectedCellData[indexPath] != nil),
             text: cellText,
             dateBelongsTo: dateBelongsTo,
             date: date,
             day: dayOfWeek,
-            row: { return indexPath.item / maxNumberOfDaysInWeek },
-            column: { return indexPath.item % maxNumberOfDaysInWeek },
-            dateSection: { [unowned self] in
-                return self.monthInfoFromSection(indexPath.section)!
+            row: { indexPath.item / maxNumberOfDaysInWeek },
+            column: { indexPath.item % maxNumberOfDaysInWeek },
+            dateSection: { [weak self] in
+                self?.monthInfoFromSection(indexPath.section)!
             },
             selectedPosition: selectedPosition,
-            cell: { return cell },
+            cell: { cell },
             selectionType: selectionType
         )
         return cellState
     }
-    
+
     func monthInfoFromSection(_ section: Int) -> (range: (start: Date, end: Date), month: Int, rowCount: Int)? {
         guard let monthIndex = monthMap[section] else {
             return nil
         }
         let monthData = monthInfo[monthIndex]
-        
+
         guard
             let monthDataMapSection = monthData.sectionIndexMaps[section],
             let indices = monthData.boundaryIndicesFor(section: monthDataMapSection) else {
-                return nil
+            return nil
         }
         let startIndexPath = IndexPath(item: indices.startIndex, section: section)
         let endIndexPath = IndexPath(item: indices.endIndex, section: section)
         guard
             let startDate = dateOwnerInfoFromPath(startIndexPath)?.date,
             let endDate = dateOwnerInfoFromPath(endIndexPath)?.date else {
-                return nil
+            return nil
         }
         if let monthDate = calendar.date(byAdding: .month, value: monthIndex, to: startDateCache) {
             let monthNumber = calendar.dateComponents([.month], from: monthDate)
@@ -379,15 +379,15 @@ extension JTACMonthView {
         }
         return nil
     }
-    
+
     func dateSegmentInfoFrom(visible indexPaths: [IndexPath]) -> DateSegmentInfo {
-        var inDates    = [(Date, IndexPath)]()
+        var inDates = [(Date, IndexPath)]()
         var monthDates = [(Date, IndexPath)]()
-        var outDates   = [(Date, IndexPath)]()
-        
+        var outDates = [(Date, IndexPath)]()
+
         for indexPath in indexPaths {
             let info = dateOwnerInfoFromPath(indexPath)
-            if let validInfo = info  {
+            if let validInfo = info {
                 switch validInfo.owner {
                 case .thisMonth:
                     monthDates.append((validInfo.date, indexPath))
@@ -398,11 +398,11 @@ extension JTACMonthView {
                 }
             }
         }
-        
+
         let retval = DateSegmentInfo(indates: inDates, monthDates: monthDates, outdates: outDates)
         return retval
     }
-    
+
     func dateOwnerInfoFromPath(_ indexPath: IndexPath) -> (date: Date, owner: DateOwner)? { // Returns nil if date is out of scope
         guard let monthIndex = monthMap[indexPath.section] else {
             return nil
@@ -417,20 +417,20 @@ extension JTACMonthView {
         default:
             offSet = 0
             let currentSectionIndexMap = monthData.sectionIndexMaps[indexPath.section]!
-            numberOfDaysToAddToOffset = monthData.sections[0..<currentSectionIndexMap].reduce(0, +)
+            numberOfDaysToAddToOffset = monthData.sections[0 ..< currentSectionIndexMap].reduce(0, +)
             numberOfDaysToAddToOffset -= monthData.inDates
         }
-        
+
         var dayIndex = 0
         var dateOwner: DateOwner = .thisMonth
         let date: Date?
-        if indexPath.item >= offSet && indexPath.item + numberOfDaysToAddToOffset < monthData.numberOfDaysInMonth + offSet {
+        if indexPath.item >= offSet, indexPath.item + numberOfDaysToAddToOffset < monthData.numberOfDaysInMonth + offSet {
             // This is a month date
             dayIndex = monthData.startDayIndex + indexPath.item - offSet + numberOfDaysToAddToOffset
             date = calendar.date(byAdding: .day, value: dayIndex, to: startOfMonthCache)
         } else if indexPath.item < offSet {
             // This is a preDate
-            dayIndex = indexPath.item - offSet  + monthData.startDayIndex
+            dayIndex = indexPath.item - offSet + monthData.startDayIndex
             date = calendar.date(byAdding: .day, value: dayIndex, to: startOfMonthCache)
             if date! < startOfMonthCache {
                 dateOwner = .previousMonthOutsideBoundary
@@ -439,7 +439,7 @@ extension JTACMonthView {
             }
         } else {
             // This is a postDate
-            dayIndex =  monthData.startDayIndex - offSet + indexPath.item + numberOfDaysToAddToOffset
+            dayIndex = monthData.startDayIndex - offSet + indexPath.item + numberOfDaysToAddToOffset
             date = calendar.date(byAdding: .day, value: dayIndex, to: startOfMonthCache)
             if date! > endOfMonthCache {
                 dateOwner = .followingMonthOutsideBoundary
@@ -450,20 +450,19 @@ extension JTACMonthView {
         guard let validDate = date else { return nil }
         return (validDate, dateOwner)
     }
-    
+
     func datesAtCurrentOffset(_ offset: CGPoint? = nil) -> DateSegmentInfo {
-        
         let rect: CGRect?
         if let offset = offset {
             rect = CGRect(x: offset.x + 1, y: offset.y + 1, width: frame.width - 2, height: frame.height - 2)
         } else {
             rect = nil
         }
-        
+
         let emptySegment = DateSegmentInfo(indates: [], monthDates: [], outdates: [])
-        
+
         guard calendarLayoutIsLoaded else { return emptySegment }
-        
+
         let cellAttributes = calendarViewLayout.elementsAtRect(excludeHeaders: true, from: rect)
         let indexPaths: [IndexPath] = cellAttributes.map { $0.indexPath }.sorted()
         return dateSegmentInfoFrom(visible: indexPaths)

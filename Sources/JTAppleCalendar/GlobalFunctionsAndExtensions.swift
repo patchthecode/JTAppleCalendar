@@ -31,31 +31,29 @@ extension Calendar {
         dateFormatter.isLenient = true
         return dateFormatter
     }()
-    
 
     func startOfMonth(for date: Date) -> Date? {
-        guard let interval = self.dateInterval(of: .month, for: date) else { return nil }
+        guard let interval = dateInterval(of: .month, for: date) else { return nil }
         return interval.start
     }
-    
+
     func endOfMonth(for date: Date) -> Date? {
         guard let interval = self.dateInterval(of: .month, for: date) else { return nil }
-        return self.date(byAdding: DateComponents(day: -1), to: interval.end)
+        return date(byAdding: DateComponents(day: -1), to: interval.end)
     }
-    
+
     private func dateFormatterComponents(from date: Date) -> (month: Int, year: Int)? {
-        
         // Setup the dateformatter to this instance's settings
-        Calendar.formatter.timeZone = self.timeZone
-        Calendar.formatter.locale = self.locale
+        Calendar.formatter.timeZone = timeZone
+        Calendar.formatter.locale = locale
         Calendar.formatter.calendar = self
-        
-        let comp = self.dateComponents([.year, .month], from: date)
-        
+
+        let comp = dateComponents([.year, .month], from: date)
+
         guard
             let month = comp.month,
             let year = comp.year else {
-                return nil
+            return nil
         }
         return (month, year)
     }

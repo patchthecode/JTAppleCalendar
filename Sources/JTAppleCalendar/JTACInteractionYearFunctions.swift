@@ -25,7 +25,6 @@
 import Foundation
 
 extension JTACYearView {
-   
     /// Dequeues a reuable calendar cell
     public func dequeueReusableJTAppleMonthCell(withReuseIdentifier identifier: String, for indexPath: IndexPath) -> JTACMonthCell {
         guard let cell = dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? JTACMonthCell else {
@@ -34,5 +33,4 @@ extension JTACYearView {
         }
         return cell
     }
-    
 }

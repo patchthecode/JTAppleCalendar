@@ -77,7 +77,7 @@ public protocol JTACMonthViewDelegate: class {
     ///             This may be nil if the selected cell is off the screen
     ///     - cellState: The month the date-cell belongs to.
     func calendar(_ calendar: JTACMonthView, didSelectDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath)
-    
+
     /// Tells the delegate that a date-cell
     /// with a specified date was de-selected
     /// - Parameters:
@@ -87,14 +87,14 @@ public protocol JTACMonthViewDelegate: class {
     ///             This may be nil if the selected cell is off the screen
     ///     - cellState: The month the date-cell belongs to.
     func calendar(_ calendar: JTACMonthView, didDeselectDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath)
-    
+
     /// Tells the delegate that the item at the specified index path was highlighted.
     /// - Parameters:
     ///     - calendar: The JTAppleCalendar view giving this information.
     ///     - date: The date attached to the date-cell.
     ///     - cellState: The month the date-cell belongs to.
     func calendar(_ calendar: JTACMonthView, didHighlightDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath)
-    
+
     /// Tells the delegate that the item at the specified index path was un-highlighted.
     /// - Parameters:
     ///     - calendar: The JTAppleCalendar view giving this information.
@@ -117,7 +117,7 @@ public protocol JTACMonthViewDelegate: class {
     ///     - startDate: The date at the start of the segment.
     ///     - endDate: The date at the end of the segment.
     func calendar(_ calendar: JTACMonthView, willScrollToDateSegmentWith visibleDates: DateSegmentInfo)
-    
+
     /// Tells the delegate that the JTAppleCalendar is about to display
     /// a date-cell. This is the point of customization for your date cells
     /// - Parameters:
@@ -134,16 +134,16 @@ public protocol JTACMonthViewDelegate: class {
     ///     - date: The date attached to the header.
     ///     - indexPath: use this value when dequeing cells
     func calendar(_ calendar: JTACMonthView, headerViewForDateRange range: (start: Date, end: Date), at indexPath: IndexPath) -> JTACMonthReusableView
-    
+
     /// Informs the delegate that the user just lifted their finger from swiping the calendar
     func scrollDidEndDecelerating(for calendar: JTACMonthView)
-    
+
     /// Tells the delegate that a scroll occured
     func calendarDidScroll(_ calendar: JTACMonthView)
-    
+
     /// Called to retrieve the size to be used for the month headers
     func calendarSizeForMonths(_ calendar: JTACMonthView?) -> MonthSize?
-    
+
     /// Implement the function to configure calendar cells. The code that will go in here is the same
     /// that you will code for your cellForItem function. This function is only called to address
     /// inconsistencies in the visual appearance as stated by Apple: https://developer.apple.com/documentation/uikit/uicollectionview/1771771-prefetchingenabled
@@ -155,27 +155,28 @@ public protocol JTACMonthViewDelegate: class {
     ///     - cellState: The month the date-cell belongs to.
     ///     - indexPath: use this value when dequeing cells
     func calendar(_ calendar: JTACMonthView, willDisplay cell: JTACDayCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath)
-    
+
     /// Called to retrieve the size to be used for decoration views
     func sizeOfDecorationView(indexPath: IndexPath) -> CGRect
 }
 
 /// Default delegate functions
 public extension JTACMonthViewDelegate {
-    func calendar(_ calendar: JTACMonthView, shouldSelectDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath) -> Bool { return true }
-    func calendar(_ calendar: JTACMonthView, shouldDeselectDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath) -> Bool { return true }
-    func calendar(_ calendar: JTACMonthView, didSelectDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath) {}
-    func calendar(_ calendar: JTACMonthView, didDeselectDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath) {}
-    func calendar(_ calendar: JTACMonthView, didHighlightDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath) {}
-    func calendar(_ calendar: JTACMonthView, didUnhighlightDate date: Date, cell: JTACDayCell?, cellState: CellState, indexPath: IndexPath) {}
-    func calendar(_ calendar: JTACMonthView, willScrollToDateSegmentWith visibleDates: DateSegmentInfo) {}
-    func calendar(_ calendar: JTACMonthView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {}
-    func calendar(_ calendar: JTACMonthView, headerViewForDateRange range: (start: Date, end: Date), at indexPath: IndexPath) -> JTACMonthReusableView {
+    func calendar(_: JTACMonthView, shouldSelectDate _: Date, cell _: JTACDayCell?, cellState _: CellState, indexPath _: IndexPath) -> Bool { return true }
+    func calendar(_: JTACMonthView, shouldDeselectDate _: Date, cell _: JTACDayCell?, cellState _: CellState, indexPath _: IndexPath) -> Bool { return true }
+    func calendar(_: JTACMonthView, didSelectDate _: Date, cell _: JTACDayCell?, cellState _: CellState, indexPath _: IndexPath) {}
+    func calendar(_: JTACMonthView, didDeselectDate _: Date, cell _: JTACDayCell?, cellState _: CellState, indexPath _: IndexPath) {}
+    func calendar(_: JTACMonthView, didHighlightDate _: Date, cell _: JTACDayCell?, cellState _: CellState, indexPath _: IndexPath) {}
+    func calendar(_: JTACMonthView, didUnhighlightDate _: Date, cell _: JTACDayCell?, cellState _: CellState, indexPath _: IndexPath) {}
+    func calendar(_: JTACMonthView, willScrollToDateSegmentWith _: DateSegmentInfo) {}
+    func calendar(_: JTACMonthView, didScrollToDateSegmentWith _: DateSegmentInfo) {}
+    func calendar(_: JTACMonthView, headerViewForDateRange _: (start: Date, end: Date), at _: IndexPath) -> JTACMonthReusableView {
         assert(false, "You have implemted a header size function, but forgot to implement the `headerViewForDateRange` function")
         return JTACMonthReusableView()
     }
-    func calendarDidScroll(_ calendar: JTACMonthView) {}
-    func calendarSizeForMonths(_ calendar: JTACMonthView?) -> MonthSize? { return nil }
-    func sizeOfDecorationView(indexPath: IndexPath) -> CGRect { return .zero }
-    func scrollDidEndDecelerating(for calendar: JTACMonthView) {}
+
+    func calendarDidScroll(_: JTACMonthView) {}
+    func calendarSizeForMonths(_: JTACMonthView?) -> MonthSize? { return nil }
+    func sizeOfDecorationView(indexPath _: IndexPath) -> CGRect { return .zero }
+    func scrollDidEndDecelerating(for _: JTACMonthView) {}
 }

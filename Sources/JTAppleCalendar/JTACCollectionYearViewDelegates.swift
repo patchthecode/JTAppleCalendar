@@ -22,30 +22,30 @@
 //  THE SOFTWARE.
 //
 
-import UIKit
 import Foundation
+import UIKit
 
 extension JTACYearView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         return monthData.count
     }
-    
-    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+
+    public func collectionView(_: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard
             let delegate = calendarDelegate,
             monthData.count > indexPath.item else {
-                print("Invalid startup parameters. Exiting calendar setup.")
-                assert(false)
-                return UICollectionViewCell()
+            print("Invalid startup parameters. Exiting calendar setup.")
+            assert(false)
+            return UICollectionViewCell()
         }
-        
+
         if let monthData = monthData[indexPath.item] as? Month {
             guard let date = configurationParameters.calendar.date(byAdding: .month, value: monthData.index, to: configurationParameters.startDate) else {
                 print("Invalid startup parameters. Exiting calendar setup.")
                 assert(false)
                 return UICollectionViewCell()
             }
-            
+
             let cell = delegate.calendar(self, cellFor: self.monthData[indexPath.item], at: date, indexPath: indexPath)
             cell.setupWith(configurationParameters: configurationParameters,
                            month: monthData,
@@ -56,10 +56,10 @@ extension JTACYearView: UICollectionViewDelegate, UICollectionViewDataSource, UI
             return delegate.calendar(self, cellFor: self.monthData[indexPath.item], at: date, indexPath: indexPath)
         }
     }
-    
+
     func findFirstMonthCellDate(cellIndex: Int, monthData: [Any]) -> Date {
         var retval = configurationParameters.endDate
-        for index in cellIndex..<monthData.count {
+        for index in cellIndex ..< monthData.count {
             if let aMonth = monthData[index] as? Month {
                 guard let date = configurationParameters.calendar.date(byAdding: .month, value: aMonth.index, to: configurationParameters.startDate) else {
                     print("Invalid startup parameters. Exiting calendar setup.")
@@ -70,11 +70,11 @@ extension JTACYearView: UICollectionViewDelegate, UICollectionViewDataSource, UI
                 break
             }
         }
-        
+
         return retval
     }
-    
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+    public func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let size = calendarDelegate?.calendar(self, sizeFor: monthData[indexPath.item]) else {
             let width: CGFloat = monthData[indexPath.item] is Month ? (frame.width - 40) / 3 : frame.width
             let height = width

@@ -37,16 +37,15 @@ public protocol JTACYearViewDelegate: class {
 }
 
 extension JTACYearViewDelegate {
-    func calendar(_ calendar: JTACYearView,
-                  monthView: JTACCellMonthView,
-                  drawingFor segmentRect: CGRect,
-                  with date: Date,
-                  dateOwner: DateOwner,
-                  monthIndex index: Int){}
-    func calendar(_ calendar: JTACYearView, sizeFor item: Any) -> CGSize { return .zero }
+    func calendar(_: JTACYearView,
+                  monthView _: JTACCellMonthView,
+                  drawingFor _: CGRect,
+                  with _: Date,
+                  dateOwner _: DateOwner,
+                  monthIndex _: Int) {}
+    func calendar(_: JTACYearView, sizeFor _: Any) -> CGSize { return .zero }
 }
 
 public protocol JTACYearViewDataSource: class {
     func configureCalendar(_ calendar: JTACYearView) -> (configurationParameters: ConfigurationParameters, months: [Any])
 }
-

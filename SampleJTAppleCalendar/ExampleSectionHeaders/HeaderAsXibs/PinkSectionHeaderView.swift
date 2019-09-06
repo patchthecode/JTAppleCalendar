@@ -6,8 +6,8 @@
 //  Copyright © 2016 CocoaPods. All rights reserved.
 //
 
-import UIKit
 import JTAppleCalendar
+import UIKit
 
 class PinkSectionHeaderView: JTACMonthReusableView {
     @IBOutlet var title: UILabel!

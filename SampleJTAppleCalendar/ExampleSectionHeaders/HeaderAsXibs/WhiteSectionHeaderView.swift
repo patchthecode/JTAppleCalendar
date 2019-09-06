@@ -1,4 +1,5 @@
 //
+import JTAppleCalendar
 //  WhiteSectionHeaderView.swift
 //  JTAppleCalendar
 //
@@ -6,8 +7,7 @@
 //  Copyright © 2016 CocoaPods. All rights reserved.
 //
 import UIKit
-import JTAppleCalendar
 
 class WhiteSectionHeaderView: JTACMonthReusableView {
-    @IBOutlet weak var title: UILabel!
+    @IBOutlet var title: UILabel!
 }

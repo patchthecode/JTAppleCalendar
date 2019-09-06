@@ -6,8 +6,8 @@
 //  Copyright © 2016 OS-Tech. All rights reserved.
 //
 
-import UIKit
 import JTAppleCalendar
+import UIKit
 
 class CellView: JTACDayCell {
     @IBOutlet var selectedView: UIView!

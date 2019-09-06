@@ -25,11 +25,10 @@
 import UIKit
 
 protocol JTACMonthLayoutProtocol: class {
-    var minimumInteritemSpacing: CGFloat {get set}
-    var minimumLineSpacing: CGFloat {get set}
-    var sectionInset: UIEdgeInsets {get set}
-    var scrollDirection: UICollectionView.ScrollDirection {get set}
+    var minimumInteritemSpacing: CGFloat { get set }
+    var minimumLineSpacing: CGFloat { get set }
+    var sectionInset: UIEdgeInsets { get set }
+    var scrollDirection: UICollectionView.ScrollDirection { get set }
 }
 
 extension UICollectionViewFlowLayout: JTACMonthLayoutProtocol {}
-

@@ -33,50 +33,50 @@ extension JTACMonthView {
         get { return calendarDelegate as AnyObject? }
         set { calendarDelegate = newValue as? JTACMonthViewDelegate }
     }
-    
+
     /// Workaround for Xcode bug that prevents you from connecting the delegate in the storyboard.
     /// Remove this extra property once Xcode gets fixed.
     @IBOutlet public var ibCalendarDataSource: AnyObject? {
         get { return calendarDataSource as AnyObject? }
         set { calendarDataSource = newValue as? JTACMonthViewDataSource }
     }
-    
+
     @available(*, unavailable)
     /// Will not be used by subclasses
     open override var delegate: UICollectionViewDelegate? {
         get { return super.delegate }
         set { /* Do nothing */ }
     }
-    
+
     @available(*, unavailable)
     /// Will not be used by subclasses
     open override var dataSource: UICollectionViewDataSource? {
         get { return super.dataSource }
-        set {/* Do nothing */ }
+        set { /* Do nothing */ }
     }
-    
+
     /// Returns all selected dates
     open var selectedDates: [Date] {
         return selectedDatesSet.sorted()
     }
-    
+
     var selectedDatesSet: Set<Date> {
         return Set(selectedCellData.values.map { $0.date })
     }
-    
+
     var monthInfo: [Month] {
         get { return theData.months }
         set { theData.months = newValue }
     }
-    
+
     var numberOfMonths: Int {
         return monthInfo.count
     }
-    
+
     var totalDays: Int {
         return theData.totalDays
     }
-             
+
     var calendarViewLayout: JTACMonthLayout {
         guard let layout = collectionViewLayout as? JTACMonthLayout else {
             developerError(string: "Calendar layout is not of type JTAppleCalendarMonthLayout.")
@@ -84,11 +84,11 @@ extension JTACMonthView {
         }
         return layout
     }
-    
+
     var functionIsUnsafeSafeToRun: Bool {
         return !calendarLayoutIsLoaded || isScrollInProgress || isReloadDataInProgress
     }
-    
+
     var calendarLayoutIsLoaded: Bool { return calendarViewLayout.isCalendarLayoutLoaded }
     var startDateCache: Date {
         guard let date = _cachedConfiguration?.startDate else {
@@ -97,13 +97,15 @@ extension JTACMonthView {
         }
         return date
     }
-    var endDateCache: Date           {
+
+    var endDateCache: Date {
         guard let date = _cachedConfiguration?.endDate else {
             assert(false, "Attemped to access endDate when Datasource/delegate is not set yet. Returning todays's date")
             return Date()
         }
         return date
     }
+
     var calendar: Calendar {
         guard let calendar = _cachedConfiguration?.calendar else {
             assert(false, "Attemped to access calendar when Datasource/delegate is not set yet. Returning default value")

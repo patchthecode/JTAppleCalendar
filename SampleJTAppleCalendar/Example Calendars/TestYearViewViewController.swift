@@ -5,20 +5,19 @@
 //  Created by JayT on 2019-05-11.
 //
 
-import UIKit
 import JTAppleCalendar
+import UIKit
 
 class TestYearViewViewController: UIViewController {
     @IBOutlet var calendarView: JTACYearView!
     let f = DateFormatter()
-    
+
     override func viewDidLoad() {
-        calendarView.calendarDataSource  = self
-        calendarView.calendarDelegate  = self
+        calendarView.calendarDataSource = self
+        calendarView.calendarDelegate = self
         super.viewDidLoad()
     }
 }
-
 
 extension TestYearViewViewController: JTACYearViewDelegate, JTACYearViewDataSource {
     // Drawing for a whole month cell
@@ -35,16 +34,14 @@ extension TestYearViewViewController: JTACYearViewDelegate, JTACYearViewDataSour
             return cell
         }
     }
-    
-    
-    
+
     func configureCalendar(_ calendar: JTACYearView) -> (configurationParameters: ConfigurationParameters, months: [Any]) {
         let df = DateFormatter()
         df.dateFormat = "yyyy MM dd"
-        
+
         let sDate = df.date(from: "2019 01 01")!
         let eDate = df.date(from: "2050 05 31")!
-        
+
         let configParams = ConfigurationParameters(startDate: sDate,
                                                    endDate: eDate,
                                                    numberOfRows: 6,
@@ -53,50 +50,48 @@ extension TestYearViewViewController: JTACYearViewDelegate, JTACYearViewDataSour
                                                    generateOutDates: .tillEndOfGrid,
                                                    firstDayOfWeek: .sunday,
                                                    hasStrictBoundaries: true)
-        
+
         // Get year data
         let dataSource = calendar.dataSourcefrom(configurationParameters: configParams)
-        
+
         // Modify the data source to include a String every 12 data elements.
         // This string type will be used to add a header.
         var modifiedDataSource: [Any] = []
-        for index in (0..<dataSource.count) {
+        for index in 0 ..< dataSource.count {
             if index % 12 == 0 { modifiedDataSource.append("Year") }
             modifiedDataSource.append(dataSource[index])
         }
 
         return (configParams, modifiedDataSource)
     }
-    
-    
+
     // Drawing for individual item in a month cell.
-    func calendar(_ calendar: JTACYearView, monthView: JTACCellMonthView, drawingFor rect: CGRect, with date: Date, dateOwner: DateOwner, monthIndex index: Int) {
+    func calendar(_: JTACYearView, monthView _: JTACCellMonthView, drawingFor rect: CGRect, with date: Date, dateOwner _: DateOwner, monthIndex _: Int) {
         f.dateFormat = "d"
         let dateString = f.string(from: date)
-        
+
         let paragraphStyle = NSMutableParagraphStyle()
         let font = UIFont(name: "HelveticaNeue", size: 8)!
-        
+
         paragraphStyle.alignment = .center
         dateString.draw(in: rect, withAttributes: [
-            NSAttributedString.Key.font : font,
-            NSAttributedString.Key.paragraphStyle: paragraphStyle
+            NSAttributedString.Key.font: font,
+            NSAttributedString.Key.paragraphStyle: paragraphStyle,
         ])
     }
-    
+
     func calendar(_ calendar: JTACYearView, sizeFor item: Any) -> CGSize {
         if item is Month {
-            let width = (calendar.frame.width - 41 ) / 3
+            let width = (calendar.frame.width - 41) / 3
             let height = width
             return CGSize(width: width, height: height)
         } else {
             let width = calendar.frame.width - 41
-            let height:CGFloat  = 20
+            let height: CGFloat = 20
             return CGSize(width: width, height: height)
         }
     }
 }
-
 
 class MyCell: JTACMonthCell {
     @IBOutlet var monthLabel: UILabel!

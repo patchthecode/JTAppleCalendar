@@ -27,30 +27,29 @@ import UIKit
 /// The JTAppleDayCell class defines the attributes and
 /// behavior of the cells that appear in JTAppleCalendarMonthView objects.
 @available(*, unavailable, renamed: "JTACDayCell")
-open class JTAppleCell: UICollectionViewCell{}
+open class JTAppleCell: UICollectionViewCell {}
 open class JTACDayCell: UICollectionViewCell {
     @available(*, message: "Using isSelected only to determing when selection occurs is ok. For other cases please use cellState.isSelected to avoid synchronization issues.")
     open override var isSelected: Bool {
         get { return super.isSelected }
-        set { super.isSelected = newValue}
+        set { super.isSelected = newValue }
     }
-    
-    /// Cell view that will be customized
-	public override init(frame: CGRect) {
-		super.init(frame: frame)
-	}
 
-	/// Returns an object initialized from data in a given unarchiver.
-	required public init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
-	}
-    
+    /// Cell view that will be customized
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+
+    /// Returns an object initialized from data in a given unarchiver.
+    public required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+
     /// Prepares the receiver for service after it has been loaded from an Interface Builder archive, or nib file.
     open override func awakeFromNib() {
         super.awakeFromNib()
-        
-        self.contentView.frame = self.bounds
-        self.contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    }
 
+        contentView.frame = bounds
+        contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    }
 }
