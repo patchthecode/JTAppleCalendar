@@ -63,6 +63,7 @@ extension JTACMonthView {
 
         switch scrollingMode {
         case .stopAtEachCalendarFrame, .stopAtEach, .nonStopTo:
+            assert(fixedScrollSize != 0, "You should not try to divide by zero.")
             let frameSection = theTargetContentOffset / fixedScrollSize
             let roundedFrameSection = floor(frameSection)
             if scrollDirection == .horizontal {

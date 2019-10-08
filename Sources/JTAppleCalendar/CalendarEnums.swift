@@ -72,7 +72,7 @@ public enum ScrollingMode: Equatable {
     case nonStopToSection(withResistance: CGFloat)
     /// nonStopToCell - continuous scrolling that will stop at a cell
     case nonStopToCell(withResistance: CGFloat)
-    /// nonStopTo - continuous scrolling that will stop at acustom interval
+    /// nonStopTo - continuous scrolling that will stop at acustom interval, do not use 0 as custom interval
     case nonStopTo(customInterval: CGFloat, withResistance: CGFloat)
     /// none - continuous scrolling that will eventually stop at a point
     case none
