@@ -93,7 +93,8 @@ class JTACMonthLayout: UICollectionViewLayout, JTACMonthLayoutProtocol {
         
         // Default Item height and width
         var height: CGFloat = collectionView!.bounds.size.height / CGFloat(cachedConfiguration.numberOfRows)
-        var width: CGFloat = collectionView!.bounds.size.width / CGFloat(maxNumberOfDaysInWeek)
+        let contentWidth = collectionView!.bounds.width - sectionInset.left - sectionInset.right
+        var width = (contentWidth - minimumInteritemSpacing * CGFloat(maxNumberOfDaysInWeek - 1)) / CGFloat(maxNumberOfDaysInWeek)
         
         if shouldUseUserItemSizeInsteadOfDefault { // If delegate item size was set
             if scrollDirection == .horizontal {
