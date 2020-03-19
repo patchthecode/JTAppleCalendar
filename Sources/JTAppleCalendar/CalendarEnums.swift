@@ -129,7 +129,7 @@ public enum SelectionType: String {
     case programatic, userInitiated
 }
 
-/// Days of the week. By setting you calandar's first day of week,
+/// Days of the week. By setting you calendar's first day of week,
 /// you can change which day is the first for the week. Sunday is by default.
 public enum DaysOfWeek: Int {
     /// Days of the week.
