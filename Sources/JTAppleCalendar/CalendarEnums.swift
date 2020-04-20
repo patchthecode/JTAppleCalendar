@@ -66,8 +66,8 @@ public enum ScrollingMode: Equatable {
     case stopAtEachCalendarFrame
     /// stopAtEachSection - non-continuous scrolling that will stop at each section
     case stopAtEachSection
-    /// stopAtEachFirstRowOfSection - non-continous scrolling that will stop at first row of each section
-    case stopAtEachFirstRowOfSection
+    /// stopAtFirstRowOfEachSection - non-continous scrolling that will stop at first row of each section
+    case stopAtFirstRowOfEachSection
     /// stopAtEach - non-continuous scrolling that will stop at each custom interval
     case stopAtEach(customInterval: CGFloat)
     /// nonStopToSection - continuous scrolling that will stop at a section

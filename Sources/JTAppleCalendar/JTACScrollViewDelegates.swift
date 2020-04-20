@@ -122,7 +122,7 @@ extension JTACMonthView: UIScrollViewDelegate {
                                     setTargetContentOffset(endOfCurrentSectionOffset)
                                 }
                            })
-        case .stopAtEachFirstRowOfSection:
+        case .stopAtFirstRowOfEachSection:
             let section = scrollDecision(currentScrollDirectionValue: translation,
                                                      previousScrollDirectionValue: lastMovedScrollDirection,
                                                      forward: { return theCurrentSection},
