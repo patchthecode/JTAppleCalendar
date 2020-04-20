@@ -198,7 +198,7 @@ open class JTACMonthView: UICollectionView {
     var decelerationRateMatchingScrollingMode: CGFloat {
         switch scrollingMode {
         case .stopAtEachCalendarFrame: return UIScrollView.DecelerationRate.fast.rawValue
-        case .stopAtEach, .stopAtEachSection: return UIScrollView.DecelerationRate.fast.rawValue
+        case .stopAtEach, .stopAtEachSection, .stopAtEachFirstRowOfSection: return UIScrollView.DecelerationRate.fast.rawValue
         case .nonStopToSection, .nonStopToCell, .nonStopTo, .none: return UIScrollView.DecelerationRate.normal.rawValue
         }
     }
