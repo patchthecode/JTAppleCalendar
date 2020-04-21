@@ -132,15 +132,18 @@ extension JTACMonthView: UIScrollViewDelegate {
             guard section >= 0, section < calendarLayout.endOfSectionOffsets.count else {setTargetContentOffset(0); return}
             
             func monthHeaderSize(for section: Int) -> CGFloat {
-                guard let monthOfYear = self.monthInfoFromSection(section)?.month,
-                    let month = MonthsOfYear(rawValue: monthOfYear) else { return 0 }
+                let defaultValue = self.lastMonthSize["default"] ?? 0
+                guard let monthNumber = self.monthInfoFromSection(section)?.month,
+                    let month = MonthsOfYear(rawValue: monthNumber - 1) else { return defaultValue }
                 
-                return self.lastMonthSize[month] ?? self.lastMonthSize["default"] ?? 0
+                return self.lastMonthSize[month] ?? defaultValue
             }
             
-            let endOfCurrentSectionOffset = calendarLayout.endOfSectionOffsets[theCurrentSection] + monthHeaderSize(for: theCurrentSection)
             let previousSection = theCurrentSection - 1 < 0 ? 0 : theCurrentSection - 1
-            let endOfPreviousSectionOffset = calendarLayout.endOfSectionOffsets[previousSection] + monthHeaderSize(for: previousSection)
+            let nextSection = section == self.numberOfSections - 1 ? section : section + 1
+            let endOfCurrentSectionOffset = calendarLayout.endOfSectionOffsets[theCurrentSection] + monthHeaderSize(for: nextSection)
+            let endOfPreviousSectionOffset = calendarLayout.endOfSectionOffsets[previousSection]
+            
             let midPoint = (endOfCurrentSectionOffset + endOfPreviousSectionOffset) / 2
             let maxSnap = calendarLayout.endOfSectionOffsets[section]
             
