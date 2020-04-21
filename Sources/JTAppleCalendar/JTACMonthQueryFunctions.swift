@@ -57,12 +57,17 @@ extension JTACMonthView {
         switch scrollingMode {
         case let .stopAtEach(customInterval: x): fixedScrollSize = x
         case let .nonStopTo(customInterval: x, withResistance: _): fixedScrollSize = x
-        case .stopAtEachCalendarFrame: fixedScrollSize = scrollDirection == .horizontal ? self.frame.width : self.frame.height
         default: break
         }
 
         switch scrollingMode {
-        case .stopAtEachCalendarFrame, .stopAtEach, .nonStopTo:
+        case .stopAtEachCalendarFrame:
+            if scrollDirection == .horizontal {
+                x = CGFloat(indexPath.section)  * self.frame.width
+            } else {
+                y = CGFloat(indexPath.section)  * self.frame.height
+            }
+        case .stopAtEach, .nonStopTo:
             let frameSection = theTargetContentOffset / fixedScrollSize
             let roundedFrameSection = floor(frameSection)
             if scrollDirection == .horizontal {
