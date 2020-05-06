@@ -178,9 +178,13 @@ extension JTACMonthView: UIScrollViewDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
             self.decelerationRate = UIScrollView.DecelerationRate(rawValue: self.decelerationRateMatchingScrollingMode)
         }
-        
-        DispatchQueue.main.async {
-            self.calendarDelegate?.scrollDidEndDecelerating(for: self)
+    }
+    
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if decelerate {
+            DispatchQueue.main.async {
+                self.calendarDelegate?.scrollDidEndDecelerating(for: self)
+            }
         }
     }
     
