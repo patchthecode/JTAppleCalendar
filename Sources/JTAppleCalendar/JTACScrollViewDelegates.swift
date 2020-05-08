@@ -212,9 +212,7 @@ extension JTACMonthView: UIScrollViewDelegate {
 	/// in the scroll view begins
 	public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if let shouldTrigger = triggerScrollToDateDelegate, shouldTrigger == true {
-			visibleDates {[unowned self] dates in
-				self.calendarDelegate?.calendar(self, willScrollToDateSegmentWith: dates)
-			}
+			self.calendarDelegate?.calendar(self, willScrollToDateSegmentWith: visibleDates())
         }
 	}
 
