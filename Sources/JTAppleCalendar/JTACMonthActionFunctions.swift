@@ -112,6 +112,7 @@ extension JTACMonthView {
         self.triggerScrollToDateDelegate = triggerScrollToDateDelegate
         var point = point
         if scrollDirection == .horizontal { point.x += extraAddedOffset } else { point.y += extraAddedOffset }
+		if self.triggerScrollToDateDelegate == true { self.scrollViewWillBeginDragging(self) }
         DispatchQueue.main.async() {
             self.setContentOffset(point, animated: isAnimationEnabled)
             if (isAnimationEnabled && self.calendarOffsetIsAlreadyAtScrollPosition(forOffset: point)) ||
