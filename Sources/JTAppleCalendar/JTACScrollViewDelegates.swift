@@ -210,9 +210,9 @@ extension JTACMonthView: UIScrollViewDelegate {
 	
 	/// Tells the delegate when a scrolling animaton
 	/// in the scroll view begins
-	public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+	public func scrollViewWillBeginDragging(_ scrollView: UIScrollView, visibleDates: DateSegmentInfo) {
         if let shouldTrigger = triggerScrollToDateDelegate, shouldTrigger == true {
-			self.calendarDelegate?.calendar(self, willScrollToDateSegmentWith: visibleDates())
+			self.calendarDelegate?.calendar(self, willScrollToDateSegmentWith: visibleDates)
         }
 	}
 
