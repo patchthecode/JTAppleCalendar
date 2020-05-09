@@ -138,6 +138,9 @@ public protocol JTACMonthViewDelegate: class {
     /// Informs the delegate that the user just lifted their finger from swiping the calendar
     func scrollDidEndDecelerating(for calendar: JTACMonthView)
     
+    /// Informs the delegate that the scrolling animation concludes
+    func scrollDidEndScrollingAnimation(for calendar: JTACMonthView)
+    
     /// Tells the delegate that a scroll occured
     func calendarDidScroll(_ calendar: JTACMonthView)
     
@@ -178,4 +181,5 @@ public extension JTACMonthViewDelegate {
     func calendarSizeForMonths(_ calendar: JTACMonthView?) -> MonthSize? { return nil }
     func sizeOfDecorationView(indexPath: IndexPath) -> CGRect { return .zero }
     func scrollDidEndDecelerating(for calendar: JTACMonthView) {}
+	func scrollDidEndScrollingAnimation(for calendar: JTACMonthView) {}
 }

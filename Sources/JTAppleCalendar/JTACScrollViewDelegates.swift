@@ -198,6 +198,10 @@ extension JTACMonthView: UIScrollViewDelegate {
         DispatchQueue.main.async { // https://github.com/patchthecode/JTAppleCalendar/issues/778
             self.executeDelayedTasks(.scroll)
         }
+		
+        DispatchQueue.main.async {
+            self.calendarDelegate?.scrollDidEndScrollingAnimation(for: self)
+        }
     }
     
     /// Tells the delegate that the scroll view has
