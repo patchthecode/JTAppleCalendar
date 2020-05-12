@@ -314,6 +314,8 @@ extension JTACMonthView {
             let selectedDates = self.selectedDatesSet
             if !selectedDates.contains(date) || selectedDates.isEmpty  { return .none }
           
+            let isLTRDirection = UIView.userInterfaceLayoutDirection(
+            for: self.semanticContentAttribute) == .leftToRight
           let restrictToSection = self.rangeSelectionMode == .segmented
           let validSelectedIndexes = self.validForwardAndBackwordSelectedIndexes(forIndexPath: indexPath, restrictToSection: restrictToSection)
             let dateBeforeIsSelected = validSelectedIndexes.backIndex != nil
@@ -324,9 +326,9 @@ extension JTACMonthView {
             if dateBeforeIsSelected, dateAfterIsSelected {
                 position = .middle
             } else if !dateBeforeIsSelected, dateAfterIsSelected {
-                position = .left
+                position = isLTRDirection ? .left : .right
             } else if dateBeforeIsSelected, !dateAfterIsSelected {
-                position = .right
+                position = isLTRDirection ? .right : .left
             } else if !dateBeforeIsSelected, !dateAfterIsSelected  {
                 position = .full
             } else {
