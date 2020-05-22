@@ -104,11 +104,14 @@ extension JTACMonthView {
     /// - returns:
     ///     - CellState: The state of the found cell
     public func cellStatus(at point: CGPoint) -> CellState? {
-        if let indexPath = indexPathForItem(at: point) {
-            let cell = cellForItem(at: indexPath) as? JTACDayCell
-            return cellStateFromIndexPath(indexPath, cell: cell)
+        guard let indexPath = indexPathForItem(at: point) else {
+            return nil
         }
-        return nil
+        
+        let i = indexPath.item
+        let row =  i / maxNumberOfDaysInWeek
+        let col = i % maxNumberOfDaysInWeek
+        return cellStatusForDate(at: row, column: col)
     }
     
     /// Deselect all selected dates
