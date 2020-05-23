@@ -27,7 +27,7 @@ import UIKit
 extension JTACMonthView {
     
     /// Returns the cellStatus of a date that is visible on the screen.
-    /// If the row and column for the date cannot be found,
+    /// If the point does not correspond to existing indexPath cell,
     /// then nil is returned
     /// Parameter: point of the cell you want to find
     /// - returns:
