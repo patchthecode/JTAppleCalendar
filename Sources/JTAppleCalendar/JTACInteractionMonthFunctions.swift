@@ -30,7 +30,6 @@ extension JTACMonthView {
     /// If the row and column for the date cannot be found,
     /// then nil is returned
     /// Parameter: point of the cell you want to find
-    /// - Paramater column: Int column of the date to find
     /// - returns:
     ///     - CellState: The state of the found cell
     public func cellStatusForDate(at point: CGPoint) -> CellState? {
