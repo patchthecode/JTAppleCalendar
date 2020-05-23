@@ -103,15 +103,28 @@ extension JTACMonthView {
     /// - Parameter: point of the cell you want to find
     /// - returns:
     ///     - CellState: The state of the found cell
-    public func cellStatus(at point: CGPoint) -> CellState? {
+ public func cellStatus(at point: CGPoint) -> CellState? {
         guard let indexPath = indexPathForItem(at: point) else {
             return nil
         }
         
+        guard let section = currentSection() else {
+            return nil
+        }
+
         let i = indexPath.item
         let row =  i / maxNumberOfDaysInWeek
-        let col = i % maxNumberOfDaysInWeek
-        return cellStatusForDate(at: row, column: col)
+        let column = i % maxNumberOfDaysInWeek
+        let convertedRow = (row * maxNumberOfDaysInWeek) + column
+        let indexPathToFind = IndexPath(item: convertedRow, section: section)
+        
+        if let date = dateOwnerInfoFromPath(indexPathToFind) {
+            let cell = cellForItem(at: indexPathToFind) as? JTACDayCell
+            let stateOfCell = cellStateFromIndexPath(indexPathToFind, withDateInfo: date,cell: cell)
+            return stateOfCell
+        }
+        
+        return nil
     }
     
     /// Deselect all selected dates
