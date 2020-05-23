@@ -29,6 +29,21 @@ extension JTACMonthView {
     /// Returns the cellStatus of a date that is visible on the screen.
     /// If the row and column for the date cannot be found,
     /// then nil is returned
+    /// Parameter: point of the cell you want to find
+    /// - Paramater column: Int column of the date to find
+    /// - returns:
+    ///     - CellState: The state of the found cell
+    public func cellStatusForDate(at point: CGPoint) -> CellState? {
+        guard let indexPath = indexPathForItem(at: point) else {
+            return nil
+        }
+        
+        return cellStatusForDate(at: indexPath.item / maxNumberOfDaysInWeek , column: indexPath.item % maxNumberOfDaysInWeek)
+    }
+    
+    /// Returns the cellStatus of a date that is visible on the screen.
+    /// If the row and column for the date cannot be found,
+    /// then nil is returned
     /// - Paramater row: Int row of the date to find
     /// - Paramater column: Int column of the date to find
     /// - returns:
