@@ -118,7 +118,7 @@ extension JTACMonthView {
     /// - Parameter: point of the cell you want to find
     /// - returns:
     ///     - CellState: The state of the found cell
- public func cellStatus(at point: CGPoint) -> CellState? {
+    public func cellStatus(at point: CGPoint) -> CellState? {
         guard let indexPath = indexPathForItem(at: point) else {
             return nil
         }
@@ -126,7 +126,7 @@ extension JTACMonthView {
         guard let section = currentSection() else {
             return nil
         }
-
+        
         let i = indexPath.item
         let row =  i / maxNumberOfDaysInWeek
         let column = i % maxNumberOfDaysInWeek
