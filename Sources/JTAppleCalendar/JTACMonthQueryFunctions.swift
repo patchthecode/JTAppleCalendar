@@ -49,10 +49,10 @@ extension JTACMonthView {
             return nil
         }
 
-        var x: CGFloat = scrollDirection == .horizontal ? targetCellFrame.origin.x : 0
+        var x: CGFloat = scrollDirection == .horizontal ? round(targetCellFrame.origin.x) : 0
         var y: CGFloat = scrollDirection == .vertical ? targetCellFrame.origin.y : 0
         
-        let theTargetContentOffset: CGFloat = scrollDirection == .horizontal ? targetCellFrame.origin.x : targetCellFrame.origin.y
+        let theTargetContentOffset: CGFloat = scrollDirection == .horizontal ? round(targetCellFrame.origin.x) : targetCellFrame.origin.y
         var fixedScrollSize: CGFloat = 0
         switch scrollingMode {
         case let .stopAtEach(customInterval: x): fixedScrollSize = x
@@ -103,7 +103,7 @@ extension JTACMonthView {
         // force a scroll so the delegate MUST get caalled
         let theOffset = scrollDirection == .horizontal ? offset.x : offset.y
         let divValue = scrollDirection == .horizontal ? frame.width : frame.height
-        let sectionForOffset = Int(theOffset / divValue)
+        let sectionForOffset = Int(round(theOffset / divValue))
         let calendarCurrentOffset = scrollDirection == .horizontal ? contentOffset.x : contentOffset.y
         if calendarCurrentOffset == theOffset || (scrollingMode.pagingIsEnabled() && (sectionForOffset ==  currentSection())) {
             retval = true

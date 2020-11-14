@@ -441,8 +441,9 @@ extension JTACMonthView {
             
             var section = contentOffset.x / fixedScrollSize
             let roundedSection = round(section)
-            if abs(roundedSection - section) < errorDelta { section = roundedSection }
-            section = CGFloat(Int(section))
+//            if abs(roundedSection - section) < errorDelta { section = roundedSection }
+//            section = CGFloat(Int(section))
+            section = roundedSection
             
             xOffset = (fixedScrollSize * section)
             switch destination {
