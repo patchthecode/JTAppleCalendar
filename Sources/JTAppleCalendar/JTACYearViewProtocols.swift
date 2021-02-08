@@ -25,7 +25,7 @@
 import Foundation
 import UIKit
 
-public protocol JTACYearViewDelegate: class {
+public protocol JTACYearViewDelegate: AnyObject {
     func calendar(_ calendar: JTACYearView, cellFor item: Any, at date: Date, indexPath: IndexPath) -> JTACMonthCell
     func calendar(_ calendar: JTACYearView,
                   monthView: JTACCellMonthView,
@@ -46,7 +46,7 @@ extension JTACYearViewDelegate {
     func calendar(_ calendar: JTACYearView, sizeFor item: Any) -> CGSize { return .zero }
 }
 
-public protocol JTACYearViewDataSource: class {
+public protocol JTACYearViewDataSource: AnyObject {
     func configureCalendar(_ calendar: JTACYearView) -> (configurationParameters: ConfigurationParameters, months: [Any])
 }
 

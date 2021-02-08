@@ -24,7 +24,7 @@
 
 import UIKit
 
-protocol JTACMonthLayoutProtocol: class {
+protocol JTACMonthLayoutProtocol: AnyObject {
     var minimumInteritemSpacing: CGFloat {get set}
     var minimumLineSpacing: CGFloat {get set}
     var sectionInset: UIEdgeInsets {get set}

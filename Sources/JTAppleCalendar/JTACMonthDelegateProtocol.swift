@@ -24,7 +24,7 @@
 import Foundation
 import UIKit
 
-protocol JTACMonthDelegateProtocol: class {
+protocol JTACMonthDelegateProtocol: AnyObject {
     // Variables
     var allowsDateCellStretching: Bool {get set}
     var _cachedConfiguration: ConfigurationParameters! {get set}
