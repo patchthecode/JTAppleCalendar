@@ -65,7 +65,7 @@ extension JTACMonthLayout {
                             xStride = contentWidth
                             endOfSectionOffsets.append(contentWidth)
                         } else {
-                            if totalDayCounter >= delegate.totalDays {
+                            if totalDayCounter >= delegate?.totalDays ?? 0 {
                                 contentWidth += (attribute.width * 7) + endSeparator
                                 endOfSectionOffsets.append(contentWidth)
                             }

@@ -34,7 +34,7 @@ class JTACMonthLayout: UICollectionViewLayout, JTACMonthLayoutProtocol {
     var lastSetCollectionViewSize: CGRect = .zero
     
     var cellSize: CGSize = CGSize.zero
-    var shouldUseUserItemSizeInsteadOfDefault: Bool { return delegate.cellSize == 0 ? false: true }
+    var shouldUseUserItemSizeInsteadOfDefault: Bool { return (delegate?.cellSize ?? 0) == 0 ? false: true }
     var scrollDirection: UICollectionView.ScrollDirection = .horizontal
     var maxMissCount: Int = 0
     var cellCache: [Int: [(item: Int, section: Int, xOffset: CGFloat, yOffset: CGFloat, width: CGFloat, height: CGFloat)]] = [:]
@@ -49,7 +49,10 @@ class JTACMonthLayout: UICollectionViewLayout, JTACMonthLayoutProtocol {
     var headerSizes: [AnyHashable:CGFloat] = [:]
     var focusIndexPath: IndexPath?
     var isCalendarLayoutLoaded: Bool { return !cellCache.isEmpty }
-    var layoutIsReadyToBePrepared: Bool { return !(!cellCache.isEmpty  || delegate.calendarDataSource == nil) }
+    var layoutIsReadyToBePrepared: Bool {
+        guard let delegate = delegate else { return false }
+        return !(!cellCache.isEmpty  || delegate.calendarDataSource == nil)
+    }
 
     var monthMap: [Int: Int] = [:]
     var numberOfRows: Int = 0
@@ -57,7 +60,7 @@ class JTACMonthLayout: UICollectionViewLayout, JTACMonthLayoutProtocol {
     var thereAreHeaders: Bool { return !headerSizes.isEmpty }
     var thereAreDecorationViews = false
     
-    weak var delegate: JTACMonthDelegateProtocol!
+    weak var delegate: JTACMonthDelegateProtocol?
     
     var currentHeader: (section: Int, size: CGSize)? // Tracks the current header size
     var currentCell: (section: Int, width: CGFloat, height: CGFloat)? // Tracks the current cell size
@@ -89,7 +92,7 @@ class JTACMonthLayout: UICollectionViewLayout, JTACMonthLayoutProtocol {
     }
     
     var updatedLayoutCellSize: CGSize {
-        guard let cachedConfiguration = delegate._cachedConfiguration else { return .zero }
+        guard let delegate = delegate, let cachedConfiguration = delegate._cachedConfiguration else { return .zero }
         
         // Default Item height and width
         var height: CGFloat = collectionView!.bounds.size.height / CGFloat(cachedConfiguration.numberOfRows)
@@ -128,8 +131,8 @@ class JTACMonthLayout: UICollectionViewLayout, JTACMonthLayoutProtocol {
         lastSetCollectionViewSize = collectionView!.frame
         
         if !layoutIsReadyToBePrepared {
-            // Layoout may not be ready, but user might have reloaded with an anchor date
-            let requestedOffset = delegate.requestedContentOffset
+            // Layout may not be ready, but user might have reloaded with an anchor date
+            let requestedOffset = delegate?.requestedContentOffset ?? .zero
             if requestedOffset != .zero { collectionView!.setContentOffset(requestedOffset, animated: false) }
             
             // execute any other delayed tasks
@@ -152,7 +155,7 @@ class JTACMonthLayout: UICollectionViewLayout, JTACMonthLayoutProtocol {
         }
         
         // Set the first content offset only once. This will prevent scrolling animation on viewDidload.
-        if !firstContentOffsetWasSet {
+        if !firstContentOffsetWasSet, let delegate = delegate {
             firstContentOffsetWasSet = true
             let firstContentOffset = delegate.requestedContentOffset
             collectionView!.setContentOffset(firstContentOffset, animated: false)
@@ -163,10 +166,11 @@ class JTACMonthLayout: UICollectionViewLayout, JTACMonthLayoutProtocol {
     }
     
     func setupDataFromDelegate() {
+        guard let delegate = delegate, let cachedConfiguration = delegate._cachedConfiguration else { return }
         // get information from the delegate
         headerSizes = delegate.sizesForMonthSection() // update first. Other variables below depend on it
-        strictBoundaryRulesShouldApply = thereAreHeaders || delegate._cachedConfiguration.hasStrictBoundaries
-        numberOfRows = delegate._cachedConfiguration.numberOfRows
+        strictBoundaryRulesShouldApply = thereAreHeaders || cachedConfiguration.hasStrictBoundaries
+        numberOfRows = cachedConfiguration.numberOfRows
         monthMap = delegate.monthMap
         allowsDateCellStretching = delegate.allowsDateCellStretching
         monthInfo = delegate.monthInfo
@@ -369,7 +373,7 @@ class JTACMonthLayout: UICollectionViewLayout, JTACMonthLayoutProtocol {
         
         let retval = UICollectionViewLayoutAttributes(forDecorationViewOfKind: decorationViewID, with: indexPath)
         decorationCache[indexPath] = retval
-        retval.frame = delegate.sizeOfDecorationView(indexPath: indexPath)
+        retval.frame = delegate?.sizeOfDecorationView(indexPath: indexPath) ?? .zero
         retval.zIndex = -1
         return retval
     }
