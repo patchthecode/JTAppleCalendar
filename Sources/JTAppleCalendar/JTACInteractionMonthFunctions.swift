@@ -493,11 +493,82 @@ extension JTACMonthView {
                 }
             }
             
+            print(yOffset)
+            print(contentSize.height - frame.height)
+            
             if yOffset <= 0 {
                 yOffset = 0
             } else if yOffset >= contentSize.height - frame.height {
                 yOffset = contentSize.height - frame.height
             }
+            
+            // This was needed for when the user scrolls to next segment which will be the last,
+            // then the value is not exact the same as the height of the content,
+            // and then the didScrollToSegment delegate got called before the scroll happened, this fixed it.
+            
+            yOffset = yOffset.rounded()
+        }
+        
+        // Get valid indexPath of date to scroll to
+        
+        // This code is needed so that when we call the delegate we can give it the right DateSegmentInfo
+        var date: Date
+        let visibleDatesTMP = visibleDates()
+        
+        switch destination {
+            case .start:
+                date = startDateCache
+            case .end:
+                date = endDateCache
+            case .next:
+                let nextDate = visibleDatesTMP.outdates.last?.date ?? endDateCache
+                
+                // We add 5 days so that we are sure, that we are in the month
+                // (month end and start dates can sometimes result in wrong DateSegmentInfo)
+                let correctedNextDate = calendar.date(byAdding: .day, value: 5, to: nextDate) ?? endDateCache
+                
+                // If we added maybe too much days we check if we are in the range of the calendar
+                // if we gone too far we just use the endDate of the Calendar
+                if correctedNextDate < endDateCache
+                {
+                    date = correctedNextDate
+                }
+                else
+                {
+                    date = endDateCache
+                }
+                
+            case .previous:
+                
+                let prevDate = visibleDatesTMP.indates.first?.date ?? startDateCache
+                
+                // Same happens here, but because we want the previous month/segment we substract 5 days
+                let correctedPrevDate = calendar.date(byAdding: .day, value: -5, to: prevDate) ?? startDateCache
+                
+                // Same check happens here, if we are below the date range, we just use the startDate
+                if correctedPrevDate > startDateCache
+                {
+                    date = correctedPrevDate
+                }
+                else
+                {
+                    date = startDateCache
+                }
+        }
+        
+        let retrievedPathsFromDates = pathsFromDates([date])
+        if retrievedPathsFromDates.isEmpty { return }
+        let sectionIndexPath = pathsFromDates([date])[0]
+        
+        guard let point = targetPointForItemAt(indexPath: sectionIndexPath) else {
+            assert(false, "Could not determine CGPoint. This is an error. contact developer on github. In production, there will not be a crash, but scrolling will not occur")
+            return
+        }
+        
+        let dateSegmentInfo = datesAtCurrentOffset(point)
+        
+        if triggerScrollToDateDelegate {
+            calendarDelegate?.calendar(self, willScrollToDateSegmentWith: dateSegmentInfo)
         }
         
         scrollTo(point: CGPoint(x: xOffset, y: yOffset),
