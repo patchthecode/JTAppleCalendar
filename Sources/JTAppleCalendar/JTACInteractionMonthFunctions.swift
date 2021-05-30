@@ -493,9 +493,6 @@ extension JTACMonthView {
                 }
             }
             
-            print(yOffset)
-            print(contentSize.height - frame.height)
-            
             if yOffset <= 0 {
                 yOffset = 0
             } else if yOffset >= contentSize.height - frame.height {
