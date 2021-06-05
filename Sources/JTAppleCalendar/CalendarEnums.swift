@@ -108,7 +108,7 @@ public enum DateOwner: Int {
         followingMonthOutsideBoundary
 }
 /// Months of the year
-public enum MonthsOfYear: Int {
+public enum MonthsOfYear: Int, CaseIterable {
     case jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec
 }
 
@@ -131,7 +131,7 @@ public enum SelectionType: String {
 
 /// Days of the week. By setting your calendar's first day of the week,
 /// you can change which day is the first for the week. Sunday is the default value.
-public enum DaysOfWeek: Int {
+public enum DaysOfWeek: Int, CaseIterable {
     /// Days of the week.
     case sunday = 1, monday, tuesday, wednesday, thursday, friday, saturday
 }
