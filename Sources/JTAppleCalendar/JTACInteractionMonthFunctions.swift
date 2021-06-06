@@ -226,14 +226,34 @@ extension JTACMonthView {
         isReloadDataInProgress = true
         anchorDate = date
         
-        let selectedDates = self.selectedDates
         let data = reloadDelegateDataSource()
+        
+        // Map the selected dates from the old calendar and its time zone to the new calendar and its time zone.
+        let selectedDates: [Date] = {
+            let oldCalendarDates = self.selectedDates
+            guard data.shouldReload,
+                !oldCalendarDates.isEmpty,
+                let oldCalendar = cachedConfiguration?.calendar,
+                let newCalendar = data.configParameters?.calendar,
+                newCalendar != oldCalendar else {
+                return oldCalendarDates
+            }
+            let newCalendarDates = oldCalendarDates.compactMap { oldCalendarDate -> Date? in
+                let components = oldCalendar.dateComponents([.year, .month, .day], from: oldCalendarDate)
+                guard let newCalendarDate = newCalendar.date(from: components) else {
+                    return nil
+                }
+                return newCalendarDate
+            }
+            return newCalendarDates
+        }()
+        
         if data.shouldReload {
             calendarViewLayout.clearCache()
             setupMonthInfoAndMap(with: data.configParameters)
             selectedCellData = [:]
         }
-
+        
         // Restore the selected index paths if dates were already selected.
         if !selectedDates.isEmpty {
             calendarViewLayout.delayedExecutionClosure.append {[weak self] in
