@@ -202,6 +202,10 @@ extension JTACMonthView: UIScrollViewDelegate {
         DispatchQueue.main.async { // https://github.com/patchthecode/JTAppleCalendar/issues/778
             self.executeDelayedTasks(.scroll)
         }
+		
+        DispatchQueue.main.async {
+            self.calendarDelegate?.scrollDidEndScrollingAnimation(for: self)
+        }
     }
     
     /// Tells the delegate that the scroll view has
@@ -211,8 +215,16 @@ extension JTACMonthView: UIScrollViewDelegate {
             self.calendarDelegate?.calendar(self, didScrollToDateSegmentWith: dates)
         }
     }
-    
-    /// Tells the delegate that a scroll occured
+	
+	/// Tells the delegate when a scrolling animaton
+	/// in the scroll view begins
+	public func scrollViewWillBeginDragging(_ scrollView: UIScrollView, visibleDates: DateSegmentInfo) {
+        if let shouldTrigger = triggerScrollToDateDelegate, shouldTrigger == true {
+			self.calendarDelegate?.calendar(self, willScrollToDateSegmentWith: visibleDates)
+        }
+	}
+
+	/// Tells the delegate that a scroll occured
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         calendarDelegate?.calendarDidScroll(self)
     }
