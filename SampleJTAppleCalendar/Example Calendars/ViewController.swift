@@ -42,7 +42,8 @@ class ViewController: UIViewController {
         .nonStopToSection(withResistance: 0.5),
         .stopAtEach(customInterval: 374),
         .stopAtEachCalendarFrame,
-        .stopAtEachSection
+        .stopAtEachSection,
+        .stopAtFirstRowOfEachSection
     ]
     
     @IBAction func changeScroll(_ sender: Any) {
