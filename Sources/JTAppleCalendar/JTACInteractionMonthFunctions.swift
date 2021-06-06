@@ -536,8 +536,8 @@ extension JTACMonthView {
         
         // Set triggereing of delegate on scroll
         self.triggerScrollToDateDelegate = triggerScrollToDateDelegate
-        
-        // Ensure date is within valid boundary
+
+		// Ensure date is within valid boundary
         let components = calendar.dateComponents([.year, .month, .day], from: date)
         let firstDayOfDate = calendar.date(from: components)!
         if !((firstDayOfDate >= startOfMonthCache!) && (firstDayOfDate <= endOfMonthCache!)) { return }
@@ -551,7 +551,12 @@ extension JTACMonthView {
             assert(false, "Could not determine CGPoint. This is an error. contact developer on github. In production, there will not be a crash, but scrolling will not occur")
             return
         }
-
+		
+		if self.triggerScrollToDateDelegate == true {
+			let dateSegmentInfo = datesAtCurrentOffset(point)
+			self.scrollViewWillBeginDragging(self, visibleDates: dateSegmentInfo)
+		}
+		
         scrollTo(point: point,
                  triggerScrollToDateDelegate: triggerScrollToDateDelegate,
                  isAnimationEnabled: animateScroll,
