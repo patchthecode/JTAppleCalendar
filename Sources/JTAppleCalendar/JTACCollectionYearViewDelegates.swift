@@ -82,4 +82,22 @@ extension JTACYearView: UICollectionViewDelegate, UICollectionViewDataSource, UI
         }
         return size
     }
+    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let delegate = calendarDelegate else {
+            print("No delegate configured")
+            return
+        }
+        
+        if(monthData.isEmpty || indexPath.row >= monthData.count) {
+            print("Desired index path: \(indexPath) is larger than displayed data")
+        }
+        
+        if let month = monthData[indexPath.row] as? Month {
+            let firstDate = self.findFirstMonthCellDate(cellIndex: indexPath.row, monthData: monthData)
+            let days = month.numberOfDaysInMonth
+            let endDate = configurationParameters.calendar.date(byAdding: .day, value: days - 1, to: firstDate) ?? configurationParameters.endDate
+            delegate.calendar(self, didSelectMonth: month, dateRange: (firstDate, endDate), cell: self.cellForItem(at: indexPath) as? JTACMonthCell, indexPath: indexPath)
+        }
+    }
 }

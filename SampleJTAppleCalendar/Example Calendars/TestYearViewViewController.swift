@@ -10,13 +10,21 @@ import JTAppleCalendar
 
 class TestYearViewViewController: UIViewController {
     @IBOutlet var calendarView: JTACYearView!
+    @IBOutlet var scrollToTodayButton: UIButton!
+    @IBOutlet var monthSelectLabel: UILabel!
     let f = DateFormatter()
     
     override func viewDidLoad() {
         calendarView.calendarDataSource  = self
         calendarView.calendarDelegate  = self
         super.viewDidLoad()
+        self.monthSelectLabel.text = "Click to select month"
     }
+    
+    @IBAction func scrollToToday(_ sender: UIButton) {
+        calendarView.scrollToDate(Date(), at: .top , animated: true)
+    }
+    
 }
 
 
@@ -94,6 +102,14 @@ extension TestYearViewViewController: JTACYearViewDelegate, JTACYearViewDataSour
             let height:CGFloat  = 20
             return CGSize(width: width, height: height)
         }
+    }
+    
+    func calendar(_ calendar: JTACYearView, didSelectMonth month: Month, dateRange: (start: Date, end: Date), cell: JTACMonthCell?, indexPath: IndexPath) {
+        let formatter1 = DateFormatter()
+        formatter1.dateFormat = "MMM YYYY"
+        let formatter2 = DateFormatter()
+        formatter2.dateFormat = "dd-MMM-YYYY"
+        self.monthSelectLabel.text = "Selected Month \(formatter1.string(from: dateRange.start))\nWith Date Range:\n\(formatter2.string(from: dateRange.start)) to \(formatter2.string(from: dateRange.end))\nFor index Path: \(indexPath)"
     }
 }
 

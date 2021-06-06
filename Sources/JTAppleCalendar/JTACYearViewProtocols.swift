@@ -34,9 +34,12 @@ public protocol JTACYearViewDelegate: AnyObject {
                   dateOwner: DateOwner,
                   monthIndex index: Int)
     func calendar(_ calendar: JTACYearView, sizeFor item: Any) -> CGSize
+    
+    func calendar(_ calendar: JTACYearView, didSelectMonth month: Month, dateRange: (start:Date, end:Date), cell: JTACMonthCell?, indexPath: IndexPath)
+
 }
 
-extension JTACYearViewDelegate {
+public extension JTACYearViewDelegate {
     func calendar(_ calendar: JTACYearView,
                   monthView: JTACCellMonthView,
                   drawingFor segmentRect: CGRect,
@@ -44,6 +47,9 @@ extension JTACYearViewDelegate {
                   dateOwner: DateOwner,
                   monthIndex index: Int){}
     func calendar(_ calendar: JTACYearView, sizeFor item: Any) -> CGSize { return .zero }
+    
+    func calendar(_ calendar: JTACYearView, didSelectMonth month: Month,  dateRange: (start:Date, end:Date), cell: JTACMonthCell?, indexPath: IndexPath){}
+
 }
 
 public protocol JTACYearViewDataSource: AnyObject {
