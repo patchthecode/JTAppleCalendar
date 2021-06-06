@@ -27,7 +27,7 @@ import UIKit
 protocol JTACMonthDelegateProtocol: AnyObject {
     // Variables
     var allowsDateCellStretching: Bool {get set}
-    var _cachedConfiguration: ConfigurationParameters! {get set}
+    var _cachedConfiguration: ConfigurationParameters? {get set}
     var calendarDataSource: JTACMonthViewDataSource? {get set}
     var cellSize: CGFloat {get set}
     var anchorDate: Date? {get set}
