@@ -528,6 +528,7 @@ extension JTACMonthView {
                 self.scrollToDate(date,
                                   triggerScrollToDateDelegate: triggerScrollToDateDelegate,
                                   animateScroll: animateScroll,
+                                  preferredScrollPosition: preferredScrollPosition,
                                   extraAddedOffset: extraAddedOffset,
                                   completionHandler: completionHandler)
             }
@@ -547,16 +548,21 @@ extension JTACMonthView {
         if retrievedPathsFromDates.isEmpty { return }
         let sectionIndexPath = pathsFromDates([date])[0]
         
-        guard let point = targetPointForItemAt(indexPath: sectionIndexPath) else {
-            assert(false, "Could not determine CGPoint. This is an error. contact developer on github. In production, there will not be a crash, but scrolling will not occur")
-            return
+        if scrollingMode == .none {
+            self.scrollToItem(at: sectionIndexPath,
+                              at: preferredScrollPosition ?? (scrollDirection == .horizontal ? .left : .top),
+                              animated: animateScroll)
+        } else {
+            guard let point = targetPointForItemAt(indexPath: sectionIndexPath) else {
+                assert(false, "Could not determine CGPoint. This is an error. contact developer on github. In production, there will not be a crash, but scrolling will not occur")
+                return
+            }
+            scrollTo(point: point,
+                     triggerScrollToDateDelegate: triggerScrollToDateDelegate,
+                     isAnimationEnabled: animateScroll,
+                     extraAddedOffset: extraAddedOffset,
+                     completionHandler: completionHandler)
         }
-
-        scrollTo(point: point,
-                 triggerScrollToDateDelegate: triggerScrollToDateDelegate,
-                 isAnimationEnabled: animateScroll,
-                 extraAddedOffset: extraAddedOffset,
-                 completionHandler: completionHandler)
     }
     
     /// Scrolls the calendar view to the start of a section view header.
