@@ -27,6 +27,20 @@ import UIKit
 extension JTACMonthView {
     
     /// Returns the cellStatus of a date that is visible on the screen.
+    /// If the point does not correspond to existing indexPath cell,
+    /// then nil is returned
+    /// Parameter: point of the cell you want to find
+    /// - returns:
+    ///     - CellState: The state of the found cell
+    public func cellStatusForDate(at point: CGPoint) -> CellState? {
+        guard let indexPath = indexPathForItem(at: point) else {
+            return nil
+        }
+        
+        return cellStatusForDate(at: indexPath.item / maxNumberOfDaysInWeek , column: indexPath.item % maxNumberOfDaysInWeek)
+    }
+    
+    /// Returns the cellStatus of a date that is visible on the screen.
     /// If the row and column for the date cannot be found,
     /// then nil is returned
     /// - Paramater row: Int row of the date to find
@@ -104,10 +118,26 @@ extension JTACMonthView {
     /// - returns:
     ///     - CellState: The state of the found cell
     public func cellStatus(at point: CGPoint) -> CellState? {
-        if let indexPath = indexPathForItem(at: point) {
-            let cell = cellForItem(at: indexPath) as? JTACDayCell
-            return cellStateFromIndexPath(indexPath, cell: cell)
+        guard let indexPath = indexPathForItem(at: point) else {
+            return nil
         }
+        
+        guard let section = currentSection() else {
+            return nil
+        }
+        
+        let i = indexPath.item
+        let row =  i / maxNumberOfDaysInWeek
+        let column = i % maxNumberOfDaysInWeek
+        let convertedRow = (row * maxNumberOfDaysInWeek) + column
+        let indexPathToFind = IndexPath(item: convertedRow, section: section)
+        
+        if let date = dateOwnerInfoFromPath(indexPathToFind) {
+            let cell = cellForItem(at: indexPathToFind) as? JTACDayCell
+            let stateOfCell = cellStateFromIndexPath(indexPathToFind, withDateInfo: date,cell: cell)
+            return stateOfCell
+        }
+        
         return nil
     }
     
