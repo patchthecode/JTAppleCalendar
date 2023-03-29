@@ -29,6 +29,14 @@
 		6B4E46E622C2174C00D0F78E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B4E46E522C2174C00D0F78E /* Main.storyboard */; };
 		6BBDD4DF22E3E7FF001BE4E0 /* JTAppleCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 6BBDD4DE22E3E7FF001BE4E0 /* JTAppleCalendar */; };
 		6BE6BE5C23807BA600148D6E /* SampleJTAppleCalendarUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE6BE5B23807BA600148D6E /* SampleJTAppleCalendarUITests.swift */; };
+		DCF8D05729D41AB300409429 /* RangeGapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF8D05629D41AB300409429 /* RangeGapViewController.swift */; };
+		DCF8D05929D42AB000409429 /* CalendarDayCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF8D05829D42AB000409429 /* CalendarDayCellView.swift */; };
+		DCF8D05B29D4305F00409429 /* Date+RangeGapFix.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF8D05A29D4305F00409429 /* Date+RangeGapFix.swift */; };
+		DCF8D05D29D431BA00409429 /* Collection+RangeGapFix.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF8D05C29D431BA00409429 /* Collection+RangeGapFix.swift */; };
+		DCF8D05F29D4367C00409429 /* CalendarPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF8D05E29D4367C00409429 /* CalendarPicker.swift */; };
+		DCF8D06129D4375100409429 /* CalendarPicker+JTMonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF8D06029D4375100409429 /* CalendarPicker+JTMonthView.swift */; };
+		DCF8D06329D4382000409429 /* ErrorStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF8D06229D4382000409429 /* ErrorStrings.swift */; };
+		DCF8D06529D439C400409429 /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF8D06429D439C400409429 /* UIView+Layout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +76,14 @@
 		6BE6BE5923807BA600148D6E /* SampleJTAppleCalendarUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SampleJTAppleCalendarUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6BE6BE5B23807BA600148D6E /* SampleJTAppleCalendarUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleJTAppleCalendarUITests.swift; sourceTree = "<group>"; };
 		6BE6BE5D23807BA600148D6E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DCF8D05629D41AB300409429 /* RangeGapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeGapViewController.swift; sourceTree = "<group>"; };
+		DCF8D05829D42AB000409429 /* CalendarDayCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDayCellView.swift; sourceTree = "<group>"; };
+		DCF8D05A29D4305F00409429 /* Date+RangeGapFix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+RangeGapFix.swift"; sourceTree = "<group>"; };
+		DCF8D05C29D431BA00409429 /* Collection+RangeGapFix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+RangeGapFix.swift"; sourceTree = "<group>"; };
+		DCF8D05E29D4367C00409429 /* CalendarPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarPicker.swift; sourceTree = "<group>"; };
+		DCF8D06029D4375100409429 /* CalendarPicker+JTMonthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CalendarPicker+JTMonthView.swift"; sourceTree = "<group>"; };
+		DCF8D06229D4382000409429 /* ErrorStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorStrings.swift; sourceTree = "<group>"; };
+		DCF8D06429D439C400409429 /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +128,7 @@
 		6B4E465222C202DD00D0F78E /* SampleJTAppleCalendar */ = {
 			isa = PBXGroup;
 			children = (
+				DCF8D05529D41A0400409429 /* FixRangeGap */,
 				6B4E46E522C2174C00D0F78E /* Main.storyboard */,
 				6B4E468122C2150100D0F78E /* Example Calendars */,
 				6B4E468E22C2151500D0F78E /* ExampleDateCells */,
@@ -207,6 +224,21 @@
 				6BE6BE5D23807BA600148D6E /* Info.plist */,
 			);
 			path = SampleJTAppleCalendarUITests;
+			sourceTree = "<group>";
+		};
+		DCF8D05529D41A0400409429 /* FixRangeGap */ = {
+			isa = PBXGroup;
+			children = (
+				DCF8D05629D41AB300409429 /* RangeGapViewController.swift */,
+				DCF8D05829D42AB000409429 /* CalendarDayCellView.swift */,
+				DCF8D05A29D4305F00409429 /* Date+RangeGapFix.swift */,
+				DCF8D05C29D431BA00409429 /* Collection+RangeGapFix.swift */,
+				DCF8D05E29D4367C00409429 /* CalendarPicker.swift */,
+				DCF8D06029D4375100409429 /* CalendarPicker+JTMonthView.swift */,
+				DCF8D06229D4382000409429 /* ErrorStrings.swift */,
+				DCF8D06429D439C400409429 /* UIView+Layout.swift */,
+			);
+			path = FixRangeGap;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -321,12 +353,20 @@
 			files = (
 				6B4E469422C2151500D0F78E /* CodeCellView.swift in Sources */,
 				6B4E46A222C2151E00D0F78E /* WhiteSectionHeaderView.swift in Sources */,
+				DCF8D06129D4375100409429 /* CalendarPicker+JTMonthView.swift in Sources */,
+				DCF8D05D29D431BA00409429 /* Collection+RangeGapFix.swift in Sources */,
+				DCF8D06329D4382000409429 /* ErrorStrings.swift in Sources */,
 				6B4E468D22C2150100D0F78E /* TestPersianCalendar.swift in Sources */,
+				DCF8D06529D439C400409429 /* UIView+Layout.swift in Sources */,
 				6B4E468B22C2150100D0F78E /* TestOrientationChanges.swift in Sources */,
 				6B4E468C22C2150100D0F78E /* TestYearViewViewController.swift in Sources */,
 				6B4E46A422C2151E00D0F78E /* PinkSectionHeaderView.swift in Sources */,
+				DCF8D05B29D4305F00409429 /* Date+RangeGapFix.swift in Sources */,
 				6B4E468A22C2150100D0F78E /* TestViewController.swift in Sources */,
+				DCF8D05929D42AB000409429 /* CalendarDayCellView.swift in Sources */,
 				6B4E468822C2150100D0F78E /* ViewController.swift in Sources */,
+				DCF8D05729D41AB300409429 /* RangeGapViewController.swift in Sources */,
+				DCF8D05F29D4367C00409429 /* CalendarPicker.swift in Sources */,
 				6B4E46A022C2151E00D0F78E /* CodeWhiteSectionHeaderView.swift in Sources */,
 				6B4E469522C2151500D0F78E /* CellView.swift in Sources */,
 				6B4E46A122C2151E00D0F78E /* CodePinkSectionHeaderView.swift in Sources */,
