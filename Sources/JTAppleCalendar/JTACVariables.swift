@@ -56,7 +56,7 @@ extension JTACMonthView {
     }
     
     /// Returns all selected dates
-    open var selectedDates: [Date] {
+    public var selectedDates: [Date] {
         return selectedDatesSet.sorted()
     }
     
