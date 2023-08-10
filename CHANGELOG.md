@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 `JTAppleCalendar` adheres to [Semantic Versioning](http://semver.org/).
 #### 8.x Releases
-- `8.0.0` Releases - [8.0.0](#800)|[8.0.1](#801)|[8.0.2](#802)|[8.0.3](#803)|[8.0.4](#804)
+- `8.0.0` Releases - [8.0.0](#800)|[8.0.1](#801)|[8.0.2](#802)|[8.0.3](#803)|[8.0.4](#804)|[8.0.5](#805)
 #### 7.x Releases
 - `7.1.0` Releases - [7.1.0](#710)|[7.1.1](#711)|[7.1.2](#712)|[7.1.3](#713)|[7.1.4](#714)|[7.1.5](#715)|[7.1.6](#716)|[7.1.7](#717)
 - `7.0.0` Releases - [7.0.0](#700)|[7.0.1](#701)|[7.0.2](#702)|[7.0.3](#703)|[7.0.4](#704)|[7.0.5](#705)|[7.0.6](#706)
@@ -31,6 +31,10 @@ All notable changes to this project will be documented in this file.
 - `1.0.x` Releases - [1.0.0](#100)
 
 ---
+## [8.0.5](https://github.com/patchthecode/JTAppleCalendar/releases/tag/8.0.5)
+- fixed latest iOS update issues (https://github.com/patchthecode/JTAppleCalendar/pull/1370)
+- Respect animation parameter (https://github.com/patchthecode/JTAppleCalendar/commit/72e4ac3b5a5af8abe5c094aceefc00801044dfa4)
+- Added preferred position is scoll mode is .none (https://github.com/patchthecode/JTAppleCalendar/commit/31c00c4215e5ae2ab97cd0415cdd41acaebef1f1#diff-0471218aece98915af0d556e7389b414ef1397d811c0fbf94d96ea8323bdc9a4R551-R564)
 ## [8.0.4](https://github.com/patchthecode/JTAppleCalendar/releases/tag/8.0.4)
 - fixed warnings (https://github.com/patchthecode/JTAppleCalendar/issues/1307)
 ## [8.0.3](https://github.com/patchthecode/JTAppleCalendar/releases/tag/8.0.3)

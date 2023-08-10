@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "JTAppleCalendar",
     platforms: [
-        .iOS(.v14),
+        .iOS(.v11),
     ],
     products: [
         .library(
