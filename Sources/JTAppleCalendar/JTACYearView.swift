@@ -73,3 +73,36 @@ extension JTACYearView: JTACCellMonthViewDelegate {
         calendarDelegate?.calendar(self, monthView: monthView, drawingFor: segmentRect, with: date, dateOwner: dateOwner, monthIndex: monthIndex)
     }
 }
+
+extension JTACYearView {
+    
+    /// Scrolls the year view to display month that contains the date provided
+    public func scrollToDate(_ date: Date, at: UICollectionView.ScrollPosition, animated: Bool) {
+        if let index = self.findCellIndexMatchingDate(desiredDate: date, monthData: monthData) {
+            self.scrollToItem(at: IndexPath(row: index, section: 0), at: at, animated: animated)
+        }
+    }
+    
+    func findCellIndexMatchingDate(desiredDate:Date, monthData: [Any]) -> Int? {
+        var retval:Int? = nil
+        let desiredParameters = configurationParameters.calendar.dateComponents([.month, .year], from: desiredDate)
+
+        for month in monthData {
+            if let month = month as? Month {
+                guard let date = configurationParameters.calendar.date(byAdding: .month, value: month.index, to: configurationParameters.startDate) else {
+                    print("Invalid startup parameters. Cannot find index for date: \(desiredDate)")
+                    assert(false)
+                    return nil
+                }
+                let currentParameters = configurationParameters.calendar.dateComponents([.month, .year], from: date)
+
+                if(desiredParameters.month == currentParameters.month && desiredParameters.year == currentParameters.year) {
+                    retval = month.index
+                    break
+                }
+            }
+        }
+        
+        return retval
+    }
+}
