@@ -110,7 +110,7 @@ open class JTACMonthView: UICollectionView {
     }
     
     // Configuration parameters from the dataSource
-    var _cachedConfiguration: ConfigurationParameters!
+    var _cachedConfiguration: ConfigurationParameters?
     // Set the start of the month
     var startOfMonthCache: Date!
     // Set the end of month

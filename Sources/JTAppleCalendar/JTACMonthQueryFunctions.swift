@@ -135,9 +135,9 @@ extension JTACMonthView {
     }
     
     func indexPathOfdateCellCounterPath(_ date: Date, dateOwner: DateOwner) -> IndexPath? {
-        if (_cachedConfiguration.generateInDates == .off ||
-            _cachedConfiguration.generateInDates == .forFirstMonthOnly) &&
-            _cachedConfiguration.generateOutDates == .off {
+        if (_cachedConfiguration?.generateInDates == .off ||
+            _cachedConfiguration?.generateInDates == .forFirstMonthOnly) &&
+            _cachedConfiguration?.generateOutDates == .off {
             return nil
         }
         var retval: IndexPath?
@@ -377,7 +377,7 @@ extension JTACMonthView {
         }
         if let monthDate = calendar.date(byAdding: .month, value: monthIndex, to: startDateCache) {
             let monthNumber = calendar.dateComponents([.month], from: monthDate)
-            let numberOfRowsForSection = monthData.numberOfRows(for: section, developerSetRows: _cachedConfiguration.numberOfRows)
+            let numberOfRowsForSection = monthData.numberOfRows(for: section, developerSetRows: _cachedConfiguration?.numberOfRows ?? 0)
             return ((startDate, endDate), monthNumber.month!, numberOfRowsForSection)
         }
         return nil

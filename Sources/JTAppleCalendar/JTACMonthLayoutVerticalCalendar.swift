@@ -77,7 +77,7 @@ extension JTACMonthLayout {
                             endOfSectionOffsets.append(contentHeight - sectionInset.top)
                             
                         } else {
-                            if totalDayCounter >= delegate.totalDays {
+                            if totalDayCounter >= delegate?.totalDays ?? 0 {
                                 yCellOffset += attribute.height + sectionInset.top
                                 contentHeight = yCellOffset
                                 endOfSectionOffsets.append(contentHeight - sectionInset.top)

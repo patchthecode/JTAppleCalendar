@@ -259,12 +259,12 @@ extension JTACMonthView {
                 // ConfigParameters were changed
                 newStartOfMonth                     != oldStartOfMonth ||
                 newEndOfMonth                       != oldEndOfMonth ||
-                newDateBoundary.calendar            != _cachedConfiguration.calendar ||
-                newDateBoundary.numberOfRows        != _cachedConfiguration.numberOfRows ||
-                newDateBoundary.generateInDates     != _cachedConfiguration.generateInDates ||
-                newDateBoundary.generateOutDates    != _cachedConfiguration.generateOutDates ||
-                newDateBoundary.firstDayOfWeek      != _cachedConfiguration.firstDayOfWeek ||
-                newDateBoundary.hasStrictBoundaries != _cachedConfiguration.hasStrictBoundaries ||
+                newDateBoundary.calendar            != _cachedConfiguration?.calendar ||
+                newDateBoundary.numberOfRows        != _cachedConfiguration?.numberOfRows ||
+                newDateBoundary.generateInDates     != _cachedConfiguration?.generateInDates ||
+                newDateBoundary.generateOutDates    != _cachedConfiguration?.generateOutDates ||
+                newDateBoundary.firstDayOfWeek      != _cachedConfiguration?.firstDayOfWeek ||
+                newDateBoundary.hasStrictBoundaries != _cachedConfiguration?.hasStrictBoundaries ||
                 // Other layout information were changed
                 minimumInteritemSpacing  != calendarLayout.minimumInteritemSpacing ||
                 minimumLineSpacing       != calendarLayout.minimumLineSpacing ||
