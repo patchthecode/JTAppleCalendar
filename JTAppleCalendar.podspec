@@ -18,5 +18,6 @@ A highly configurable Apple calendar control. Contains features like boundary da
   s.tvos.deployment_target = '11.0'
 
   s.source_files = 'Sources/JTAppleCalendar/*.swift'
+  s.resource_bundles = {'JTAppleCalendar' => ['Sources/JTAppleCalendar/PrivacyInfo.xcprivacy']}
 end
 
