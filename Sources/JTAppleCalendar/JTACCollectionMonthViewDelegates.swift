@@ -238,4 +238,11 @@ extension JTACMonthView: UICollectionViewDelegate, UICollectionViewDataSource {
         }
         return false
     }
+    
+    public func indexPathForPreferredFocusedView(in collectionView: UICollectionView) -> IndexPath? {
+        if let delegate = calendarDelegate {
+            return delegate.indexPathForPreferredFocusedView(in: collectionView)
+        }
+        return nil
+    }
 }

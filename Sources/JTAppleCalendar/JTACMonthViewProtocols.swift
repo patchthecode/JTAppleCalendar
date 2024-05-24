@@ -158,6 +158,9 @@ public protocol JTACMonthViewDelegate: AnyObject {
     
     /// Called to retrieve the size to be used for decoration views
     func sizeOfDecorationView(indexPath: IndexPath) -> CGRect
+    
+    /// Called in case of tvOS
+    func indexPathForPreferredFocusedView(in: UICollectionView) -> IndexPath?
 }
 
 /// Default delegate functions
@@ -178,4 +181,6 @@ public extension JTACMonthViewDelegate {
     func calendarSizeForMonths(_ calendar: JTACMonthView?) -> MonthSize? { return nil }
     func sizeOfDecorationView(indexPath: IndexPath) -> CGRect { return .zero }
     func scrollDidEndDecelerating(for calendar: JTACMonthView) {}
+    func indexPathForPreferredFocusedView(in: UICollectionView) -> IndexPath? { return nil }
+
 }
