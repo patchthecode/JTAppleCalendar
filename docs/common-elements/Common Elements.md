@@ -8,3 +8,7 @@ Each calendar has a set of common elements. Configuration for these elements can
 - [Configuring inDates/monthDates/outDates]()
 - [Regular selection](./regular-selection/Regular%20Selection.md)
 - [Handle device rotation](./device-rotation/Handling%20Device%20Rotation.md)
+
+# Next Steps
+
+Learn more about [scrolling modes](../scrolling-modes/Scrolling%20Modes.md)

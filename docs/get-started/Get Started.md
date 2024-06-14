@@ -32,7 +32,7 @@ Lets Begin!
    - [Configuring inDates/monthDates/outDates]()
    - [Regular selection](../common-elements//regular-selection/Regular%20Selection.md)
    - [Handle device rotation](../common-elements/device-rotation/Handling%20Device%20Rotation.md)
-4. [Scrolling modes]()
+4. [Scrolling modes](../scrolling-modes/Scrolling%20Modes.md)
 5. [Switch between month-view and week-view]()
 6. [Headers](../headers/Headers.md)
 7. [Range selection styles]()
