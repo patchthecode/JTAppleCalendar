@@ -10,7 +10,8 @@ CocoaPods is a dependency manager for Cocoa projects. You can install it with th
 gem install cocoapods
 ```
 
-**NOTE**: CocoaPods 1.1.0+ is required to build JTApplecalendar.
+> [!NOTE]
+> CocoaPods 1.1.0+ is required to build JTApplecalendar.
 
 To integrate JTAppleCalendar into your Xcode project using CocoaPods, specify it in your Podfile:
 
@@ -85,4 +86,4 @@ Simply drag the source files into your project. Make sure you remove the unneces
 
 ## Next steps
 
-Once installed, learn how to [build a calendar from scratch](about:blank)
+Once installed, learn how to [build a calendar from scratch](../build-calendar/Build%20A%20Calendar%20From%20Scratch.md)
