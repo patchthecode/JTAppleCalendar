@@ -37,4 +37,4 @@ Lets Begin!
 6. [Headers](../headers/Headers.md)
 7. [Range selection styles](../range-selection-styles/Range%20selection%20styles.md)
 8. [Events and loading information from a server]()
-9. [How to add a week number column]()
+9. [How to add a week number column](../implementing-week-numbers/Implementing%20week%20numbers.md)
