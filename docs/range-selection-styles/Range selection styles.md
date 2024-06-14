@@ -116,4 +116,4 @@ The code above is just an example. If your drag-selection needs to behave differ
 
 ## Next Steps
 
-Learn more about [events and loading information from a server]()
+Learn more about [events and loading information from a server](../adding-events/Adding%20Events.md)
