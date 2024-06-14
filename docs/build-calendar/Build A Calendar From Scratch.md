@@ -11,17 +11,17 @@
 
 Correctly set both the height and width constraints. Constraints are needed for the library to determine cell size.
 
-TODO - image1
+![constraints](./images/image1.png)
 
 2. UICollectionView may come with default minimum-cell-spacing and minimum-line-spacing. Unless your design requires it, please set both to zero as shown below.
 
-TODO - image2
+![constraints](./images/image2.png)
 
 3. Design the cell. This example uses a single UILabel. But this design can be anything (example images, rounded selections, dot-views for events etc).
 
 Be sure to set correct constraints for the label (typically center the label in the cell both vertically and horizontally). Improper constraints results in bugged views. Also remember to set the cell’s `reusableIdentifier` to `dateCell`.
 
-TODO - image3
+![dateCell](./images/image3.png)
 
 4. Create a new cell class.
 
@@ -35,7 +35,8 @@ class DateCell: JTAppleCell {
 
 Now head back to Storyboard. The cell’s class is already set, so just connect the IBOutlet to the UILabel of the cell.
 
-TODO - image4
+![IBOutlet](./images/image4.png)
+![IBOutlet](./images/image5.png)
 
 5. Now lets write some more code.
 
@@ -53,7 +54,7 @@ class ViewController: UIViewController {
 
 6. Go back to Storyboard and set the calendar’s ibCalendarDataSource and ibCalendarDelegate to be the ViewController subclass.
 
-TODO - image6
+![IBOutlet](./images/image6.png)
 
 Write some more code.
 
