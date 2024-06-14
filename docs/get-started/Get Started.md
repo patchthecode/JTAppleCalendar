@@ -1,11 +1,11 @@
 # JTAppleCalendar Tutorials and Examples [V 7.1.7]
 
 > [!CAUTION]
-> This documentation comes from [this issue](https://github.com/patchthecode/JTAppleCalendar/issues/1397) in the repo, and may be out of date with respect to the latest changes. Please submit an issue (or better yet a PR) to resolve any issues in the documentation
+> This documentation comes from [this zipped version of the old docs site](https://github.com/patchthecode/JTAppleCalendar/issues/1397#issuecomment-2054113374) in the repo, and may be out of date with respect to the latest changes. Please submit an issue (or better yet a PR) to resolve any issues in the documentation
 
 ## Why use this library?
 
-TODO - add gif image
+![alt text](./d708d542-b353-11e6-8119-fa36c11b66cb.gif)
 
 - **Total customization of all views** – This lib does not design anything. It only provides a layout (7 columns and 1-6 rows). Therefore any visual design of both cells and calendar is possible.
 - **Horizontal or vertical mode** – Ability to switch from a vertical scrolling to horizontal scrolling calendar.
@@ -16,27 +16,19 @@ TODO - add gif image
 
 These are a fraction of many more features. Here are [calendar styles](https://github.com/patchthecode/JTAppleCalendar/issues/2) created by developers using this lib.
 
-## Repetitive questions/ delayed answers
+## Repetitive questions / delayed answers
 
 Familiarity with the following non-calendar pointers, helps avoid repetitive questions and delayed answers.
 
 - How to use UITableView or UICollectionView and understand how delegate functions work. Knowledge that cells are reused in these controls.
 - Questions about this library asked on Github, will get a faster response than contacting me by email.
-- Knowledge about the iOS Calendar() class and how time zones work in iOS to avoid questions such as this one (2nd most repeated question).
-
-This does not mean I won’t answer such questions, but i’ll be in better spirits if library specific ones are asked, rather than the famous most-repeated question:
-
-```
-hey i’m new to Swift, how do i xyz?” 🙂
-
-John Novice
-```
+- Knowledge about the iOS Calendar() class and how time zones work in iOS to avoid questions such as [this one](https://github.com/patchthecode/JTAppleCalendar/issues/252) (2nd most repeated question)
 
 Lets Begin!
 
 1. [Installation](../Installation/Installation.md)
 2. [Build calendar from scratch](about:blank)
-3. [Common elements of every calendar]()
+3. [Common elements of every calendar](../build-calendar/Build%20A%20Calendar%20From%20Scratch.md)
    - [Configuring inDates/monthDates/outDates]()
    - [Regular selection]()
    - [Start the calendar at any date (in progress – ETA 1day)]()
