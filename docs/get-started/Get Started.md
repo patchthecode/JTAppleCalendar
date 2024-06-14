@@ -5,7 +5,7 @@
 
 ## Why use this library?
 
-![alt text](./d708d542-b353-11e6-8119-fa36c11b66cb.gif)
+![alt text](./image1.gif)
 
 - **Total customization of all views** – This lib does not design anything. It only provides a layout (7 columns and 1-6 rows). Therefore any visual design of both cells and calendar is possible.
 - **Horizontal or vertical mode** – Ability to switch from a vertical scrolling to horizontal scrolling calendar.
