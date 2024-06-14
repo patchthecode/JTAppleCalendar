@@ -45,6 +45,4 @@ Continuous scrolling. Calendar will smoothly scroll and gradually decelerate til
 
 # Next Steps
 
-Learn how to [switch between month-view and week-view]()
-
-TODO - add link
+Learn how to [switch between month-view and week-view](../switch-month-to-week-view/Switch%20between%20month-view%20and%20week-view.md)

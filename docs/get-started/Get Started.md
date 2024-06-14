@@ -33,7 +33,7 @@ Lets Begin!
    - [Regular selection](../common-elements//regular-selection/Regular%20Selection.md)
    - [Handle device rotation](../common-elements/device-rotation/Handling%20Device%20Rotation.md)
 4. [Scrolling modes](../scrolling-modes/Scrolling%20Modes.md)
-5. [Switch between month-view and week-view]()
+5. [Switch between month-view and week-view](../switch-month-to-week-view/Switch%20between%20month-view%20and%20week-view.md)
 6. [Headers](../headers/Headers.md)
 7. [Range selection styles]()
 8. [Events and loading information from a server]()
