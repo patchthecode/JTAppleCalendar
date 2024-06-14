@@ -109,4 +109,4 @@ Now run your app. You should have a working calendar with an implemented header.
 
 ## Next Steps
 
-Find out more about [range selection style]()
+Find out more about [range selection style](../range-selection-styles/Range%20selection%20styles.md)

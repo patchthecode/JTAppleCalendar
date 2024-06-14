@@ -35,6 +35,6 @@ Lets Begin!
 4. [Scrolling modes](../scrolling-modes/Scrolling%20Modes.md)
 5. [Switch between month-view and week-view](../switch-month-to-week-view/Switch%20between%20month-view%20and%20week-view.md)
 6. [Headers](../headers/Headers.md)
-7. [Range selection styles]()
+7. [Range selection styles](../range-selection-styles/Range%20selection%20styles.md)
 8. [Events and loading information from a server]()
 9. [How to add a week number column]()
