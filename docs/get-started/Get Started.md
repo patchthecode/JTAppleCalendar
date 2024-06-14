@@ -26,9 +26,9 @@ Familiarity with the following non-calendar pointers, helps avoid repetitive que
 
 Lets Begin!
 
-1. [Installation](../Installation/Installation.md)
-2. [Build calendar from scratch](about:blank)
-3. [Common elements of every calendar](../build-calendar/Build%20A%20Calendar%20From%20Scratch.md)
+1. [Installation](../installation/Installation.md)
+2. [Build calendar from scratch](../build-calendar/Build%20A%20Calendar%20From%20Scratch.md)
+3. [Common elements of every calendar]()
    - [Configuring inDates/monthDates/outDates]()
    - [Regular selection]()
    - [Start the calendar at any date (in progress – ETA 1day)]()
