@@ -107,4 +107,4 @@ Now run your test app and you should have a simple calendar going. If you wish t
 
 ## Next Steps
 
-Where to go from here? Configuring inDates/OutDates
+Where to go from here? Learn about [common elements](../common-elements/Common%20Elements.md)
