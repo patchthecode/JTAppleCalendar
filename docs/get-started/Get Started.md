@@ -29,7 +29,7 @@ Lets Begin!
 1. [Installation](../installation/Installation.md)
 2. [Build calendar from scratch](../build-calendar/Build%20A%20Calendar%20From%20Scratch.md)
 3. [Common elements of every calendar](../common-elements/Common%20Elements.md)
-   - [Configuring inDates/monthDates/outDates]()
+   - [Configuring inDates/monthDates/outDates](../common-elements/configure-in-out-month-dates/Configuring%20inDates%20monthDates%20outDates.md)
    - [Regular selection](../common-elements//regular-selection/Regular%20Selection.md)
    - [Handle device rotation](../common-elements/device-rotation/Handling%20Device%20Rotation.md)
 4. [Scrolling modes](../scrolling-modes/Scrolling%20Modes.md)

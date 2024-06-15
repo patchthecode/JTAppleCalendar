@@ -5,7 +5,7 @@
 
 Each calendar has a set of common elements. Configuration for these elements can be found here:
 
-- [Configuring inDates/monthDates/outDates]()
+- [Configuring inDates/monthDates/outDates](./configure-in-out-month-dates/Configuring%20inDates%20monthDates%20outDates.md)
 - [Regular selection](./regular-selection/Regular%20Selection.md)
 - [Handle device rotation](./device-rotation/Handling%20Device%20Rotation.md)
 
