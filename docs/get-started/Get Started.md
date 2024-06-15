@@ -3,6 +3,8 @@
 > [!CAUTION]
 > This documentation comes from [this zipped version of the old docs site](https://github.com/patchthecode/JTAppleCalendar/issues/1397#issuecomment-2054113374) in the repo, and may be out of date with respect to the latest changes. Please submit an issue (or better yet a PR) to resolve any issues in the documentation
 
+## [Version 8.0.0 migration guide](./docs/migration-guide/v8%20Migration%20Guide.md)
+
 ## Why use this library?
 
 ![alt text](./image1.gif)
