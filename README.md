@@ -35,9 +35,9 @@
 ## How do I use this library?
 
 > [!WARNING]
-> The wiki currently links to an external site that is down. It is recommended to [view the docs](./docs/get-started/) at this time, but be aware they may not be up to date currently
+> The wiki currently links to an external site that is down. It is recommended to [view the docs](./docs/get-started/Get%20Started.md) at this time, but be aware they may not be up to date currently
 
-### >> [Read the wiki](https://github.com/patchthecode/JTAppleCalendar/wiki/Tutorials) for Tutorials and example code to download or [view the docs](./docs/get-started/)
+### >> [Read the wiki](https://github.com/patchthecode/JTAppleCalendar/wiki/Tutorials) for Tutorials and example code to download or [view the docs](./docs/get-started/Get%20Started.md)
 
 ## [Version 8.0.0 migration guide](./docs/migration-guide/v8%20Migration%20Guide.md)
 
