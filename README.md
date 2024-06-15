@@ -2,8 +2,8 @@
 
 [![Tutorial](https://img.shields.io/badge/Tutorials-patchthecode.com-blue.svg)](https://patchthecode.com/) [![Version](https://img.shields.io/cocoapods/v/JTAppleCalendar.svg?style=flat)](http://cocoapods.org/pods/JTAppleCalendar) [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Platform](https://img.shields.io/cocoapods/p/JTAppleCalendar.svg?style=flat)](http://cocoapods.org/pods/JTAppleCalendar) [![License](https://img.shields.io/cocoapods/l/JTAppleCalendar.svg?style=flat)](http://cocoapods.org/pods/JTAppleCalendar) [![](https://www.paypalobjects.com/webstatic/en_US/btn/btn_donate_74x21.png)](https://github.com/patchthecode/JTAppleCalendar/wiki/Support) [![Backers on Open Collective](https://opencollective.com/JTAppleCalendar/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/JTAppleCalendar/sponsors/badge.svg)](#sponsors) [![Open Source Helpers](https://www.codetriage.com/patchthecode/jtapplecalendar/badges/users.svg)](https://www.codetriage.com/patchthecode/jtapplecalendar)
 
-
 #### Q: How will my calendar dateCells look with this library?
+
 **A**: However you want them to look.
 
 <p align="center">
@@ -15,8 +15,8 @@
    <a href="https://github.com/patchthecode/JTAppleCalendar/issues/2">More Images</a>
 </p>
 
-
 ## Features
+
 ---
 
 - [x] Range selection - select dates in a range. The design is entirely up to you.
@@ -29,19 +29,19 @@
 - [x] Ability to add <a href="https://patchthecode.com/jtapplecalendar-home/headers/">month headers</a> in varying sizes/styles of your liking
 - [x] Ability to scroll to any month by simply using the date
 - [x] Ability to design your calendar [however you want.](https://github.com/patchthecode/JTAppleCalendar/issues/2) You want it, you build it
-___
 
-## How do I use this library? 
-### >> [Read the wiki](https://github.com/patchthecode/JTAppleCalendar/wiki/Tutorials) for Tutorials and example code to download. Or visit [PatchTheCode.com](https://patchthecode.com).
+---
 
-___
+## How do I use this library?
+
+### >> [Read the wiki](https://github.com/patchthecode/JTAppleCalendar/wiki/Tutorials) for Tutorials and example code to download or [view the docs](./docs/get-started/)
+
+---
 
 ## Sponsors
 
 Support this project by becoming a sponsor. Your logo will show up here with a link to your website.
 Want to become a sponsor? Send an email to patchthecode@gmail.com
-
-
 
 <a href="https://opencollective.com/JTAppleCalendar/sponsor/0/website" target="_blank"><img src="https://opencollective.com/JTAppleCalendar/sponsor/0/avatar.svg"></a>
 <a href="https://opencollective.com/JTAppleCalendar/sponsor/1/website" target="_blank"><img src="https://opencollective.com/JTAppleCalendar/sponsor/1/avatar.svg"></a>
@@ -51,16 +51,11 @@ Want to become a sponsor? Send an email to patchthecode@gmail.com
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
 <a href="graphs/contributors"><img src="https://opencollective.com/JTAppleCalendar/contributors.svg?width=890&button=false" /></a>
 
-
 ## Backers
 
 Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/JTAppleCalendar#backer)]
 
 <a href="https://opencollective.com/JTAppleCalendar#backers" target="_blank"><img src="https://opencollective.com/JTAppleCalendar/backers.svg?width=890"></a>
-
-
-
-
 
 ## License
 
