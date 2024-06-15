@@ -65,3 +65,7 @@ func calendar(\_ calendar: JTAppleCalendarView, shouldSelectDate date: Date, cel
 ```
 
 Very useful if you want to prevent selection.
+
+## Next Steps
+
+Learn more about [device rotation](../device-rotation/Handling%20Device%20Rotation.md)

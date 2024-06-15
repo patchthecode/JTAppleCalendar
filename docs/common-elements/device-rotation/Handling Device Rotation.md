@@ -20,3 +20,7 @@ override func viewWillTransition(to size: CGSize, with coordinator: UIViewContro
 The library needs to know what date should be focused on the screen when the orientation changes. In the above code, the first visible `monthDate` was captured and used as the anchor focus date.
 
 When the orientation change completes, that month’s date will be focused on the screen.
+
+## Next Steps
+
+Learn more about [scrolling modes](../../scrolling-modes/Scrolling%20Modes.md)
