@@ -65,7 +65,11 @@ extension JTACMonthView {
         case .stopAtEachCalendarFrame, .stopAtEach, .nonStopTo:
             assert(fixedScrollSize != 0, "You should not try to divide by zero.")
             let frameSection = theTargetContentOffset / fixedScrollSize
-            let roundedFrameSection = floor(frameSection)
+            // Reduce the precision of `frameSection` before calling `floor()` to eliminate numerical
+            // errors that would produce the wrong result. For example, if `frameSection == 49.9999999999999`,
+            // the double precision calculation will incorrectly procude 49 while the float precision
+            // calculation will correctly produce 50.
+            let roundedFrameSection = CGFloat(floor(Float(frameSection)))
             if scrollDirection == .horizontal {
                 x = roundedFrameSection * fixedScrollSize
             } else {
