@@ -427,12 +427,11 @@ extension ViewController: JTACMonthViewDelegate, JTACMonthViewDataSource {
     }
     
     func calendar(_ calendar: JTACMonthView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
-//        print("After: \(calendar.contentOffset.y)")
-
+        setupViewsOfCalendar(from: visibleDates)
     }
     
     func calendar(_ calendar: JTACMonthView, willScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
-        setupViewsOfCalendar(from: visibleDates)
+        //setupViewsOfCalendar(from: visibleDates)
     }
     
     func calendar(_ calendar: JTACMonthView, headerViewForDateRange range: (start: Date, end: Date), at indexPath: IndexPath) -> JTACMonthReusableView {
