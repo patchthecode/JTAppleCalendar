@@ -122,6 +122,52 @@ extension JTACMonthView: UIScrollViewDelegate {
                                     setTargetContentOffset(endOfCurrentSectionOffset)
                                 }
                            })
+        case .stopAtFirstRowOfEachSection:
+            let section = scrollDecision(currentScrollDirectionValue: translation,
+                                                     previousScrollDirectionValue: lastMovedScrollDirection,
+                                                     forward: { return theCurrentSection},
+                                                     backward: { return theCurrentSection - 1},
+                                                     fixed: { return theCurrentSection})
+
+            guard section >= 0, section < calendarLayout.endOfSectionOffsets.count else {setTargetContentOffset(0); return}
+            
+            func monthHeaderSize(for section: Int) -> CGFloat {
+                let defaultValue = self.lastMonthSize["default"] ?? 0
+                guard let monthNumber = self.monthInfoFromSection(section)?.month,
+                    let month = MonthsOfYear(rawValue: monthNumber - 1) else { return defaultValue }
+                
+                return self.lastMonthSize[month] ?? defaultValue
+            }
+            
+            let previousSection = theCurrentSection - 1 < 0 ? 0 : theCurrentSection - 1
+            let nextSection = section == self.numberOfSections - 1 ? section : section + 1
+            let endOfCurrentSectionOffset = calendarLayout.endOfSectionOffsets[theCurrentSection] + monthHeaderSize(for: nextSection)
+            let endOfPreviousSectionOffset = calendarLayout.endOfSectionOffsets[previousSection] + monthHeaderSize(for: theCurrentSection)
+            
+            let midPoint = (endOfCurrentSectionOffset + endOfPreviousSectionOffset) / 2
+            let maxSnap = calendarLayout.endOfSectionOffsets[section]
+            
+            let userPercentage: CGFloat = 20
+            let modifiedPercentage = CGFloat((100 - userPercentage) / 100.0)
+            
+            let snapForward = midPoint - ((maxSnap - midPoint) * modifiedPercentage)
+            
+            scrollDecision(currentScrollDirectionValue: translation,
+                           previousScrollDirectionValue: lastMovedScrollDirection,
+                           forward: {
+                                if theCurrentContentOffset >= snapForward || directionVelocity > 0 {
+                                    setTargetContentOffset(endOfCurrentSectionOffset)
+                                } else {
+                                    setTargetContentOffset(endOfPreviousSectionOffset)
+                                }
+                           },
+                           backward: {
+                                if theCurrentContentOffset <= snapForward || directionVelocity < 0 {
+                                    setTargetContentOffset(endOfPreviousSectionOffset)
+                                } else {
+                                    setTargetContentOffset(endOfCurrentSectionOffset)
+                                }
+                           })
         case let .nonStopToCell(withResistance: resistance), let .nonStopToSection(withResistance: resistance):
             
             let (recalculatedOffset, elementProperties) = rectAfterApplying(resistance: resistance,
